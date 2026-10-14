@@ -70,3 +70,38 @@ body{font-variant-numeric:tabular-nums}
 .nav__icon:hover{background:var(--tint);color:var(--ink)}
 .nav__icon svg{width:19px;height:19px}
 @media (max-width:760px){.nav__icon{display:none}}
+
+/* village table fits the page: no sideways scroll on desktop, stacked rows on phones */
+.vt{min-width:0!important;table-layout:auto}
+.vt th,.vt td{padding:12px 12px}
+.vt th{letter-spacing:.04em;white-space:normal;line-height:1.25}
+.vt td.why{min-width:0!important;max-width:220px;font-size:13px;color:var(--ink-2)}
+.vt td.care{white-space:normal!important;max-width:180px}
+.pbar{min-width:110px!important}
+.table-scroll{overflow-x:visible!important}
+@media (max-width:860px){
+  .vt thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+  .vt,.vt tbody,.vt tr,.vt td{display:block;width:100%}
+  .vt tr{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .vt td{padding:0!important;border:0!important;max-width:none!important;text-align:left!important}
+  .vt td.name{grid-column:1/-1;font-size:16px}
+  .vt td:nth-child(2){grid-column:1/-1}
+  .vt td:nth-child(3)::before{content:"Drive before ";color:var(--ink-4)}
+  .vt td:nth-child(4)::before{content:"Drive now ";color:var(--ink-4)}
+  .vt td:nth-child(5)::before{content:"Walk now ";color:var(--ink-4)}
+  .vt td.care,.vt td.why{grid-column:1/-1}
+  .vt td.care::before{content:"Nearest care: ";color:var(--ink-4)}
+  .vt td.why::before{content:"Fix: ";color:var(--ink-4)}
+}
+.run-select{min-width:0;max-width:46%}
+.run-select select{max-width:100%;text-overflow:ellipsis}
+@media (max-width:640px){.hero-window .window__title{display:none}.run-select{max-width:100%;margin-left:auto}}
+
+/* matched to the logo: its navy sky and slate mountains behind the hero map */
+:root{--night:#0D1E2F;--night-2:#23384D}
+.hero-stage{position:relative;isolation:isolate;background:radial-gradient(55% 60% at 88% 0%,rgba(227,154,74,.22) 0,transparent 60%),linear-gradient(175deg,var(--night) 0,#122638 55%,#172d43 100%)!important}
+.hero-stage::after{content:"";position:absolute;inset:auto 0 0 0;height:38%;z-index:-1;border-radius:0 0 inherit inherit;background:#23384D;
+  -webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'><path d='M0 300V190l120-70 70 40 160-120 90 60 140-90 110 80 160-110 90 70 120-60 140 100v200z'/></svg>") bottom/100% 100% no-repeat;
+  mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'><path d='M0 300V190l120-70 70 40 160-120 90 60 140-90 110 80 160-110 90 70 120-60 140 100v200z'/></svg>") bottom/100% 100% no-repeat}
+.app-icon{border-radius:22%;object-fit:cover;box-shadow:none!important}
+.nav__brand .app-icon{width:30px;height:30px}

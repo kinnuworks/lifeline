@@ -5,7 +5,7 @@ A rehearsal sheet for the live session. Read it aloud a few times; answer in you
 ## The run
 
 **How do I start a run on an area you choose?**
-On the website, open "Run any valley", draw a box (up to about 50 x 50 km) and pick the flood date. From a terminal: `uv run lifeline run --bbox WEST SOUTH EAST NORTH --date YYYY-MM-DD`. It finds the images, maps the change, reads OpenStreetMap as it was before the flood, checks every building, road and bridge, works out who is cut off and writes the report in English and Nepali.
+On the website, open "Run any valley", draw a box (up to about 60 x 60 km) and pick the flood date. From a terminal: `uv run lifeline run --bbox WEST SOUTH EAST NORTH --date YYYY-MM-DD`. It finds the images, maps the change, reads OpenStreetMap as it was before the flood, checks every building, road and bridge, works out who is cut off and writes the report in English and Nepali.
 
 **Where does the data come from, and do you need an account?**
 Sentinel-1 radar, Sentinel-2 optical and the Copernicus 30 m elevation model, read from the Microsoft Planetary Computer, which mirrors the Copernicus data and needs no account. OpenStreetMap comes from the ohsome API, the source the brief names, at a snapshot no later than 27 July 2026 (the newest date ohsome holds), so no edit made after the flood can get in.
@@ -32,7 +32,7 @@ Sentinel-1D passes over this valley on one ascending and two descending tracks. 
 Debris floods fill the valley bottom. After the strong-change pixels are found, weaker change that is connected to them on low ground (less than 30 m above the stream) is added. It is the standard two-threshold (hysteresis) method used for edges in images.
 
 **How did you choose those settings?**
-On one official map area only (Bidur, area 3), used as a development area. The other delivered areas (Syapru Besi, Timure, Phosretar) were scored once with the frozen settings as held-out tests. The development-only rule is in `scripts/validate_fusion_dev.py` and its output in `runs/trishuli-2026/validation/fusion_dev.json`.
+On one official map area only (Bidur, area 3), used as a development area. The other delivered areas (Syapru Besi, Timure, Phosretar) are held out: their scores were recorded for every candidate but never used to choose. Held out only, flood F1 is 0.66 and we find 70% of damaged buildings. The development-only rule is in `scripts/validate_fusion_dev.py` and its output in `runs/trishuli-2026/validation/fusion_dev.json`.
 
 ## Damage and cut-off
 
@@ -46,7 +46,7 @@ We build a routable network from the pre-flood roads. Each road stretch the dama
 Because the map is not certain. A village behind one doubtful bridge is different from a village behind three destroyed ones, and rescue teams need to know which.
 
 **Why do you say 52 settlements are cut off when the official maps imply 7?**
-The official maps grade roads only inside their six small areas, so any village whose route is broken outside them looks connected to the reference. Running our routing with only their graded roads closed, we agree on 295 of 338 settlements. On the 99 whose route crosses a graded area we agree on 69.
+The official maps grade roads only inside their six small areas, so any village whose route is broken outside them looks connected to the reference. Running our routing with only their graded roads closed, we agree on 295 of 338 settlements. On the 98 whose route crosses a graded area we agree on 69.
 
 **What did you get wrong along the way?**
 An early version let every road keep a small chance of closing from its raw score. Over long hill routes those small chances added up and marked 148 villages cut off, many nowhere near the damage. We saw it on the map; only roads the map flags or cannot see can close now. We had also scored the old version against the official road grading, so say plainly that the agreement figure (now 295 of 338, 217 before) is not independent of this fix.
@@ -68,7 +68,7 @@ Every number it may use is in a facts ledger built from the maps. A checker read
 ## Limits (say these before they ask)
 
 - Sentinel-1 revisits each track every 12 days, so the system maps damage after it happens; it cannot warn of a glacier collapse.
-- The narrow upper gorge (Syapru Besi, Timure) is mostly radar layover and shadow; recall there is low.
+- In the narrow upper gorge (Syapru Besi, Timure) the radar sees most of the ground, but the debris barely changed its brightness; recall there is 0.21 to 0.38 even with Sentinel-2.
 - OpenStreetMap is incomplete in remote valleys: buildings and bridges that were never mapped cannot be counted.
 - Debris that looks like bare ground on a slope that was already bare is hard to separate from no change.
 - The official maps are optical damage gradings of selected areas, not a full flood outline, so they are an imperfect yardstick.

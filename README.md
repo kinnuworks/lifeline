@@ -26,7 +26,7 @@ The 26 August 2026 glacier-collapse flood on the Bhote Koshi–Trishuli corridor
 
 ### Checked against the official maps
 
-Copernicus EMS activation EMSR927 graded the damage from very-high-resolution optical images. Lifeline never reads those maps; a separate checker compares them with the output after the run, and a test fails the build if pipeline code refers to them. Every free setting was chosen on one official area only (3, Bidur) and frozen; areas 1, 2 and 5 are held out. Figures below use the first grading maps.
+Copernicus EMS activation EMSR927 graded the damage from very-high-resolution optical images. Lifeline never reads those maps; a separate checker compares them with the output after the run, and a test fails the build if pipeline code refers to them. The settings we searched were chosen on one official area only (3, Bidur) and frozen; areas 1, 2 and 5 are held out. Every place the official maps touched a design choice is listed below. Figures below use the first grading maps.
 
 | Official map area | Role | Flood extent F1 | Precision | Recall | Damaged buildings we flagged | Damaged roads, agreement | Damaged bridges we flagged |
 |---|---|---|---|---|---|---|---|
@@ -36,26 +36,38 @@ Copernicus EMS activation EMSR927 graded the damage from very-high-resolution op
 | 5 Phosretar | held out | 0.74 | 0.86 | 0.66 | 62% | 0.66 | 13 of 22 |
 | All four | | **0.75** | **0.86** | **0.66** | **88%** | **0.71** (recall 0.89) | **31 of 46** |
 
+**Held-out areas only (1, 2 and 5):** flood extent F1 0.66 (precision 0.88, recall 0.53), damaged buildings found 70% (601 of 857), damaged bridges found 18 of 28. Area 3 is the development area and carries most of the pooled pixels and buildings, so these held-out figures are the fairer estimate for a new valley.
+
 Areas 4 and 6 were cancelled by EMS for cloud. Full table with 95% intervals: [`runs/trishuli-2026/validation/emsr927.md`](runs/trishuli-2026/validation/emsr927.md) (the later grading maps: [`emsr927_latest.md`](runs/trishuli-2026/validation/emsr927_latest.md)).
 
 **Where we are weak.** In the narrow upper gorge (areas 1 and 2) we find a fifth to a third of the official flood extent, though what we flag there is almost always right (precision 0.98 to 0.99). The radar does see most of that ground; the debris there barely changed its radar brightness (median change 0.0 dB on the missed pixels). Sentinel-2 vegetation loss recovers part of it, which is why it is fused in.
 
 **How the settings were chosen.** Radar settings: [`scripts/validate_fusion_dev.py`](scripts/validate_fusion_dev.py), record in [`validation/fusion_dev.json`](runs/trishuli-2026/validation/fusion_dev.json). Sentinel-2 fusion: [`scripts/validate_optical_dev.py`](scripts/validate_optical_dev.py), record in [`validation/optical_fusion_dev.json`](runs/trishuli-2026/validation/optical_fusion_dev.json). Both pick the best F1 on area 3 alone. The radar selection also required no more than 3 km² flagged on the no-flood date below, so that date is not an independent test of the radar settings; the two other floods are.
 
+### Everything the official maps or the no-flood date influenced
+
+So nothing is hidden, this is the full list:
+
+1. **Radar settings** (orbit combination, seed size, growth distance): best F1 on area 3, with no more than 3 km² allowed on the no-flood date. Held-out areas were scored for every candidate and recorded, but not used to choose ([`fusion_dev.json`](runs/trishuli-2026/validation/fusion_dev.json)).
+2. **Sentinel-2 fusion:** the idea came from looking at what we missed in held-out areas 1 and 2 (unchanged radar brightness on missed ground). Its three settings were then chosen on area 3 alone ([`optical_fusion_dev.json`](runs/trishuli-2026/validation/optical_fusion_dev.json)). The two selection scripts use slightly different reference masks (the older one includes EMS "not analysed" ground), so their radar-only baselines differ.
+3. **Cut-off closure rule:** changed after we saw villages far from damage marked cut off; we had already scored that version against the official road grading.
+4. **Copilot refusal detector:** extended after the red team, and the saved answers rescored.
+5. **Fixed constants** not searched on any official area: HAND limits (60, 150, 30, 45 m), 0.99 false-alarm quantile, damage cut-offs 0.7 and 0.4, unobserved-road prior 0.15, 60-minute walking limit. They are physical or conventional choices set before the comparison and never tuned against it.
+
 ### Cut-off check
 
-Treating the roads EMS graded destroyed as closed and running the same routing, Lifeline agrees on the status of 295 of 338 settlements. EMS grades roads only inside its six small areas, so its own cut-off count (7) is a lower bound; Lifeline finds 52, most of them behind the destroyed highway north of the graded areas. One design change came from looking at an earlier result: every road used to keep a small closure chance from its raw score, which summed over long hill routes and cut off villages far from any damage (148 in that version). Only roads the map flags or cannot see can close now.
+Treating the roads EMS graded destroyed as closed and running the same routing, Lifeline agrees on the status of 295 of 338 settlements (69 of the 98 whose route crosses a graded area). EMS grades roads only inside its six small areas, so its own cut-off count (7) is a lower bound. On the checker's network (338 settlements, 23 hubs) Lifeline marks 50 cut off; the headline 52 is from the full analysis (397 settlements, 25 health facilities). Most are behind the destroyed highway north of the graded areas. One design change came from looking at an earlier result: every road used to keep a small closure chance from its raw score, which summed over long hill routes and cut off villages far from any damage (148 in that version). Only roads the map flags or cannot see can close now.
 
 ### Does it raise false alarms, and does it work elsewhere?
 
 The same code and settings, unchanged:
 
-| Run | Ground flagged | Buildings likely destroyed | Cold run time |
+| Run | Ground flagged | Buildings likely destroyed | Run time (from its meta.json) |
 |---|---|---|---|
-| Trishuli, 26 Aug 2026 (case study) | 16.4 km² | 2,974 | |
-| Same area, 25 Jul 2026, no flood (radar only) | 1.1 km² | 102 | |
-| Melamchi, Nepal, 15 Jun 2021 (never tuned on; no clear Sentinel-2 in the window) | 1.4 km² | 150 | 114 s |
-| Teesta glacial-lake flood, Sikkim, 4 Oct 2023 (never tuned on) | 8.6 km² | 490 | 358 s radar, plus 353 s for Sentinel-2 |
+| Trishuli, 26 Aug 2026 (case study) | 16.4 km² | 2,974 | 280 s (radar partly cached) |
+| Same area, 25 Jul 2026, no flood (radar only) | 1.1 km² | 102 | 215 s |
+| Melamchi, Nepal, 15 Jun 2021 (never tuned on; no clear Sentinel-2 in the window) | 1.4 km² | 150 | 105 s |
+| Teesta glacial-lake flood, Sikkim, 4 Oct 2023 (never tuned on) | 8.6 km² | 490 | 538 s, of which 353 s Sentinel-2 |
 
 The no-flood date runs on radar alone, because any Sentinel-2 image in the 40 days after 25 July would also show the 26 August flood. Melamchi and Teesta have no official grading to score against, so they show that the system runs anywhere, not how accurate it is there. All four are on the dashboard.
 

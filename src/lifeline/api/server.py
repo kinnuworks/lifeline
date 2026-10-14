@@ -26,7 +26,7 @@ from ..pipeline import RUNS, run
 app = FastAPI(title="Lifeline API", version="0.1")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
 
-MAX_AREA_DEG2 = 0.45  # about 50 x 50 km; larger areas take too long for a live run
+MAX_AREA_DEG2 = 0.45  # about 60 x 70 km in Nepal; larger areas take too long for a live run
 _lock = threading.Lock()
 _active: dict[str, threading.Thread] = {}
 _exported: dict[str, bool] = {}   # run id -> website data written (False while it is being written)

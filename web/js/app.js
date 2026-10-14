@@ -57,6 +57,12 @@ function renderAll() {
 }
 
 /* ------------------------------------------------------------------ hero fragments */
+// a short, clean version of an answer for the hero card: no markdown marks, no fact ids, two sentences
+function plainShort(t) {
+  const clean = String(t || "").replace(/\*\*/g, "").replace(/\s*\[F[\d, F]+\]/g, "").trim();
+  const parts = clean.split(/(?<=[।.!?])\s+/);
+  return parts.slice(0, 2).join(" ");
+}
 function renderFrags() {
   const s = state.summary;
   const a = $(".float--a"), b = $(".float--b"), c = $(".float--c");
@@ -68,7 +74,7 @@ function renderFrags() {
     b.hidden = false;
   } else b.hidden = true;
   const ne = state.samples.find((x) => x.lang === "ne" && !x.refused);
-  if (ne) { $("#frag-q").textContent = ne.q; $("#frag-a").textContent = ne.answer; c.hidden = false; } else c.hidden = true;
+  if (ne) { $("#frag-q").textContent = ne.q; $("#frag-a").textContent = plainShort(ne.answer); c.hidden = false; } else c.hidden = true;
 }
 
 /* ------------------------------------------------------------------ scoreboard */
@@ -216,6 +222,13 @@ function renderTTC() {
 
 /* ------------------------------------------------------------------ village table */
 let showAll = false;
+// the full reason stays in the data; the table shows only the repair that would reconnect the village
+function shortFix(v) {
+  const m = /reopening (.+?) \((road|bridge)\) would reconnect it/.exec(v.reason || "");
+  if (m) return m[1].replace(/ bridge$/, "") + (m[2] === "bridge" ? " bridge" : " road");
+  if ((v.p_cutoff ?? 0) < 0.5) return "Still connected";
+  return "Several closed stretches";
+}
 function renderTable() {
   // places across the border (named only in Chinese) are routed to Nepali facilities only; keep them off the list
   const rows = settlements().filter((v) => !/[\u3400-\u9fff]/.test(v.name || "")).sort((a, b) => (b.p_cutoff ?? 0) - (a.p_cutoff ?? 0));
@@ -227,7 +240,7 @@ function renderTable() {
       <td class="num">${fmtMin(v.minutes_before)}</td>
       <td class="num">${has(v.minutes_after) ? fmtMin(v.minutes_after) : '<span class="gone">No route</span>'}</td>
       <td class="num">${fmtMin(v.walk_minutes_after)}</td>
-      <td class="care">${esc(v.nearest_health || "–")}</td><td class="why">${esc(v.reason || "")}</td></tr>`;
+      <td class="care">${esc(v.nearest_health || "–")}</td><td class="why">${esc(shortFix(v))}</td></tr>`;
   }).join("");
   const n = rows.length;
   $("#vt-count").textContent = n ? `Showing ${shown.length} of ${n} villages` : "";
@@ -299,7 +312,7 @@ function addMsg(kind, text, opt = {}) {
   if (opt.lang) el.lang = opt.lang;
   if (opt.typing) el.innerHTML = '<span class="sr-only">Writing</span><i></i><i></i><i></i>';
   else {
-    el.innerHTML = (opt.refused ? `<span class="msg__flag" lang="en">Refused · not in the facts ledger</span><br>` : "") + esc(text)
+    el.innerHTML = (opt.refused ? `<span class="msg__flag" lang="en">Refused · not in the facts ledger</span><br>` : "") + esc(text).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
       + (opt.cites?.length ? `<div class="msg__cites" lang="en">${opt.cites.map((c) => { const id = typeof c === "string" ? c : c.id; const f = state.factById[id]; const tip = f ? `${state.lang === "ne" && f.label_ne ? f.label_ne : f.label_en}: ${f.value}${f.unit ? " " + f.unit : ""} (${f.source})` : "Fact in the ledger"; return `<span class="cite" title="${esc(tip)}">${esc(id)}</span>`; }).join("")}</div>` : "")
       + (opt.note ? `<p class="t-micro" style="margin-top:6px">${esc(opt.note)}</p>` : "");
   }

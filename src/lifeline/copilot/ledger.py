@@ -92,6 +92,13 @@ def fact_decimals(fact: dict) -> int:
     return 0
 
 
+def list_join(vals) -> str:
+    """Join names for reading; a semicolon when a name has its own comma ("Gnon-Sangdong, Lower Dzongu"),
+    so a list of 9 is never read as 10."""
+    vals = [str(x) for x in vals]
+    return ("; " if any("," in x for x in vals) else ", ").join(vals)
+
+
 def render_value(fact: dict, lang: str = "en", with_unit: bool = True) -> str:
     """Render a fact's value in English or Nepali, with its unit."""
     v = fact.get("value")
@@ -101,7 +108,7 @@ def render_value(fact: dict, lang: str = "en", with_unit: bool = True) -> str:
         return fmt_date(v, lang)
     if isinstance(v, list):
         vals = fact.get("value_ne") if lang == "ne" and fact.get("value_ne") else v
-        return ", ".join(str(x) for x in vals)
+        return list_join(vals)
     if isinstance(v, str) or v is None:
         if lang == "ne" and fact.get("value_ne"):
             return str(fact["value_ne"])

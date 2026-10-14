@@ -12,7 +12,7 @@ import re
 from dataclasses import dataclass, field
 
 from .branding import PRODUCT_NAME, PRODUCT_NAME_NE
-from .ledger import Ledger, render_value, fmt_number
+from .ledger import list_join, Ledger, render_value, fmt_number
 
 # ---------------------------------------------------------------- intent detection
 
@@ -154,7 +154,7 @@ class _Doc:
             return ""
         self.ids.append(fact["id"])
         vals = fact.get("value_ne") if self.lang == "ne" and fact.get("value_ne") else fact.get("value")
-        return ", ".join(str(x) for x in list(vals)[:n])
+        return list_join(list(vals)[:n])
 
     def text(self) -> str:
         return "\n".join(self.lines)

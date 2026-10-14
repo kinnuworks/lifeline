@@ -57,3 +57,16 @@ body{font-variant-numeric:tabular-nums}
 .window__bar .segmented--sm{margin-left:auto;padding:3px;background:var(--tint)}
 .segmented--sm button{height:24px;padding:0 10px;font-size:12px}
 .segmented button[aria-pressed="true"]{color:var(--accent-ink)}
+
+/* menu bar: warm glass, amber marker on the section you are reading */
+.nav__bar{background:color-mix(in oklab,var(--surface) 82%,transparent);box-shadow:0 0 0 1px var(--line),0 12px 32px -16px rgba(15,30,46,.28)}
+.nav__brand{gap:10px;font-weight:700;letter-spacing:-.025em;color:var(--ink)}
+.nav__brand .app-icon{width:30px;height:30px;border-radius:8px;box-shadow:0 2px 6px -2px rgba(15,30,46,.5)}
+.nav__links a{position:relative;color:var(--ink-2)}
+.nav__links a:hover{background:var(--accent-wash);color:var(--accent-ink)}
+.nav__links a.is-active{color:var(--ink);font-weight:600}
+.nav__links a.is-active::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:2px;background:var(--accent)}
+.nav__icon{display:grid;place-items:center;width:36px;height:36px;margin-right:4px;border-radius:50%;color:var(--ink-2);transition:background-color var(--dur-hover)}
+.nav__icon:hover{background:var(--tint);color:var(--ink)}
+.nav__icon svg{width:19px;height:19px}
+@media (max-width:760px){.nav__icon{display:none}}

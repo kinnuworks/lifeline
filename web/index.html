@@ -8,7 +8,7 @@
 <meta property="og:description" content="Maps flood damage from free satellite data and works out which villages can no longer reach a hospital by road.">
 <meta property="og:type" content="website">
 <meta name="description" content="Lifeline maps flood damage from free satellite data and works out which villages can no longer reach a hospital by road. Case study: the 26 August 2026 Bhote Koshi and Trishuli flood in Rasuwa, Nepal.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D1D1F'/%3E%3Cpath d='M9 26c2-6 9-6 9-11s-5-6-5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='23' r='3' fill='%23E5484D'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%230F1E2E%22/%3E%3Cpath%20d%3D%22M3%2027%2011%2015l4%205%205-8%209%2015z%22%20fill%3D%22%231E3348%22/%3E%3Cpath%20d%3D%22M7.5%2025.5c4.5%200%203-7.5%208-7.5s3.5-7%207.5-8.5%22%20fill%3D%22none%22%20stroke%3D%22%23E39A4A%22%20stroke-width%3D%222.8%22%20stroke-linecap%3D%22round%22/%3E%3Ccircle%20cx%3D%227.5%22%20cy%3D%2225.5%22%20r%3D%222%22%20fill%3D%22%23E39A4A%22/%3E%3Ccircle%20cx%3D%2223.5%22%20cy%3D%229%22%20r%3D%225%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M23.5%206.6v4.8M21.1%209h4.8%22%20stroke%3D%22%23C0392B%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Instrument+Serif:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
@@ -27,7 +27,7 @@
 <header class="nav">
   <nav class="nav__bar" aria-label="Main">
     <a class="nav__brand" href="#top" aria-label="Lifeline, back to top" data-name-label=", back to top">
-      <svg class="app-icon" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1D1D1F"/><path d="M9 26c2-6 9-6 9-11s-5-6-5-9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="22" cy="23" r="3" fill="#E5484D"/></svg>
+      <svg class="app-icon" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0F1E2E"/><path d="M3 27 11 15l4 5 5-8 9 15z" fill="#1E3348"/><path d="M7.5 25.5c4.5 0 3-7.5 8-7.5s3.5-7 7.5-8.5" fill="none" stroke="#E39A4A" stroke-width="2.8" stroke-linecap="round"/><circle cx="7.5" cy="25.5" r="2" fill="#E39A4A"/><circle cx="23.5" cy="9" r="5" fill="#fff"/><path d="M23.5 6.6v4.8M21.1 9h4.8" stroke="#C0392B" stroke-width="1.8" stroke-linecap="round"/></svg>
       <span data-name>Lifeline</span>
     </a>
     <div class="nav__links">
@@ -37,6 +37,7 @@
       <a href="#checks">Checks</a>
       <a href="#how">Method</a>
     </div>
+    <a class="nav__icon" href="https://github.com/kinnuworks/lifeline" target="_blank" rel="noopener" aria-label="Code on GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.7s.8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></a>
     <a class="btn btn-primary btn-sm" href="#run">Run any valley</a>
   </nav>
 </header>
@@ -427,7 +428,7 @@
       <h2 id="limits-h">What <span data-name>Lifeline</span> cannot do.</h2>
     </div>
     <div class="grid grid-3 limits">
-      <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><p class="t-title">It waits for the satellite</p><p>Sentinel-1 revisits a valley every few days. The first after image of this flood came two days after it.</p></div></div>
+      <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><p class="t-title">It waits for the satellite</p><p>Each Sentinel-1 orbit track repeats every 12 days; with three tracks over this valley a new image arrives every few days. The first after image of this flood came two days after it.</p></div></div>
       <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span><div><p class="t-title">It does not warn ahead</p><p><span data-name>Lifeline</span> maps what already happened. It cannot predict a glacier collapse or a lake outburst.</p></div></div>
       <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span><div><p class="t-title">Steep slopes hide ground</p><p>In narrow gorges radar shadow and layover hide parts of the valley floor. Those areas are marked not observed.</p></div></div>
       <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span><div><p class="t-title">Maps have gaps</p><p>Remote trails, footbridges and small settlements are often missing from OpenStreetMap. <span data-name>Lifeline</span> cannot route what is not mapped.</p></div></div>
@@ -441,7 +442,7 @@
 <footer class="footer">
   <div class="container foot">
     <div class="foot__brand">
-      <svg class="app-icon" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1D1D1F"/><path d="M9 26c2-6 9-6 9-11s-5-6-5-9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="22" cy="23" r="3" fill="#E5484D"/></svg>
+      <svg class="app-icon" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0F1E2E"/><path d="M3 27 11 15l4 5 5-8 9 15z" fill="#1E3348"/><path d="M7.5 25.5c4.5 0 3-7.5 8-7.5s3.5-7 7.5-8.5" fill="none" stroke="#E39A4A" stroke-width="2.8" stroke-linecap="round"/><circle cx="7.5" cy="25.5" r="2" fill="#E39A4A"/><circle cx="23.5" cy="9" r="5" fill="#fff"/><path d="M23.5 6.6v4.8M21.1 9h4.8" stroke="#C0392B" stroke-width="1.8" stroke-linecap="round"/></svg>
       <div><p class="foot__name" data-name>Lifeline</p><p>Who can still reach help.</p></div>
     </div>
     <div class="foot__cols">

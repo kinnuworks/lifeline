@@ -712,3 +712,14 @@ async function boot() {
 }
 window.__lifeline = state; // handy for debugging in the console
 boot();
+
+/* menu bar: mark the section in view */
+(() => {
+  const links = [...document.querySelectorAll(".nav__links a[href^='#']")];
+  const targets = links.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  if (!("IntersectionObserver" in window) || !targets.length) return;
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) links.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + e.target.id));
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  targets.forEach((t) => io.observe(t));
+})();

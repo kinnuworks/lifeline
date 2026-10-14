@@ -2,7 +2,7 @@
 
 # Lifeline
 
-**Who can still reach help.** Lifeline maps flood and debris damage from free satellite data, finds the villages that have lost their road to a hospital or clinic, ranks the repairs that reconnect the most of them, and writes the situation report in English and Nepali.
+**Radar-to-rescue intelligence.** Lifeline maps flood and debris damage from free satellite data, finds the villages that have lost their road to a hospital or clinic, ranks the repairs that reconnect the most of them, and writes the situation report in English and Nepali.
 
 Track B, Multimodal AI Hackathon 2026 (IIT Mandi): *Mapping Flood Damage from Space*.
 

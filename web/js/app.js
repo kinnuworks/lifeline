@@ -696,7 +696,7 @@ async function openRun(id, scroll) {
 /* ------------------------------------------------------------------ boot */
 function applyName() {
   $$("[data-name]").forEach((el) => (el.textContent = NAME));
-  document.title = `${NAME} · Who can still reach help`;
+  document.title = `${NAME} · Radar-to-rescue intelligence`;
   $$('meta[property="og:title"]').forEach((m) => (m.content = document.title));
   const d = $('meta[name="description"]'); if (d) d.content = d.content.replace(/^\S+/, NAME);
   $$("[data-name-label]").forEach((el) => el.setAttribute("aria-label", NAME + el.dataset.nameLabel));

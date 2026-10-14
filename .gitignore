@@ -59,3 +59,4 @@ runs/teesta-2023/access/*
 .vercel/
 .env.local
 deploy/DEVPOST.md
+deploy/PUBLISH.md

@@ -135,7 +135,7 @@
 .hero-sub{margin:18px auto 0;max-width:760px;font-family:var(--font-serif);font-style:italic;font-size:clamp(24px,2.6vw,34px);line-height:1.2;color:var(--accent-ink)}
 .hero .lead{margin-top:18px}
 .hero-window .window__bar{gap:12px}
-.hero-window .window__title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;padding-left:8px}
+.hero-window .window__title{position:static;transform:none;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left;padding-left:8px}
 .chat__sugg-label{flex-basis:100%;margin-top:6px;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-4)}
 /* selected chips keep their contrast on hover */
 .chip[aria-pressed="true"],.chip[aria-pressed="true"]:hover{background:var(--ink)!important;color:#fff!important}

@@ -15,7 +15,7 @@
   --wallpaper-soft:radial-gradient(70% 60% at 85% 0%,#DCE9F3 0,transparent 60%),radial-gradient(60% 60% at 10% 100%,#F6DFC2 0,transparent 60%),linear-gradient(160deg,#F7F4EE,#EDE8DF);
   --chrome:linear-gradient(#FFFDF9,#F3EFE8); --chrome-line:rgba(15,30,46,.08); --chrome-ink:#5A6B7D;
 }
-body{font-variant-numeric:tabular-nums}
+.score__num,.vt .num,.pbar b,.qnum,.chip b,.choke__text b,.speed b,.trace-out small,[data-sum]{font-variant-numeric:tabular-nums}
 ::selection{background:#F2C97D;color:var(--ink)}
 
 /* headline: one warm serif phrase in debris amber */
@@ -132,3 +132,5 @@ body{font-variant-numeric:tabular-nums}
 .speed b{font:700 34px/1 var(--font-display);letter-spacing:-.03em;color:var(--accent)}
 .speed span{font-size:14.5px;color:var(--ink-2);line-height:1.45}
 .btn-ghost svg{width:14px;height:14px}
+.hero-sub{margin:18px auto 0;max-width:760px;font-family:var(--font-serif);font-style:italic;font-size:clamp(24px,2.6vw,34px);line-height:1.2;color:var(--accent-ink)}
+.hero .lead{margin-top:18px}

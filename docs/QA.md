@@ -23,7 +23,7 @@ From ground that cannot have flooded: pixels more than 150 m above the nearest s
 Calm water is smooth, so it reflects the radar pulse away and looks dark. A debris flow leaves rough rock, mud and stripped slopes; the return can get brighter or darker, and the cross-polarised (VH) return changes because vegetation is gone. We map both: new dark water, and strong change in either direction.
 
 **What are layover and shadow?**
-In steep valleys, a slope facing the satellite more steeply than its viewing angle folds over onto itself (layover), and a slope facing away more steeply than 90 degrees minus the viewing angle is hidden (shadow). Neither can be measured. We compute them from the elevation model for each orbit and mark those pixels "not observed" instead of guessing.
+In steep valleys, a slope facing the satellite more steeply than its viewing angle folds over onto itself (layover), and a slope facing away more steeply than 90 degrees minus the viewing angle is hidden (shadow). Neither can be measured. We compute them from the elevation model for each orbit and mark those pixels "not observed".
 
 **Why three orbits?**
 Sentinel-1D passes over this valley on one ascending and two descending tracks. Each sees different slopes. A pixel hidden from one is often visible from another, so combining them shrinks the blind area. We count any clear view of strong change: a geometry that cannot see a slope does not vote against it.

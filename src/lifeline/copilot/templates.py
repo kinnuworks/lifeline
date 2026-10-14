@@ -191,7 +191,7 @@ def flood_lines(d: _Doc) -> bool:
         names = d.names("damage.places_hit_names", 5)
         c = d.cite("damage.places_hit_names")
         d.add(f"सबैभन्दा धेरै घर ध्वस्त भएको हुन सक्ने ठाउँ: {names}{c}।" if ne
-              else f"The places with the most likely destroyed buildings: {names}{c}.")
+              else f"The places with the most buildings likely destroyed: {names}{c}.")
     return True
 
 

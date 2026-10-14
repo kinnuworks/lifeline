@@ -1,7 +1,7 @@
 #!/bin/sh
 # Re-run every published run with the current code, then rebuild checks, copilot evidence and website data.
 cd "$(dirname "$0")/.."
-uv run lifeline run --bbox 84.93 27.78 85.45 28.30 --date 2026-08-26 --id trishuli-2026 --label "Bhote Koshi–Trishuli flood, Nepal" > runs/trishuli-2026.log 2>&1
+uv run lifeline run --bbox 84.93 27.78 85.45 28.30 --date 2026-08-26 --id trishuli-2026 --label "Bhote Koshi-Trishuli flood, Nepal" > runs/trishuli-2026.log 2>&1
 sh scripts/refresh_case.sh trishuli-2026 > runs/refresh.log 2>&1
 uv run python scripts/eval_himalaya.py runs/trishuli-2026 > runs/eval_himalaya.log 2>&1
 uv run lifeline run --bbox 84.93 27.78 85.45 28.30 --date 2026-07-25 --id placebo-2026-07 --label "No-flood check: Trishuli corridor, 25 Jul 2026" > runs/placebo-2026-07.log 2>&1

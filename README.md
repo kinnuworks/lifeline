@@ -12,7 +12,7 @@ Track B, Multimodal AI Hackathon 2026 (IIT Mandi): *Mapping Flood Damage from Sp
 
 ## The case study, in numbers
 
-The 26 August 2026 glacier-collapse flood on the Bhote Koshi–Trishuli corridor, Rasuwa, Nuwakot and Dhading, Nepal. One run over a 51 x 58 km area, from raw data:
+The 26 August 2026 glacier-collapse flood on the Bhote Koshi-Trishuli corridor, Rasuwa, Nuwakot and Dhading, Nepal. One run over a 51 x 58 km area, from raw data:
 
 | | |
 |---|---|
@@ -24,7 +24,7 @@ The 26 August 2026 glacier-collapse flood on the Bhote Koshi–Trishuli corridor
 | Bridges checked | 353: 59 likely destroyed, 12 possibly damaged |
 | Settlements with a road to a hospital or clinic before the flood | 290 of 397 |
 | Settlements now likely cut off from road access to a health facility | 52 (48 of them with 90%+ probability); 1 more can still walk to care within an hour |
-| The repair that reconnects the most | The 3 closed stretches of the Pasang Lhamu Highway around one bridge near Syapru Besi: 18 settlements |
+| The repair that reconnects the most | A bridge and two adjoining closed stretches of the Pasang Lhamu Highway near Syapru Besi: 18 settlements |
 
 ### Checked against the official maps
 
@@ -47,8 +47,6 @@ Areas 4 and 6 were cancelled by EMS for cloud. Full table with 95% intervals: [`
 **How the settings were chosen.** Radar settings: [`scripts/validate_fusion_dev.py`](scripts/validate_fusion_dev.py), record in [`validation/fusion_dev.json`](runs/trishuli-2026/validation/fusion_dev.json). Sentinel-2 fusion: [`scripts/validate_optical_dev.py`](scripts/validate_optical_dev.py), record in [`validation/optical_fusion_dev.json`](runs/trishuli-2026/validation/optical_fusion_dev.json). Both pick the best F1 on area 3 alone. The radar selection also required no more than 3 km² flagged on the no-flood date below, so that date is not an independent test of the radar settings; the two other floods are.
 
 ### Everything the official maps or the no-flood date influenced
-
-So nothing is hidden, this is the full list:
 
 1. **Radar settings** (orbit combination, seed size, growth distance): best F1 on area 3, with no more than 3 km² allowed on the no-flood date. Held-out areas were scored for every candidate and recorded, but not used to choose ([`fusion_dev.json`](runs/trishuli-2026/validation/fusion_dev.json)).
 2. **Sentinel-2 fusion:** the idea came from looking at what we missed in held-out areas 1 and 2 (unchanged radar brightness on missed ground). Its three settings were then chosen on area 3 alone ([`optical_fusion_dev.json`](runs/trishuli-2026/validation/optical_fusion_dev.json)). The two selection scripts use slightly different reference masks (the older one includes EMS "not analysed" ground), so their radar-only baselines differ.
@@ -134,8 +132,8 @@ Any other area and date work the same way (boxes up to 1 square degree on the co
 
 ## Credits and attribution
 
-- Contains modified Copernicus Sentinel data 2021–2026.
-- Produced using Copernicus WorldDEM-30 © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
+- Contains modified Copernicus Sentinel data 2021-2026.
+- Produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
 - © OpenStreetMap contributors.
 - European Union, Copernicus Emergency Management Service data (EMSR927), used for checking only.
 - Sen1Floods11: Bonafilia et al., *Sen1Floods11: a georeferenced dataset to train and test deep learning flood algorithms for Sentinel-1*, CVPR Workshops 2020.

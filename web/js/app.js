@@ -268,7 +268,7 @@ function renderValidation() {
   const v = state.validation, sec = $("#checks");
   if (!v || !v.aois?.length) { sec.hidden = true; return; }
   sec.hidden = false;
-  if (v.reference) $("#checks-lead").textContent = `${v.reference}. ${v.reference_note || "Used only to check results after the run. Never an input."}`;
+  if (v.reference) $("#checks-lead").textContent = `${v.reference}. ${v.reference_note || "Used only to check results after the run, never as an input."}`;
   $("#val tbody").innerHTML = v.aois.map((a) => a.status === "cancelled"
     ? `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}</small></td><td colspan="4"><span class="status">Cancelled</span></td><td class="why">${esc(a.note || "")}</td></tr>`
     : `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}${a.role ? ` · ${esc(a.role)}` : ""}</small></td><td class="num">${has(a.flood_f1) ? a.flood_f1.toFixed(2) : "–"}</td>

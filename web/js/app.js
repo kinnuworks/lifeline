@@ -18,7 +18,7 @@ const fmtDate = (iso) => { if (!iso) return ""; const [y, m, d] = iso.slice(0, 1
 const fmtMin = (m) => { if (!has(m)) return "–"; m = Math.round(m); if (m < 60) return `${m} min`; const h = Math.floor(m / 60), r = m % 60; return r ? `${h} h ${r} min` : `${h} h`; };
 const fmtDur = (s) => { s = Math.round(s); if (s < 60) return `${s} s`; const m = Math.round(s / 60); return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${m % 60} min`; };
 
-const COLORS = { debris: "#B0682A", water: "#256EDC", cut: "#D92D20", risk: "#E59A1A", ok: "#2F7D57", possible: "#F2A33A", blind: "#7B7B86", bldg: "#7A2E0E", ink: "#1D1D1F" };
+const COLORS = { debris: "#C8792B", water: "#2B7FB8", cut: "#C0392B", risk: "#D99A2B", ok: "#2E7D4F", possible: "#E5A85A", blind: "#7E8B99", bldg: "#7A2E0E", ink: "#0F1E2E" };
 
 const state = { index: null, runId: null, base: null, apiOnline: false, lang: "en", maps: {}, markers: {} };
 
@@ -32,6 +32,8 @@ async function loadRun(base) {
     "health.geojson", "chokepoints.json", "flowpath.geojson", "validation.json", "copilot_samples.json", "facts.json"];
   const res = await Promise.all(files.map((f) => tryJSON(base + f)));
   const [summary, overlays, roads, bridges, bldg, settle, health, choke, flow, validation, samples, facts] = res;
+  state.optical = await tryJSON(base + "optical.json");
+  state.cmpMode = null;
   Object.assign(state, { base, summary: summary || {}, overlays: overlays || [], roads, bridges, bldg, settle, health,
     choke: choke || [], flow, validation, samples: samples || [], facts: facts || [] });
   state.runId = state.summary.run_id || state.runId;
@@ -73,18 +75,18 @@ function renderFrags() {
 function scoreItems(s) {
   const flooded = has(s.area_debris_km2) || has(s.area_water_km2) ? (s.area_debris_km2 || 0) + (s.area_water_km2 || 0) : null;
   return [
-    { v: s.runtime_seconds, n: has(s.runtime_seconds) ? (s.runtime_seconds >= 60 ? Math.round(s.runtime_seconds / 60) : s.runtime_seconds) : null, unit: has(s.runtime_seconds) && s.runtime_seconds >= 60 ? "min" : "s", label: "From raw data to report", how: "Wall-clock time of the whole run, from image search to the PDF, logged in the run's meta.json." },
-    { v: s.radar_passes, label: "Radar passes compared", how: `Sentinel-1 passes read for this run: for each orbit track over the area${s.radar_track_labels?.length ? ` (${s.radar_track_labels.join(", ")})` : ""}, the first pass after the flood, the last before it, and three earlier passes as the normal baseline.` },
-    { v: s.buildings_checked, label: "Buildings checked", how: `Every building in OpenStreetMap as it stood on ${s.osm_snapshot ? fmtDate(s.osm_snapshot) : "the snapshot date"}, before the flood.` },
-    { v: s.bridges_assessed, label: "Bridges assessed", how: "Every bridge in the pre-flood OpenStreetMap snapshot gets a hit probability." },
-    { v: s.villages_routed, label: "Villages routed to care", how: has(s.health_facilities) ? `Road routes from every village and town to the ${s.health_facilities} hospitals and clinics in OpenStreetMap.` : "Road routes from every village and town to the nearest hospital or clinic." },
-    { v: s.villages_cut_off, label: "Villages cut off", hot: true, how: "Villages whose chance of having no road route to any hospital or clinic is 0.5 or more." },
-    { v: flooded, dec: 1, unit: "km²", label: "Ground flooded or buried", how: "Open water plus debris and scour from radar change, with stripped valley ground from Sentinel-2 where the sky was clear." + (has(s.area_unobserved_km2) ? ` Another ${s.area_unobserved_km2} km² was hidden from radar by steep terrain and is not counted.` : "") },
-    { v: has(s.check_buildings_hit_rate) ? s.check_buildings_hit_rate * 100 : null, unit: "%", label: "Official damaged buildings also found", how: `Share of buildings marked damaged in the Copernicus EMS maps that ${NAME} also flags. Those maps are used only for this check.` },
-    { v: s.check_bridges_flagged, of: s.check_bridges_total, label: "Official damaged bridges also found", how: `Bridges the Copernicus EMS maps mark as damaged or destroyed, and how many of them ${NAME} flagged.` },
-    { v: s.copilot_caught, of: s.copilot_attempts, label: "Invented numbers caught", how: "Red-team prompts tried to make the copilot state numbers that are not in the facts ledger. This is how many the guard rejected." },
-    { v: s.floods_tested, label: "Floods tested", how: "Separate flood events the full pipeline has been run on, end to end." },
-    { v: s.health_facilities, label: "Hospitals and clinics", how: "Health facilities in the pre-flood OpenStreetMap snapshot used as routing targets." },
+    { v: s.runtime_seconds, n: has(s.runtime_seconds) ? (s.runtime_seconds >= 60 ? Math.round(s.runtime_seconds / 60) : s.runtime_seconds) : null, unit: has(s.runtime_seconds) && s.runtime_seconds >= 60 ? "min" : "s", label: "From raw data to report", q: "where", how: "Wall-clock time of the whole run, from image search to the PDF, logged in the run's meta.json." },
+    { v: s.radar_passes, label: "Radar passes compared", q: "where", how: `Sentinel-1 passes read for this run: for each orbit track over the area${s.radar_track_labels?.length ? ` (${s.radar_track_labels.join(", ")})` : ""}, the first pass after the flood, the last before it, and three earlier passes as the normal baseline.` },
+    { v: s.buildings_checked, label: "Buildings checked", q: "what", how: `Every building in OpenStreetMap as it stood on ${s.osm_snapshot ? fmtDate(s.osm_snapshot) : "the snapshot date"}, before the flood.` },
+    { v: s.bridges_assessed, label: "Bridges assessed", q: "what", how: "Every bridge in the pre-flood OpenStreetMap snapshot gets a hit probability." },
+    { v: s.villages_routed, label: "Villages routed to care", q: "who", how: has(s.health_facilities) ? `Road routes from every village and town to the ${s.health_facilities} hospitals and clinics in OpenStreetMap.` : "Road routes from every village and town to the nearest hospital or clinic." },
+    { v: s.villages_cut_off, label: "Villages cut off", q: "who", hot: true, how: "Villages whose chance of having no road route to any hospital or clinic is 0.5 or more." },
+    { v: flooded, dec: 1, unit: "km²", label: "Ground flooded or buried", q: "where", how: "Open water plus debris and scour from radar change, with stripped valley ground from Sentinel-2 where the sky was clear." + (has(s.area_unobserved_km2) ? ` Another ${s.area_unobserved_km2} km² was hidden from radar by steep terrain and is not counted.` : "") },
+    { v: has(s.check_buildings_hit_rate) ? s.check_buildings_hit_rate * 100 : null, unit: "%", label: "Official damaged buildings also found", q: "check", how: `Share of buildings marked damaged in the Copernicus EMS maps that ${NAME} also flags. Those maps are used only for this check.` },
+    { v: s.check_bridges_flagged, of: s.check_bridges_total, label: "Official damaged bridges also found", q: "check", how: `Bridges the Copernicus EMS maps mark as damaged or destroyed, and how many of them ${NAME} flagged.` },
+    { v: s.copilot_caught, of: s.copilot_attempts, label: "Invented numbers caught", q: "check", how: "Red-team prompts tried to make the copilot state numbers that are not in the facts ledger. This is how many the guard rejected." },
+    { v: s.floods_tested, label: "Floods tested", q: "where", how: "Separate flood events the full pipeline has been run on, end to end." },
+    { v: s.health_facilities, label: "Hospitals and clinics", q: "who", how: "Health facilities in the pre-flood OpenStreetMap snapshot used as routing targets." },
   ].filter((it) => has(it.v) && (it.of === undefined || has(it.of)));
 }
 function renderScore() {
@@ -94,6 +96,7 @@ function renderScore() {
     const unit = it.unit || "";
     const cell = document.createElement("div");
     cell.className = "score__cell" + (it.hot ? " score__cell--hot" : "");
+    if (it.q) cell.dataset.q = it.q;
     const tipId = `tip-${i}`;
     cell.innerHTML = `<dd class="score__num" data-target="${target}" data-dec="${it.dec || 0}" data-of="${it.of ?? ""}" data-unit="${unit}">${fmtNum(target, it.dec, it.of)}${unit ? `<small>${unit}</small>` : ""}</dd>
       <dt>${esc(it.label)}</dt>
@@ -151,17 +154,33 @@ function renderChips() {
 function renderCompare() {
   const ov = state.ov, wrap = $("#compare");
   const stage = wrap.closest(".stage");
+  const opt = state.optical, modeBox = $("#cmp-mode");
+  modeBox.hidden = !opt;
+  if (!opt) state.cmpMode = "radar";
+  else state.cmpMode ||= "optical";
+  $$("#cmp-mode button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === state.cmpMode)));
+  const cls = $("#cmp-class"), tog = $("#cmp-toggle");
+  const s = state.summary;
+  if (state.cmpMode === "optical") {
+    stage.hidden = false;
+    $("#cmp-before").src = state.base + "optical_before.jpg"; $("#cmp-after").src = state.base + "optical_after.jpg";
+    $("#cmp-title").textContent = "Sentinel-2 · Bidur";
+    $("#cmp-tag-before").textContent = opt.before_dates?.length ? `Before · ${fmtDate(opt.before_dates.at(-1))}` : "Before";
+    $("#cmp-tag-after").textContent = opt.after_dates?.length ? `After · ${fmtDate(opt.after_dates[0])}` : "After";
+    tog.hidden = true; cls.hidden = true;
+    return;
+  }
   if (!ov.before || !ov.after) { stage.hidden = true; return; }
   stage.hidden = false;
+  $("#cmp-title").textContent = "Sentinel-1 radar · VV";
   $("#cmp-before").src = ov.before.src; $("#cmp-after").src = ov.after.src;
-  const cls = $("#cmp-class"), tog = $("#cmp-toggle");
   if (ov.flood_class) { cls.src = ov.flood_class.src; tog.hidden = false; } else tog.hidden = true;
-  const s = state.summary;
   // before/after dates come from the first radar pair when known
   $("#cmp-tag-before").textContent = s.before_label || "Before";
   $("#cmp-tag-after").textContent = s.after_label || "After";
 }
 function initCompare() {
+  $$("#cmp-mode button").forEach((b) => b.addEventListener("click", () => { state.cmpMode = b.dataset.mode; renderCompare(); }));
   const range = $("#cmp-range"), wrap = $("#compare");
   const set = (v) => {
     range.value = v; range.style.setProperty("--val", v + "%");
@@ -198,7 +217,8 @@ function renderTTC() {
 /* ------------------------------------------------------------------ village table */
 let showAll = false;
 function renderTable() {
-  const rows = settlements().sort((a, b) => (b.p_cutoff ?? 0) - (a.p_cutoff ?? 0));
+  // places across the border (named only in Chinese) are routed to Nepali facilities only; keep them off the list
+  const rows = settlements().filter((v) => !/[\u3400-\u9fff]/.test(v.name || "")).sort((a, b) => (b.p_cutoff ?? 0) - (a.p_cutoff ?? 0));
   const tb = $("#vt tbody"), shown = showAll ? rows : rows.slice(0, 10);
   tb.innerHTML = shown.map((v) => {
     const p = v.p_cutoff ?? 0, cls = p >= 0.5 ? "is-cut" : p >= 0.25 ? "is-risk" : "";
@@ -221,7 +241,7 @@ function renderChoke() {
   ol.innerHTML = state.choke.slice(0, 5).map((c, i) => `<li tabindex="0" data-i="${i}"><span class="choke__rank">${c.rank ?? i + 1}</span><div>
     <p class="choke__name">${esc(c.name)}</p>
     <p class="choke__text">${c.combined_repair && c.osm_ids?.length > 1 ? `Reopening the ${c.osm_ids.length} closed stretches on this route` : `Reopening this ${c.kind === "road" ? "road section" : "bridge"}`} reconnects <b>${c.villages_reconnected}</b> ${c.villages_reconnected === 1 ? "village" : "villages"}${(c.people_reconnected > 0) ? `, about <b>${fmtInt(c.people_reconnected)}</b> people` : ""}.</p>
-    ${c.names?.length ? `<p class="choke__names">${[...new Set(c.names)].map(esc).join(", ")}</p>` : ""}</div></li>`).join("");
+    ${c.names?.length ? `<p class="choke__names">${[...new Set(c.names)].filter((n) => !/[\u3400-\u9fff]/.test(n)).map(esc).join(", ")}</p>` : ""}</div></li>`).join("");
   $$("li", ol).forEach((li) => {
     const go = () => { const c = state.choke[+li.dataset.i]; const m = state.maps.access; if (m) m.flyTo({ center: [c.lon, c.lat], zoom: 13, duration: REDUCE ? 0 : 1200 }); };
     li.addEventListener("click", go); li.addEventListener("keydown", (e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), go()));
@@ -237,7 +257,7 @@ function renderValidation() {
   if (v.reference) $("#checks-lead").textContent = `${v.reference}. ${v.reference_note || "Used only to check results after the run. Never an input."}`;
   $("#val tbody").innerHTML = v.aois.map((a) => a.status === "cancelled"
     ? `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}</small></td><td colspan="4"><span class="status">Cancelled</span></td><td class="why">${esc(a.note || "")}</td></tr>`
-    : `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}</small></td><td class="num">${has(a.flood_iou) ? a.flood_iou.toFixed(2) : "–"}</td>
+    : `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}</small></td><td class="num">${has(a.flood_f1) ? a.flood_f1.toFixed(2) : "–"}</td>
        <td class="num">${pct(a.buildings_hit_rate)}</td><td class="num">${has(a.bridges_flagged) ? `${a.bridges_flagged} of ${a.bridges_total}` : "–"}</td>
        <td class="num">${pct(a.roads_agree_rate)}</td><td class="why">${esc(a.note || "")}</td></tr>`).join("");
   $("#val-notes").innerHTML = (v.notes || []).map((n) => `<li>${esc(n)}</li>`).join("");
@@ -339,8 +359,17 @@ function makeMap(container, opts) {
     const layers = map.getStyle().layers;
     map._firstSymbol = layers.find((l) => l.type === "symbol")?.id;
     for (const l of layers) if (l.type === "symbol" && (!opts.labels || /poi|housenum/.test(l.id))) map.setLayoutProperty(l.id, "visibility", "none");
+    // warm the grey base map: paper land, sage forest, glacier-blue water
+    for (const l of layers) {
+      try {
+        if (l.type === "background") map.setPaintProperty(l.id, "background-color", "#ECE6D9");
+        else if (l.type === "fill" && /water/.test(l.id)) map.setPaintProperty(l.id, "fill-color", "#B9D3E4");
+        else if (l.type === "fill" && /wood|forest|grass|park|landcover|scrub/.test(l.id)) map.setPaintProperty(l.id, "fill-color", "#D5DDC2");
+        else if (l.type === "line" && /waterway|river/.test(l.id)) map.setPaintProperty(l.id, "line-color", "#8DB7D3");
+      } catch { /* layer without that property */ }
+    }
     map.addSource("hs", { ...DEM });
-    map.addLayer({ id: "hill", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": 0.36, "hillshade-shadow-color": "#5F6372", "hillshade-highlight-color": "#FFFFFF", "hillshade-accent-color": "#6A6D7A" } }, map._firstSymbol);
+    map.addLayer({ id: "hill", type: "hillshade", source: "hs", paint: { "hillshade-exaggeration": 0.45, "hillshade-shadow-color": "#3E4C5A", "hillshade-highlight-color": "#FFFBF1", "hillshade-accent-color": "#6E6A55" } }, map._firstSymbol);
     if (opts.terrain) map.addSource("dem", { ...DEM });
   });
   return map;

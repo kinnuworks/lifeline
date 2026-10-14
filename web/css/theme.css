@@ -1,0 +1,59 @@
+/* Lifeline theme: glacier and debris. The map's own colours are the brand:
+   amber debris is the accent, river blue for water, red only for "cut off".
+   Loaded after foundation.css and site.css. */
+:root{
+  --bg:#F7F5F0; --bg-alt:#EFEBE3; --sunk:#EAE5DB; --surface:#FFFDF9; --surface-2:#FAF7F1;
+  --ink:#0F1E2E; --ink-2:#34465A; --ink-3:#5A6B7D; --ink-4:#7E8B99;
+  --line:rgba(15,30,46,.09); --line-2:rgba(15,30,46,.16); --tint:rgba(15,30,46,.05);
+  --shadow-rgb:15 30 46;
+  --accent:#C8792B; --accent-hi:#E39A4A; --accent-ink:#8A4E14; --accent-wash:#F8E9D6; --on-accent:#fff;
+  --focus:#8A4E14; --marker:#F2C97D;
+  --c-debris:#C8792B; --c-water:#2B7FB8; --c-cut:#C0392B; --c-ok:#2E7D4F; --c-risk:#D99A2B; --c-possible:#E5A85A;
+  --night:#0B1824; --night-2:#132638;
+  /* tables and numbers: Inter with tabular figures, not a code font */
+  --font-mono:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --wallpaper-soft:radial-gradient(70% 60% at 85% 0%,#DCE9F3 0,transparent 60%),radial-gradient(60% 60% at 10% 100%,#F6DFC2 0,transparent 60%),linear-gradient(160deg,#F7F4EE,#EDE8DF);
+  --chrome:linear-gradient(#FFFDF9,#F3EFE8); --chrome-line:rgba(15,30,46,.08); --chrome-ink:#5A6B7D;
+}
+body{font-variant-numeric:tabular-nums}
+::selection{background:#F2C97D;color:var(--ink)}
+
+/* headline: one warm serif phrase in debris amber */
+.hero h1 .t-muted{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--accent-ink)}
+.badge__tag{background:var(--accent);color:#fff}
+
+/* primary actions in debris amber */
+.btn-primary{color:#fff;background:linear-gradient(135deg,var(--accent-hi),var(--accent) 60%,#B36A22);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 0 0 1px rgba(138,78,20,.35),0 10px 24px -10px rgba(138,78,20,.7)}
+.btn-primary:hover{filter:brightness(1.05)}
+
+/* hero map sits in a night "operations room" band so debris and river glow */
+.hero-stage{background:radial-gradient(60% 70% at 20% 100%,rgba(200,121,43,.28) 0,transparent 60%),radial-gradient(55% 60% at 90% 0%,rgba(43,127,184,.32) 0,transparent 60%),linear-gradient(160deg,var(--night-2),var(--night))!important}
+.hero-window{box-shadow:0 0 0 1px rgba(255,255,255,.06),0 40px 90px -30px rgba(0,0,0,.6)}
+
+/* every section head reads left, like a report */
+.section-head{text-align:left;margin-left:0}
+.section-head .lead{margin-left:0}
+
+/* scoreboard: three rows of three, numbers coloured by the question they answer */
+.score{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+@media (max-width:900px){.score{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+.score__num{font-family:var(--font-display);font-weight:650}
+.score [data-q="where"] .score__num{color:var(--c-debris)}
+.score [data-q="what"] .score__num{color:var(--c-water)}
+.score [data-q="who"] .score__num{color:var(--c-cut)}
+.score [data-q="check"] .score__num{color:var(--ink)}
+
+/* tables: wrap the reason instead of clipping it */
+.vt td.why{min-width:240px;max-width:340px;white-space:normal;line-height:1.45}
+.vt th{background:var(--surface-2)}
+.choke__rank{background:var(--accent);color:#fff}
+.choke-mark span{background:var(--accent-ink)}
+
+/* the "how it works" final node */
+.pipe__node--hot,.pipe__node.is-hot{background:var(--ink);color:#fff}
+
+/* optical before/after */
+.opt-tabs{display:inline-flex;gap:4px;margin-bottom:10px}
+.window__bar .segmented--sm{margin-left:auto;padding:3px;background:var(--tint)}
+.segmented--sm button{height:24px;padding:0 10px;font-size:12px}
+.segmented button[aria-pressed="true"]{color:var(--accent-ink)}

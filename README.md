@@ -4,6 +4,8 @@
 
 Track B, Multimodal AI Hackathon 2026 (IIT Mandi): *Mapping Flood Damage from Space*.
 
+**Live:** dashboard https://lifeline-flood.vercel.app · engine https://kinnuworks--lifeline-web.us-east.modal.run (draw any box and date in "Run any valley"; a 10 x 10 km box takes under a minute)
+
 ![Lifeline dashboard](docs/img/hero.png)
 
 ## The case study, in numbers
@@ -81,7 +83,7 @@ uv run lifeline run --bbox 84.93 27.78 85.45 28.30 --date 2026-08-26 --id trishu
 Any other area and date work the same way (boxes up to 1 square degree on the command line, about 60 x 60 km in the live engine). Cold runs took 2 to 6 minutes for the radar part on a laptop; Sentinel-2 can add several minutes, so the live engine skips it after 3 minutes and says so. Outputs land in `runs/<id>/` (layout in [`docs/CONTRACTS.md`](docs/CONTRACTS.md)): GeoTIFF maps, GeoJSON for buildings, roads, bridges and settlements, the facts ledger, and `sitrep_en.pdf` / `sitrep_ne.pdf`.
 
 - **Dashboard:** `uv run python scripts/export_web.py trishuli-2026`, then `python3 -m http.server 5174 --directory web` and open http://localhost:5174.
-- **Live engine** (what the dashboard's "Run any valley" panel calls): `uv run uvicorn lifeline.api.server:app --port 8000`, then set `API_BASE` in `web/config.js`. A Dockerfile is included.
+- **Live engine** (what the dashboard's "Run any valley" panel calls): hosted on Modal (`modal deploy deploy/modal_app.py`, scales to zero when idle). Locally: `uv run uvicorn lifeline.api.server:app --port 8000`, then set `API_BASE` in `web/config.js`. A Dockerfile is included.
 - **Check against the official maps:** `uv run python scripts/validate_emsr927.py fetch`, then `sh scripts/validate_run.sh trishuli-2026`.
 - **Tests:** `uv run pytest -q`. One test fails the build if any pipeline code refers to a published damage map.
 

@@ -11,11 +11,12 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D1D1F'/%3E%3Cpath d='M9 26c2-6 9-6 9-11s-5-6-5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='23' r='3' fill='%23E5484D'/%3E%3C/svg%3E">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=Instrument+Serif:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
 <link rel="stylesheet" href="css/foundation.css">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/theme.css">
 <script src="config.js"></script>
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
 <script type="module" src="js/app.js"></script>
@@ -36,7 +37,7 @@
       <a href="#checks">Checks</a>
       <a href="#how">Method</a>
     </div>
-    <a class="btn btn-ink btn-sm" href="#run">Run any valley</a>
+    <a class="btn btn-primary btn-sm" href="#run">Run any valley</a>
   </nav>
 </header>
 
@@ -48,7 +49,7 @@
     <h1>See who the flood cut off. <span class="t-muted">And what to fix first.</span></h1>
     <p class="lead"><span data-name>Lifeline</span> reads free radar and optical satellite images, an elevation model and pre-flood OpenStreetMap. It maps the damage, finds the villages that have lost their road to a hospital, and ranks the repairs that reconnect the most villages.</p>
     <div class="cta-row">
-      <a class="btn btn-ink btn-lg" href="#run">Run any valley
+      <a class="btn btn-primary btn-lg" href="#run">Run any valley
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       <a class="btn btn-outline btn-lg" id="sitrep-link" href="data/trishuli-2026/sitrep_en.pdf" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
@@ -127,12 +128,16 @@
         <div>
           <span class="eyebrow"><span class="qnum">01</span>Where did it hit</span>
           <h3>Open water, debris, and the ground radar could not see.</h3>
-          <p class="lead">Sentinel-1 radar sees through monsoon cloud. <span data-name>Lifeline</span> compares same-orbit passes from before and after the flood, checks open water with a trained model, and marks steep slopes the radar could not see as not observed instead of guessing.</p>
+          <p class="lead">Sentinel-1 radar sees through monsoon cloud. <span data-name>Lifeline</span> compares same-orbit passes from before and after the flood, checks open water with a trained model, and marks steep slopes the radar could not see as not observed instead of guessing. Where the sky cleared, Sentinel-2 shows the same ground in colour: the grey river of debris is the flood.</p>
           <div class="chips" id="where-chips"></div>
         </div>
         <div class="stage stage--soft reveal">
           <div class="window">
-            <div class="window__bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="window__title">Sentinel-1 · VV</span></div>
+            <div class="window__bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="window__title" id="cmp-title">Sentinel-1 · VV</span>
+              <div class="segmented segmented--sm" id="cmp-mode" role="group" aria-label="Image type" hidden>
+                <button type="button" data-mode="optical" aria-pressed="true">Optical</button>
+                <button type="button" data-mode="radar" aria-pressed="false">Radar</button>
+              </div></div>
             <div class="compare" id="compare">
               <img id="cmp-after" alt="Radar image after the flood, with the debris path showing as a bright band along the river" loading="lazy">
               <div class="compare__before" id="cmp-before-wrap"><img id="cmp-before" alt="Radar image before the flood" loading="lazy"></div>
@@ -341,7 +346,7 @@
         <table class="vt vt--val" id="val">
           <thead><tr>
             <th scope="col">Area</th>
-            <th scope="col" class="num" title="Overlap of flood extent (intersection over union)">Flood IoU</th>
+            <th scope="col" class="num" title="Flood extent F1: balance of precision and recall">Flood F1</th>
             <th scope="col" class="num" title="Share of officially damaged buildings also flagged">Buildings found</th>
             <th scope="col" class="num" title="Officially damaged bridges also flagged">Bridges found</th>
             <th scope="col" class="num" title="Road segments where the status agrees">Roads agree</th>

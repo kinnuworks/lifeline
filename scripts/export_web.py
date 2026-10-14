@@ -165,7 +165,7 @@ def main(run_id: str, out: Path | None = None, update_index: bool = True):
     for name in ("chokepoints.json",):
         if (run / "access" / name).exists():
             shutil.copy(run / "access" / name, out / name)
-    for name in ("flowpath.geojson", "validation.json", "copilot_samples.json"):
+    for name in ("flowpath.geojson", "validation.json", "copilot_samples.json", "optical.json"):
         if not (out / name).exists():   # optional for this run: an explicit empty file keeps the browser console clean
             (out / name).write_text("null")
     for pdf in ("sitrep_en.pdf", "sitrep_ne.pdf"):

@@ -57,6 +57,12 @@ In the upper gorge the radar sees most of the ground, but debris there barely ch
 **Why is new water only 2.3 km²?**
 The water had mostly drained by the first pass two days later. Water counts if any one track sees new dark water, the same rule the map uses for change.
 
+**Has it worked anywhere else?**
+The same code, unchanged, on Melamchi 2021, Teesta 2023, the Beas at Mandi 2023 and Chamoli 2021. At Mandi it flags the New Victoria Bridge over the Beas. None of these have official grading, so they show it runs anywhere, not how accurate it is there. OpenStreetMap had very few buildings around Mandi in 2023, so building damage there is near zero by necessity, not because nothing was hit.
+
+**What would a district office actually do with it?**
+Copy the field alert (English or Nepali, SMS length) to the response group, send the KML of cut-off villages to field teams' phones, and start with the top repair. Every number in the alert comes from the same checked facts as the report.
+
 ## AI
 
 **What does the trained model do?**

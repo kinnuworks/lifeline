@@ -114,7 +114,8 @@ def cutoff_figure(run: Path):
 def events_figure():
     rows = []
     for rid, label in (("trishuli-2026", "Trishuli 2026\n(case study)"), ("placebo-2026-07", "Same area,\nno flood (25 Jul)"),
-                       ("melamchi-2021", "Melamchi 2021\n(never tuned on)"), ("teesta-2023", "Teesta 2023\n(never tuned on)")):
+                       ("melamchi-2021", "Melamchi 2021"), ("teesta-2023", "Teesta 2023"),
+                       ("beas-mandi-2023", "Beas, Mandi 2023"), ("chamoli-2021", "Chamoli 2021")):
         m = ROOT / "runs" / rid / "meta.json"
         if not m.exists():
             continue
@@ -128,7 +129,7 @@ def events_figure():
         dm = json.loads((ROOT / "runs" / rid / "damage" / "summary.json").read_text())
         b = dm.get("buildings", {}).get("destroyed_likely", 0)
         rows.append((label, km2, b))
-    fig, ax = plt.subplots(1, 2, figsize=(7.2, 2.2), dpi=220)
+    fig, ax = plt.subplots(1, 2, figsize=(7.2, 2.6), dpi=220)
     labels = [r[0] for r in rows]
     colors = ["#D6782A" if "no flood" not in l else "#9A9AA2" for l in labels]
     ax[0].barh(labels, [r[1] for r in rows], color=colors)

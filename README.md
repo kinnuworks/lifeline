@@ -1,3 +1,5 @@
+<img src="web/img/logo-192.png" width="72" alt="Lifeline logo">
+
 # Lifeline
 
 **Who can still reach help.** Lifeline maps flood and debris damage from free satellite data, finds the villages that have lost their road to a hospital or clinic, ranks the repairs that reconnect the most of them, and writes the situation report in English and Nepali.

@@ -6,7 +6,7 @@
 
 Track B, Multimodal AI Hackathon 2026 (IIT Mandi): *Mapping Flood Damage from Space*.
 
-**Live:** dashboard https://lifeline-flood.vercel.app · engine https://kinnuworks--lifeline-web.us-east.modal.run (draw any box and date in "Run any valley"; a 10 x 10 km box takes under a minute)
+**Live:** dashboard https://lifeline-flood.vercel.app · engine https://kinnuworks--lifeline-web.us-east.modal.run (draw any box and date in "Run any valley"; a 10 x 10 km box took 125 s from the public site, most of it waiting on OpenStreetMap)
 
 ![Lifeline dashboard](docs/img/hero.png)
 
@@ -23,7 +23,7 @@ The 26 August 2026 glacier-collapse flood on the Bhote Koshi–Trishuli corridor
 | Roads checked | 7,412 km: 99.6 km lie under mapped debris or water |
 | Bridges checked | 353: 59 likely destroyed, 12 possibly damaged |
 | Settlements with a road to a hospital or clinic before the flood | 290 of 397 |
-| Settlements now cut off from any hospital or clinic | 52 (48 of them with 90%+ probability); 1 more can still walk to care within an hour |
+| Settlements now likely cut off from road access to a health facility | 52 (48 of them with 90%+ probability); 1 more can still walk to care within an hour |
 | The repair that reconnects the most | The 3 closed stretches of the Pasang Lhamu Highway around one bridge near Syapru Besi: 18 settlements |
 
 ### Checked against the official maps

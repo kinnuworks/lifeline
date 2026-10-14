@@ -178,9 +178,9 @@
   ],
   "population_tags": true,
   "timings": {
-    "graph_s": 1.87,
-    "montecarlo_s": 0.37,
-    "chokepoints_s": 0.06,
-    "total_s": 2.38
+    "graph_s": 1.92,
+    "montecarlo_s": 0.36,
+    "chokepoints_s": 0.07,
+    "total_s": 2.43
   }
 }

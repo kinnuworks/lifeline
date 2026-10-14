@@ -12,7 +12,7 @@
    "file": "sitrep_en.pdf",
    "sections": {
     "flooded": [
-     "The radar shows 1,640 ha (16.4 km²) flooded or buried by debris [F010][F011].",
+     "Satellite images show 1,640 ha (16.4 km²) flooded or buried by debris [F010][F011].",
      "Of this, 230 ha is open water and 1,410 ha is debris or scour [F012][F014].",
      "The radar could not see 10,888 ha because of terrain shadow, so conditions there are unknown [F016].",
      "The places with the most likely destroyed buildings: Nuwakot, Betrawti, Bhainse, Dewighat, Nauwise Phant [F061]."
@@ -27,14 +27,14 @@
      "Among them: Amachhodingmo, Bahundanda, Betrawti, Bhainse, Bhanjyang [F067].",
      "1 more settlement has lost its road but can still walk to a health facility within an hour [F065].",
      "The nearest health facility for 30 of the cut-off settlements is Rasuwa District Hospital [F068][F069].",
-     "OpenStreetMap lists 25 health facilities in the area. Hospitals among them: 20 [F2313][F2314]."
+     "OpenStreetMap lists 25 health facilities in the area (hospitals, health posts and clinics); its labels are not verified [F2313][F2314]."
     ],
     "chokepoints": [
-     "1. Reopening Pasang Lhamu Highway bridge (bridge) reconnects 18 settlements [F2316][F2317][F2320].",
-     "2. Reopening unnamed unclassified bridge (bridge) reconnects 7 settlements [F2322][F2323][F2326].",
-     "3. Reopening Pasang Lahamu bridge (bridge) reconnects 6 settlements [F2328][F2329][F2332].",
-     "4. Reopening Prithvi Rajmarg bridge (bridge) reconnects 4 settlements [F2334][F2335][F2338].",
-     "5. Reopening Pasang Lhamu Highway bridge (bridge) reconnects 3 settlements [F2340][F2341][F2344]."
+     "1. Reopening Pasang Lhamu Highway bridge reconnects 18 settlements [F2316][F2317][F2320].",
+     "2. Reopening unnamed unclassified bridge reconnects 7 settlements [F2322][F2323][F2326].",
+     "3. Reopening Pasang Lahamu bridge reconnects 6 settlements [F2328][F2329][F2332].",
+     "4. Reopening Prithvi Rajmarg bridge reconnects 4 settlements [F2334][F2335][F2338].",
+     "5. Reopening Pasang Lhamu Highway bridge reconnects 3 settlements [F2340][F2341][F2344]."
     ],
     "dates": [
      "Event date: 26 August 2026 [F001].",
@@ -105,10 +105,10 @@
    "file": "sitrep_ne.pdf",
    "sections": {
     "flooded": [
-     "राडार विश्लेषण अनुसार १,६४० हेक्टर (१६.४ वर्ग किलोमिटर) क्षेत्र डुबानमा परेको वा गेग्रानले पुरिएको देखिन्छ [F010][F011]।",
+     "भू-उपग्रह तस्बिर अनुसार १,६४० हेक्टर (१६.४ वर्ग किलोमिटर) क्षेत्र डुबानमा परेको वा गेग्रानले पुरिएको देखिन्छ [F010][F011]।",
      "यसमध्ये २३० हेक्टर खुला पानी र १,४१० हेक्टर गेग्रान वा कटान हो [F012][F014]।",
      "पहाडको छायाँका कारण १०,८८८ हेक्टर क्षेत्र राडारले देख्न सकेन, त्यहाँको अवस्था थाहा छैन [F016]।",
-     "सबैभन्दा धेरै घर ध्वस्त भएका ठाउँ: नुवाकोट, बेत्रावती, भैंसे, देवीघाट, नौविसे फाँट [F061]।"
+     "सबैभन्दा धेरै घर ध्वस्त भएको हुन सक्ने ठाउँ: नुवाकोट, बेत्रावती, भैंसे, देवीघाट, नौविसे फाँट [F061]।"
     ],
     "hit": [
      "घर/भवन: नक्सामा भएका १,८८,९३३ वटामध्ये २,९७४ वटा ध्वस्त भएको हुन सक्छ र ६३१ वटामा क्षति भएको हुन सक्छ [F025][F021][F022]।",
@@ -120,7 +120,7 @@
      "तीमध्ये: आमाछोदिङ्मो, बाहुनडाँडा, बेत्रावती, भैंसे, भञ्ज्याङ [F067]।",
      "अरू १ वटा बस्तीको सडक टुटे पनि घण्टाभित्रै हिँडेर स्वास्थ्य संस्था पुग्न सकिन्छ [F065]।",
      "सम्पर्क टुटेका ३० वटा बस्तीको सबैभन्दा नजिकको स्वास्थ्य संस्था Rasuwa District Hospital हो [F068][F069]।",
-     "OpenStreetMap मा यस क्षेत्रमा २५ वटा स्वास्थ्य संस्था छन्, जसमध्ये २० वटा अस्पताल हो [F2313][F2314]।"
+     "OpenStreetMap मा यस क्षेत्रमा २५ वटा स्वास्थ्य संस्था (अस्पताल, स्वास्थ्य चौकी, क्लिनिक) छन्; यी नाम र प्रकार प्रमाणित गरिएका छैनन् [F2313][F2314]।"
     ],
     "chokepoints": [
      "१. Pasang Lhamu Highway bridge (पुल) खोल्दा १८ वटा बस्ती फेरि जोडिन्छन् [F2316][F2317][F2320]।",

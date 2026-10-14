@@ -73,14 +73,32 @@ def web_validation(v: dict) -> dict:
             "roads_agree_rate": _num((r.get("destroyed_damaged_vs_no_visible_damage") or {}).get("agreement")),
             "bridges_flagged": br.get("flagged"),
             "bridges_total": br.get("n_ems_destroyed_damaged"),
-            "role": "development area" if a.get("aoi") == "AOI03" else "held out",
+            "role": "development area (settings tuned here)" if a.get("aoi") == "AOI03" else "held out",
         }
         aois.append(row)
     pooled = v.get("pooled", {})
     ext = pooled.get("extent_all_pixels", {})
+    # held-out areas only: the fairer estimate for a new valley (area 3 was used to choose settings)
+    tp = fp = fn = bf = bn = brf = brn = 0
+    for a in v.get("aois", []):
+        if a.get("result") != "compared" or a.get("aoi") == "AOI03":
+            continue
+        px = a.get("extent", {}).get("all_pixels", {}).get("pixels", {})
+        tp += px.get("tp", 0); fp += px.get("fp", 0); fn += px.get("fn", 0)
+        h = a.get("buildings", {}).get("hit_rate_destroyed_damaged", {})
+        if isinstance(h, dict):
+            bf += h.get("flagged", 0) or 0; bn += h.get("n", 0) or 0
+        brf += a.get("bridges", {}).get("flagged", 0) or 0
+        brn += a.get("bridges", {}).get("n_ems_destroyed_damaged", 0) or 0
+    prec = tp / (tp + fp) if tp + fp else None
+    rec = tp / (tp + fn) if tp + fn else None
+    held = {"flood_f1": round(2 * prec * rec / (prec + rec), 3) if prec and rec else None,
+            "flood_precision": round(prec, 3) if prec else None, "flood_recall": round(rec, 3) if rec else None,
+            "buildings_hit_rate": round(bf / bn, 3) if bn else None, "buildings_flagged": bf, "buildings_total": bn,
+            "bridges_flagged": brf, "bridges_total": brn, "areas": "AOI01, AOI02, AOI05"}
     return {
         "reference": f"Copernicus EMS rapid mapping, activation {v.get('activation', '')} ({v.get('stage', 'first')} grading maps)",
-        "reference_note": "Official maps are read only by the checker, after the run. They are never an input. Settings were chosen on area 3 (Bidur) only; the other delivered areas are held out.",
+        "reference_note": "Official maps are read only by the checker, after the run; the pipeline never reads them while it runs. Settings were tuned on area 3 (Bidur) only; the other delivered areas are held out.",
         "aois": aois,
         "pooled": {
             "flood_iou": ext.get("iou"),
@@ -93,6 +111,7 @@ def web_validation(v: dict) -> dict:
             "bridges_flagged": pooled.get("bridges", {}).get("flagged"),
             "bridges_total": pooled.get("bridges", {}).get("n_ems_destroyed_damaged"),
         },
+        "held_out": held,
         "notes": v.get("notes", []),
         "credit": "European Union, Copernicus Emergency Management Service data",
     }
@@ -258,7 +277,8 @@ def main(run_id: str, out: Path | None = None, update_index: bool = True):
         "buildings_checked": bld.get("checked") or osm.get("buildings"),
         "bridges_assessed": osm.get("bridges"),
         "roads_km_checked": osm.get("roads_km"),
-        "villages_routed": acc.get("settlements_with_road_before") or acc.get("settlements_total") or osm.get("places"),
+        "villages_routed": acc.get("settlements_total") or osm.get("places"),
+        "villages_with_road_before": acc.get("settlements_with_road_before"),
         "health_facilities": osm.get("health"),
         "villages_cut_off": acc.get("cutoff_total_p50_plus"),
         "villages_at_risk": acc.get("at_risk_p10_to_50"),
@@ -269,6 +289,7 @@ def main(run_id: str, out: Path | None = None, update_index: bool = True):
         "roads_under_debris_km": dmg.get("roads_under_damage_km"),
         "bridges_destroyed": b.get("destroyed_likely"),
         "buildings_hit": (bld.get("destroyed_likely", 0) + bld.get("damaged_possible", 0)) if bld else None,
+        "buildings_destroyed": bld.get("destroyed_likely") if bld else None,
         "copilot_caught": red.get("fabrications_caught") if red else None,
         "copilot_attempts": red.get("attempts") if red else None,
         "bounds": bbox,
@@ -278,10 +299,12 @@ def main(run_id: str, out: Path | None = None, update_index: bool = True):
         "warnings": meta.get("warnings", []),
     }
     if val:
-        wv = web_validation(val)["pooled"]
-        summary["check_buildings_hit_rate"] = wv["buildings_hit_rate"]
-        summary["check_bridges_flagged"] = wv["bridges_flagged"]
-        summary["check_bridges_total"] = wv["bridges_total"]
+        full = web_validation(val)
+        wv, ho = full["pooled"], full["held_out"]
+        summary["check_buildings_hit_rate"] = ho["buildings_hit_rate"]
+        summary["check_bridges_flagged"] = ho["bridges_flagged"]
+        summary["check_bridges_total"] = ho["bridges_total"]
+        summary["check_heldout_f1"] = ho["flood_f1"]
         summary["check_flood_f1"] = wv["flood_f1"]
         summary["check_flood_precision"] = wv["flood_precision"]
         summary["check_roads_recall"] = wv["roads_recall"]

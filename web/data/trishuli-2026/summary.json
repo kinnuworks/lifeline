@@ -2,13 +2,14 @@
  "run_id": "trishuli-2026",
  "title": "Bhote Koshi–Trishuli flood, Nepal",
  "event_date": "2026-08-26",
- "generated_at": "2026-10-14T14:49:43+00:00",
+ "generated_at": "2026-10-14T18:26:25+00:00",
  "radar_passes": 15,
  "radar_tracks": 3,
  "buildings_checked": 188933,
  "bridges_assessed": 353,
  "roads_km_checked": 7412.1,
- "villages_routed": 360,
+ "villages_routed": 397,
+ "villages_with_road_before": 360,
  "health_facilities": 25,
  "villages_cut_off": 52,
  "villages_at_risk": 0,
@@ -26,6 +27,7 @@
  "roads_under_debris_km": 99.64,
  "bridges_destroyed": 59,
  "buildings_hit": 3605,
+ "buildings_destroyed": 2974,
  "bounds": [
   84.93,
   27.78,
@@ -127,7 +129,7 @@
   },
   "model": {
    "state": "done",
-   "seconds": 2.7,
+   "seconds": 3.0,
    "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
    "weights": "lifeline_unet_s1.pt",
    "threshold": 0.5,
@@ -157,7 +159,7 @@
   },
   "facts": {
    "state": "done",
-   "seconds": 1.7
+   "seconds": 1.4
   },
   "report": {
    "state": "done",
@@ -165,13 +167,14 @@
   },
   "previews": {
    "state": "done",
-   "seconds": 3.5
+   "seconds": 3.4
   }
  },
  "warnings": [],
- "check_buildings_hit_rate": 0.8762,
- "check_bridges_flagged": 31,
- "check_bridges_total": 46,
+ "check_buildings_hit_rate": 0.701,
+ "check_bridges_flagged": 18,
+ "check_bridges_total": 28,
+ "check_heldout_f1": 0.664,
  "check_flood_f1": 0.7458,
  "check_flood_precision": 0.8615,
  "check_roads_recall": 0.8871

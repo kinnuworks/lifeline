@@ -1,6 +1,6 @@
 {
  "reference": "Copernicus EMS rapid mapping, activation EMSR927 (first grading maps)",
- "reference_note": "Official maps are read only by the checker, after the run. They are never an input. Settings were chosen on area 3 (Bidur) only; the other delivered areas are held out.",
+ "reference_note": "Official maps are read only by the checker, after the run; the pipeline never reads them while it runs. Settings were tuned on area 3 (Bidur) only; the other delivered areas are held out.",
  "aois": [
   {
    "id": "AOI01",
@@ -42,7 +42,7 @@
    "roads_agree_rate": 0.7299,
    "bridges_flagged": 13,
    "bridges_total": 18,
-   "role": "development area"
+   "role": "development area (settings tuned here)"
   },
   {
    "id": "AOI04",
@@ -81,6 +81,17 @@
   "roads_recall": 0.8871,
   "bridges_flagged": 31,
   "bridges_total": 46
+ },
+ "held_out": {
+  "flood_f1": 0.664,
+  "flood_precision": 0.881,
+  "flood_recall": 0.533,
+  "buildings_hit_rate": 0.701,
+  "buildings_flagged": 601,
+  "buildings_total": 857,
+  "bridges_flagged": 18,
+  "bridges_total": 28,
+  "areas": "AOI01, AOI02, AOI05"
  },
  "notes": [],
  "credit": "European Union, Copernicus Emergency Management Service data"

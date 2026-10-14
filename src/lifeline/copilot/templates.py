@@ -174,9 +174,9 @@ def flood_lines(d: _Doc) -> bool:
     both = f"{t} ({tk})" if tk else t
     c = d.cite("flood.area_ha.total", "flood.area_km2.total")
     if ne:
-        d.add(f"राडार विश्लेषण अनुसार {both} क्षेत्र डुबानमा परेको वा गेग्रानले पुरिएको देखिन्छ{c}।")
+        d.add(f"भू-उपग्रह तस्बिर अनुसार {both} क्षेत्र डुबानमा परेको वा गेग्रानले पुरिएको देखिन्छ{c}।")
     else:
-        d.add(f"The radar shows {both} flooded or buried by debris{c}.")
+        d.add(f"Satellite images show {both} flooded or buried by debris{c}.")
     if d.has("flood.area_ha.water", "flood.area_ha.debris"):
         w, b = d.v("flood.area_ha.water"), d.v("flood.area_ha.debris")
         c = d.cite("flood.area_ha.water", "flood.area_ha.debris")
@@ -190,7 +190,7 @@ def flood_lines(d: _Doc) -> bool:
     if d.has("damage.places_hit_names"):
         names = d.names("damage.places_hit_names", 5)
         c = d.cite("damage.places_hit_names")
-        d.add(f"सबैभन्दा धेरै घर ध्वस्त भएका ठाउँ: {names}{c}।" if ne
+        d.add(f"सबैभन्दा धेरै घर ध्वस्त भएको हुन सक्ने ठाउँ: {names}{c}।" if ne
               else f"The places with the most likely destroyed buildings: {names}{c}.")
     return True
 
@@ -291,8 +291,8 @@ def health_lines(d: _Doc) -> bool:
     if d.has("osm.health.total", "osm.health.hospitals"):
         t, hs = d.v("osm.health.total", False), d.v("osm.health.hospitals", False)
         c = d.cite("osm.health.total", "osm.health.hospitals")
-        d.add(f"OpenStreetMap मा यस क्षेत्रमा {t} वटा स्वास्थ्य संस्था छन्, जसमध्ये {hs} वटा अस्पताल हो{c}।" if ne
-              else f"OpenStreetMap lists {t} health facilities in the area. Hospitals among them: {hs}{c}.")
+        d.add(f"OpenStreetMap मा यस क्षेत्रमा {t} वटा स्वास्थ्य संस्था (अस्पताल, स्वास्थ्य चौकी, क्लिनिक) छन्; यी नाम र प्रकार प्रमाणित गरिएका छैनन्{c}।" if ne
+              else f"OpenStreetMap lists {t} health facilities in the area (hospitals, health posts and clinics); its labels are not verified{c}.")
         ok = True
     return ok
 
@@ -320,7 +320,7 @@ def chokepoint_lines(d: _Doc, n: int = 3, header: bool = True) -> bool:
             extra = f" ({ppl} जना)" if ppl else ""
             d.add(f"{rank}. {name} ({kind}) खोल्दा {vil} वटा बस्ती{extra} फेरि जोडिन्छन्{c}।")
         else:
-            kind_en = f" ({kind})" if kind else ""
+            kind_en = f" ({kind})" if kind and kind.lower() not in name.lower() else ""
             extra = f" ({ppl} people)" if ppl else ""
             word = "settlement" if vil == "1" else "settlements"
             d.add(f"{rank}. Reopening {name}{kind_en} reconnects {vil} {word}{extra}{c}.")
@@ -366,10 +366,10 @@ METHOD = {
 
 REFUSALS = {
     "casualty": {
-        "en": ("I can't give numbers of deaths, injuries or missing people. Satellite maps cannot show them. "
-               "Please check with the District Emergency Operations Centre or the police."),
-        "ne": ("मृत्यु, घाइते वा बेपत्ता भएका मानिसको संख्या म दिन सक्दिनँ। भू-उपग्रह नक्साले यो देखाउँदैन। "
-               "कृपया जिल्ला आपतकालीन कार्यसञ्चालन केन्द्र वा प्रहरीसँग बुझ्नुहोस्।"),
+        "en": ("Satellites cannot see deaths, injuries or missing people, so this map has no such figures. "
+               "The District Emergency Operations Centre and Nepal Police keep those counts."),
+        "ne": ("भू-उपग्रहले मृत्यु, घाइते वा बेपत्ता मानिस देख्न सक्दैन, त्यसैले यो नक्सामा त्यस्तो तथ्याङ्क छैन। "
+               "त्यो संख्या जिल्ला आपतकालीन कार्यसञ्चालन केन्द्र र नेपाल प्रहरीसँग हुन्छ।"),
     },
     "future": {
         "en": ("I can't predict when roads or bridges will reopen or what will happen next. "
@@ -382,11 +382,11 @@ REFUSALS = {
         "ne": "मसँग मौसमको तथ्याङ्क छैन। कृपया जल तथा मौसम विज्ञान विभागको पूर्वानुमान हेर्नुहोस्।",
     },
     "inject": {
-        "en": "I can't change how I work. I only report figures from this map.",
+        "en": "I answer only from this map's figures. Ask me about flooding, damage, cut-off villages or repairs.",
         "ne": "म मेरो काम गर्ने तरिका बदल्न सक्दिनँ। म यो नक्साको तथ्याङ्क मात्र बताउँछु।",
     },
     "assert": {
-        "en": "I can only repeat figures from this map. I can't change, round, guess or add to them.",
+        "en": "I only give figures that come from this map. Here is what it shows:",
         "ne": "म यो नक्साको तथ्याङ्क मात्र दोहोर्‍याउन सक्छु। अंक बदल्न, मिलाउन, अनुमान गर्न वा थप्न सक्दिनँ।",
     },
     "out_of_scope": {

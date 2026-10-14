@@ -93,14 +93,14 @@
             <span><i class="sw sw--debris"></i>Debris</span>
             <span><i class="sw sw--water"></i>Open water</span>
             <span><i class="sw sw--blind"></i>Not observed</span>
-            <span><i class="sw sw--road"></i>Road destroyed</span>
+            <span><i class="sw sw--road"></i>Road likely destroyed</span>
             <span><i class="sw sw--cut"></i>Cut off</span>
             <span><i class="sw sw--care"></i>Hospital or clinic</span>
           </div>
         </div>
       </div>
       <div class="float float--a" aria-hidden="true" data-hide-empty>
-        <div class="frag"><span class="pulse-dot"></span><div><b class="t-mono" data-sum="villages_cut_off">&nbsp;</b> villages cut off<small>No road route to any hospital or clinic</small></div></div>
+        <div class="frag"><span class="pulse-dot"></span><div><b class="t-mono" data-sum="villages_cut_off">&nbsp;</b> villages cut off<small>Likely no road route to a health facility</small></div></div>
       </div>
       <div class="float float--b" aria-hidden="true">
         <div class="frag frag--col"><small>Reopen first</small><b id="frag-choke-name">&nbsp;</b><span id="frag-choke-text">&nbsp;</span></div>
@@ -264,7 +264,7 @@
     <div class="fieldkit" id="fieldkit" hidden>
       <div class="fieldkit__alert">
         <div class="fieldkit__head">
-          <h3 class="t-title">Field alert, ready to send</h3>
+          <h3 class="t-title">Draft field message</h3>
           <div class="segmented segmented--sm" role="group" aria-label="Alert language">
             <button type="button" data-alang="en" aria-pressed="true">English</button>
             <button type="button" data-alang="ne" aria-pressed="false" lang="ne">नेपाली</button>
@@ -296,7 +296,7 @@
   <div class="container split copilot">
     <div>
       <span class="eyebrow">Copilot</span>
-      <h2 id="copilot-h">Ask in English or Nepali. It only says what the map knows.</h2>
+      <h2 id="copilot-h">Ask in English or Nepali. Every number comes from the map.</h2>
       <p class="lead">Every number the copilot may say lives in the map's facts ledger. A guard checks each answer and rejects any number that is not there, so the reply either cites its facts or refuses.</p>
       <div class="redteam card" id="redteam" hidden>
         <div class="redteam__num t-mono" id="redteam-num"></div>
@@ -332,7 +332,7 @@
       <span class="eyebrow">Try it</span>
       <h2 id="run-h">Run any valley.</h2>
       <p class="lead">Pick a past flood or draw a box, choose the date, and <span data-name>Lifeline</span> finds the images and runs the whole pipeline.</p>
-      <p class="speed"><b>25 s</b><span>for a new 10 × 10 km valley on the hosted engine, from raw Sentinel-1 and Sentinel-2 to a cut-off list and a Nepali report. The first run after a quiet spell adds about 25 s while the engine wakes.</span></p>
+      <p class="speed"><b>~2 min</b><span>for a new 10 × 10 km valley on the hosted engine, from raw Sentinel-1 and Sentinel-2 to a cut-off list and a Nepali report (125 s measured from this page; most of it waits on OpenStreetMap). The first run after a quiet spell adds about 25 s while the engine wakes.</span></p>
     </div>
     <div class="try">
       <form class="card run-card" id="run-form">
@@ -382,7 +382,7 @@
     <div class="section-head">
       <span class="eyebrow">Checked against the official maps</span>
       <h2 id="checks-h">Scored against Copernicus EMS, after the fact.</h2>
-      <p class="lead" id="checks-lead">The official rapid-mapping products are read only by the scoring step, after the run has finished. They never enter the pipeline.</p>
+      <p class="lead" id="checks-lead">The official rapid-mapping products are read only by the scoring step, after the run has finished; the pipeline never reads them while it runs. We tuned the settings on one official area (Bidur) and score the other three as held out.</p>
     </div>
     <div class="table-card">
       <div class="table-scroll" tabindex="0" role="region" aria-label="Agreement with the official maps, per area">
@@ -446,7 +446,7 @@
       <div class="card rules">
         <p class="t-title">Data rules</p>
         <ul class="checks">
-          <li>Official damage maps are never an input. A test fails the build if any reference file is read outside the scoring step.</li>
+          <li>The pipeline never reads the official damage maps while it runs; a test fails the build if any reference file is read outside the scoring step. Settings were tuned on one official area and tested on the other three.</li>
           <li>OpenStreetMap is a snapshot from before the flood (never later than 27 July 2026, the newest date the ohsome service holds), so mappers' post-event edits cannot leak in.</li>
           <li>Every number shown to a user exists in the run's facts ledger, with the file it came from.</li>
           <li>Pixels radar could not see stay unknown. They are never counted as dry.</li>

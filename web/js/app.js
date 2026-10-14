@@ -86,11 +86,11 @@ function scoreItems(s) {
     { v: s.radar_passes, label: "Radar passes compared", q: "where", how: `Sentinel-1 passes read for this run: for each orbit track over the area${s.radar_track_labels?.length ? ` (${s.radar_track_labels.join(", ")})` : ""}, the first pass after the flood, the last before it, and three earlier passes as the normal baseline.` },
     { v: s.buildings_checked, label: "Buildings checked", q: "what", how: `Every building in OpenStreetMap as it stood on ${s.osm_snapshot ? fmtDate(s.osm_snapshot) : "the snapshot date"}, before the flood.` },
     { v: s.bridges_assessed, label: "Bridges assessed", q: "what", how: "Every bridge in the pre-flood OpenStreetMap snapshot gets a hit probability." },
-    { v: s.villages_routed, label: "Villages routed to care", q: "who", how: has(s.health_facilities) ? `Road routes from every village and town to the ${s.health_facilities} hospitals and clinics in OpenStreetMap.` : "Road routes from every village and town to the nearest hospital or clinic." },
+    { v: s.villages_routed, label: "Settlements analysed", q: "who", how: has(s.health_facilities) ? `${s.villages_with_road_before ?? ""} had a mapped road route to care before the flood. Road routes from every village and town to the ${s.health_facilities} hospitals and clinics in OpenStreetMap.` : "Road routes from every village and town to the nearest hospital or clinic." },
     { v: s.villages_cut_off, label: "Villages cut off", q: "who", hot: true, how: "Villages whose chance of having no road route to any hospital or clinic is 0.5 or more." },
     { v: flooded, dec: 1, unit: "km²", label: "Ground flooded or buried", q: "where", how: "Open water plus debris and scour from radar change, with stripped valley ground from Sentinel-2 where the sky was clear." + (has(s.area_unobserved_km2) ? ` Another ${s.area_unobserved_km2} km² was hidden from radar by steep terrain and is not counted.` : "") },
-    { v: has(s.check_buildings_hit_rate) ? s.check_buildings_hit_rate * 100 : null, unit: "%", label: "Official damaged buildings also found", q: "check", how: `Share of buildings marked damaged in the Copernicus EMS maps that ${NAME} also flags. Those maps are used only for this check.` },
-    { v: s.check_bridges_flagged, of: s.check_bridges_total, label: "Official damaged bridges also found", q: "check", how: `Bridges the Copernicus EMS maps mark as damaged or destroyed, and how many of them ${NAME} flagged.` },
+    { v: has(s.check_buildings_hit_rate) ? s.check_buildings_hit_rate * 100 : null, unit: "%", label: "Official damaged buildings found, held-out areas", q: "check", how: `Share of buildings the Copernicus EMS maps grade as damaged, in the three areas the settings were never tuned on, that ${NAME} also flags. Those maps are read only by the checker, after the run.` },
+    { v: s.check_bridges_flagged, of: s.check_bridges_total, label: "Official damaged bridges found, held-out areas", q: "check", how: `Bridges the Copernicus EMS maps mark as damaged or destroyed, and how many of them ${NAME} flagged.` },
     { v: s.copilot_caught, of: s.copilot_attempts, label: "Invented numbers caught", q: "check", how: "Red-team prompts tried to make the copilot state numbers that are not in the facts ledger. This is how many the guard rejected." },
     { v: s.floods_tested, label: "Floods tested", q: "where", how: "Separate flood events the full pipeline has been run on, end to end." },
     { v: s.health_facilities, label: "Hospitals and clinics", q: "who", how: "Health facilities in the pre-flood OpenStreetMap snapshot used as routing targets." },
@@ -145,14 +145,14 @@ function renderChips() {
   if (has(s.radar_passes)) w.push(chipHTML(null, s.radar_passes, "radar passes"));
   $("#where-chips").innerHTML = w.join("");
   const h = [];
-  if (has(s.buildings_hit)) h.push(chipHTML(COLORS.bldg, fmtInt(s.buildings_hit), "buildings likely hit"));
+  if (has(s.buildings_hit)) h.push(chipHTML(COLORS.bldg, fmtInt(s.buildings_destroyed ?? s.buildings_hit), s.buildings_destroyed != null ? "buildings likely destroyed" : "buildings likely hit"));
   if (has(s.roads_under_debris_km)) h.push(chipHTML(COLORS.cut, Math.round(s.roads_under_debris_km * 10) / 10, "km of road under debris"));
   else if (has(s.roads_destroyed_km)) h.push(chipHTML(COLORS.cut, s.roads_destroyed_km, "km of road destroyed"));
-  if (has(s.bridges_destroyed)) h.push(chipHTML(null, s.bridges_destroyed, "bridges destroyed"));
+  if (has(s.bridges_destroyed)) h.push(chipHTML(null, s.bridges_destroyed, "bridges likely destroyed"));
   $("#hit-chips").innerHTML = h.join("");
   const c = [];
   if (has(s.villages_cut_off)) c.push(chipHTML(COLORS.cut, s.villages_cut_off, "villages cut off"));
-  if (has(s.villages_at_risk)) c.push(chipHTML(COLORS.risk, s.villages_at_risk, "reachable only by detour"));
+  if (s.villages_at_risk > 0) c.push(chipHTML(COLORS.risk, s.villages_at_risk, "reachable only by detour"));
   if (has(s.villages_routed)) c.push(chipHTML(null, fmtInt(s.villages_routed), "villages routed"));
   $("#cut-chips").innerHTML = c.join("");
 }
@@ -271,7 +271,7 @@ function renderValidation() {
   if (v.reference) $("#checks-lead").textContent = `${v.reference}. ${v.reference_note || "Used only to check results after the run. Never an input."}`;
   $("#val tbody").innerHTML = v.aois.map((a) => a.status === "cancelled"
     ? `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}</small></td><td colspan="4"><span class="status">Cancelled</span></td><td class="why">${esc(a.note || "")}</td></tr>`
-    : `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}</small></td><td class="num">${has(a.flood_f1) ? a.flood_f1.toFixed(2) : "–"}</td>
+    : `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}${a.role ? ` · ${esc(a.role)}` : ""}</small></td><td class="num">${has(a.flood_f1) ? a.flood_f1.toFixed(2) : "–"}</td>
        <td class="num">${pct(a.buildings_hit_rate)}</td><td class="num">${has(a.bridges_flagged) ? `${a.bridges_flagged} of ${a.bridges_total}` : "–"}</td>
        <td class="num">${pct(a.roads_agree_rate)}</td><td class="why">${esc(a.note || "")}</td></tr>`).join("");
   $("#val-notes").innerHTML = (v.notes || []).map((n) => `<li>${esc(n)}</li>`).join("");
@@ -288,8 +288,8 @@ async function renderModel() {
 
 /* ------------------------------------------------------------------ copilot */
 const CHAT_INTRO = {
-  en: "Ask about damage, access or repairs in this run. Every number I give comes from the facts ledger, and I say so when the map does not know.",
-  ne: "यो नक्साको क्षति, बाटो वा मर्मतबारे सोध्नुहोस्। मैले दिने हरेक अङ्क तथ्य तालिकाबाट आउँछ। नक्सालाई थाहा नभएको कुरा म भन्दिनँ।",
+  en: "Ask about damage, access or repairs in this run. Every number I give comes from the facts ledger. If you ask something the map cannot show, I will say so plainly.",
+  ne: "यो नक्साको क्षति, बाटो वा मर्मतबारे सोध्नुहोस्। मैले दिने हरेक अङ्क तथ्य तालिकाबाट आउँछ। नक्सामा नभएको कुरा सोध्नुभयो भने म त्यो स्पष्ट भन्छु।",
 };
 function renderCopilotIntro() {
   $("#chat-log").innerHTML = "";
@@ -304,7 +304,9 @@ function renderCopilotIntro() {
 }
 function renderSugg() {
   const qs = state.samples.filter((x) => x.lang === state.lang);
-  $("#chat-sugg").innerHTML = qs.map((x, i) => `<button type="button" class="chip" data-q="${esc(x.q)}" lang="${x.lang}">${esc(x.q)}</button>`).join("");
+  const chip = (x) => `<button type="button" class="chip" data-q="${esc(x.q)}" lang="${x.lang}">${esc(x.q)}</button>`;
+  const good = qs.filter((x) => !x.refused), decline = qs.filter((x) => x.refused);
+  $("#chat-sugg").innerHTML = good.map(chip).join("") + (decline.length ? `<span class="chat__sugg-label">${state.lang === "ne" ? "यसले नम्रतापूर्वक अस्वीकार गर्नुपर्ने प्रश्न:" : "Questions it should decline:"}</span>` + decline.map(chip).join("") : "");
   $$("#chat-sugg .chip").forEach((b) => b.addEventListener("click", () => ask(b.dataset.q)));
 }
 function addMsg(kind, text, opt = {}) {
@@ -313,7 +315,7 @@ function addMsg(kind, text, opt = {}) {
   if (opt.lang) el.lang = opt.lang;
   if (opt.typing) el.innerHTML = '<span class="sr-only">Writing</span><i></i><i></i><i></i>';
   else {
-    el.innerHTML = (opt.refused ? `<span class="msg__flag" lang="en">Refused · not in the facts ledger</span><br>` : "") + esc(text).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
+    el.innerHTML = (opt.refused ? `<span class="msg__flag" lang="en">${opt.flag || "Outside what satellites can show"}</span><br>` : "") + esc(text).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
       + (opt.cites?.length ? `<div class="msg__cites" lang="en">${opt.cites.map((c) => { const id = typeof c === "string" ? c : c.id; const f = state.factById[id]; const tip = f ? `${state.lang === "ne" && f.label_ne ? f.label_ne : f.label_en}: ${f.value}${f.unit ? " " + f.unit : ""} (${f.source})` : "Fact in the ledger"; return `<span class="cite" title="${esc(tip)}">${esc(id)}</span>`; }).join("")}</div>` : "")
       + (opt.note ? `<p class="t-micro" style="margin-top:6px">${esc(opt.note)}</p>` : "");
   }
@@ -337,7 +339,7 @@ async function ask(q) {
   }
   await new Promise((r) => setTimeout(r, REDUCE ? 0 : 650));
   typing.remove();
-  if (reply) addMsg("a", reply.answer, { refused: reply.refused, cites: reply.citations, lang: /[ऀ-ॿ]/.test(reply.answer) ? "ne" : "en" });
+  if (reply) addMsg("a", reply.answer, { refused: reply.refused, flag: /[0-9०-९]/.test(reply.answer || "") ? "Corrected to the mapped figure" : undefined, cites: reply.citations, lang: /[ऀ-ॿ]/.test(reply.answer) ? "ne" : "en" });
   else addMsg("a", state.lang === "ne" ? "प्रत्यक्ष कोपाइलट अहिले बन्द छ। तलका नमुना प्रश्नहरूको मात्र उत्तर उपलब्ध छ।" : "The live copilot is offline right now, so only the sample questions below have answers.", { lang: state.lang });
 }
 function initCopilot() {
@@ -471,7 +473,7 @@ function applyRun(map, kind) {
     addMarker(kind, map, el, f.geometry.coordinates, `<b>${esc(f.properties.name)}</b><br>${esc((f.properties.kind || "").replace("_", " "))}`);
   }
   if (kind === "hero") {
-    for (const v of vs.filter((v) => v.cutoff || (v.p_cutoff ?? 0) >= 0.5)) {
+    for (const v of vs.filter((v) => v.cutoff ?? ((v.p_cutoff ?? 0) >= 0.5))) {   // a village whose road is cut but care is within an hour on foot is not drawn as cut off
       const el = document.createElement("div"); el.className = "vmark vmark--cut"; el.setAttribute("aria-label", `${v.name}, cut off`);
       addMarker(kind, map, el, [v.lon, v.lat], villagePopup(v));
     }
@@ -790,7 +792,7 @@ async function runTour() {
     }
     if (top) {
       fly({ center: [top.lon, top.lat], zoom: 13.2, pitch: 64, bearing: 170, d: 4200 });
-      await say(3, `Here the highway and a bridge are gone. ${s.villages_cut_off ?? "Many"} settlements across the area have lost their road to a hospital or clinic.`, 5200);
+      await say(3, `Here the radar shows the highway and a bridge likely destroyed. ${s.villages_cut_off ?? "Many"} settlements across the area have likely lost their road to a hospital or clinic.`, 5200);
       fly({ center: [top.lon, top.lat], zoom: 11.4, pitch: 50, bearing: 160, d: 3600 });
       document.querySelectorAll(".maplibregl-marker").forEach((el) => el.classList.add("tour-glow"));
       await say(4, `Reopen this first: ${top.name} and the closed stretches next to it reconnect ${top.villages_reconnected} settlements, ${[...new Set(top.names || [])].slice(0, 3).join(", ")} among them.`, 6500);

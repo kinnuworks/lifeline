@@ -60,3 +60,4 @@ runs/teesta-2023/access/*
 .env.local
 deploy/DEVPOST.md
 deploy/PUBLISH.md
+deploy/devpost/

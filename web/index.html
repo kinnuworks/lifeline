@@ -61,6 +61,7 @@
       <a class="btn btn-outline btn-lg" id="sitrep-link" href="data/trishuli-2026/sitrep_en.pdf" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
         Read the situation report</a>
+      <button type="button" class="btn btn-ghost btn-lg" id="tour-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>30-second tour</button>
     </div>
     <p class="trust"><span>Free satellite data</span><span>Runs from raw radar</span><span>English and <span lang="ne">नेपाली</span></span></p>
   </div>
@@ -83,8 +84,10 @@
             </div>
           </div>
           <div class="map-ui map-ui--tr">
+            <button type="button" class="map-btn map-btn--tour" id="tour-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5z"/></svg>Tour</button>
             <button type="button" class="map-btn" id="hero-3d" aria-pressed="true">3D</button>
           </div>
+          <div class="tour-cap" id="tour-cap" hidden aria-live="polite"><span class="tour-cap__step" id="tour-step"></span><p id="tour-text"></p><button type="button" class="tour-cap__x" id="tour-stop" aria-label="Stop the tour">×</button></div>
           <div class="legend" aria-label="Legend">
             <span><i class="sw sw--debris"></i>Debris</span>
             <span><i class="sw sw--water"></i>Open water</span>
@@ -256,6 +259,34 @@
       </div>
       <div class="table-foot"><span class="t-micro" id="vt-count"></span><button type="button" class="btn btn-outline btn-sm" id="vt-more" hidden>Show all villages</button></div>
     </div>
+
+    <div class="fieldkit" id="fieldkit" hidden>
+      <div class="fieldkit__alert">
+        <div class="fieldkit__head">
+          <h3 class="t-title">Field alert, ready to send</h3>
+          <div class="segmented segmented--sm" role="group" aria-label="Alert language">
+            <button type="button" data-alang="en" aria-pressed="true">English</button>
+            <button type="button" data-alang="ne" aria-pressed="false" lang="ne">नेपाली</button>
+          </div>
+        </div>
+        <p class="fieldkit__text" id="alert-text"></p>
+        <div class="fieldkit__foot">
+          <span class="t-micro" id="alert-len"></span>
+          <button type="button" class="btn btn-primary btn-sm" id="alert-copy">Copy for SMS or WhatsApp</button>
+        </div>
+        <p class="t-micro">Every number comes from the facts ledger and passes the same number guard as the copilot.</p>
+      </div>
+      <div class="fieldkit__files">
+        <h3 class="t-title">For field teams</h3>
+        <p class="t-small">Open in Google Earth, on a phone map app, or in QGIS.</p>
+        <ul class="filelist">
+          <li><a id="dl-cut-kml" download>Cut-off villages <span>KML</span></a><a id="dl-cut-geo" download><span>GeoJSON</span></a></li>
+          <li><a id="dl-road-kml" download>Damaged roads <span>KML</span></a><a id="dl-road-geo" download><span>GeoJSON</span></a></li>
+          <li><a id="dl-rep-kml" download>Repair priorities <span>KML</span></a></li>
+          <li><a id="dl-sitrep-en" target="_blank" rel="noopener">Situation report <span>PDF</span></a><a id="dl-sitrep-ne" target="_blank" rel="noopener" lang="ne"><span>नेपाली PDF</span></a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -300,15 +331,19 @@
       <span class="eyebrow">Try it</span>
       <h2 id="run-h">Run any valley.</h2>
       <p class="lead">Pick a past flood or draw a box, choose the date, and <span data-name>Lifeline</span> finds the images and runs the whole pipeline.</p>
+      <p class="speed"><b>25 s</b><span>for a new 10 × 10 km valley on the hosted engine, from raw Sentinel-1 and Sentinel-2 to a cut-off list and a Nepali report. The first run after a quiet spell adds about 25 s while the engine wakes.</span></p>
     </div>
     <div class="try">
       <form class="card run-card" id="run-form">
         <div>
           <p class="field-label">Start from a past flood</p>
           <div class="chips" id="presets">
+            <button type="button" class="chip" data-preset="quick" aria-pressed="false">Bidur, 10 km (fast)</button>
             <button type="button" class="chip" data-preset="trishuli" aria-pressed="true">Trishuli 2026</button>
             <button type="button" class="chip" data-preset="melamchi" aria-pressed="false">Melamchi 2021</button>
             <button type="button" class="chip" data-preset="teesta" aria-pressed="false">Teesta 2023</button>
+            <button type="button" class="chip" data-preset="beas" aria-pressed="false">Beas, Mandi 2023</button>
+            <button type="button" class="chip" data-preset="chamoli" aria-pressed="false">Chamoli 2021</button>
           </div>
         </div>
         <div>

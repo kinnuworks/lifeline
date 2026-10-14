@@ -1,0 +1,1 @@
+{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[79.62815,30.49465]},"properties":{"status":"destroyed_likely","hit_prob":1.0}},{"type":"Feature","geometry":{"type":"Point","coordinates":[79.62349,30.49436]},"properties":{"status":"damaged_possible","hit_prob":0.5}}]}

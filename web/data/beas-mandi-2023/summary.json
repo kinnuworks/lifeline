@@ -1,0 +1,168 @@
+{
+ "run_id": "beas-mandi-2023",
+ "title": "Beas flood, Mandi and Kullu, Himachal, 9 Jul 2023",
+ "event_date": "2023-07-09",
+ "generated_at": "2026-10-14T15:57:21+00:00",
+ "radar_passes": 15,
+ "radar_tracks": 3,
+ "buildings_checked": 131,
+ "bridges_assessed": 76,
+ "roads_km_checked": 1449.0,
+ "villages_routed": 780,
+ "health_facilities": 55,
+ "villages_cut_off": 95,
+ "villages_at_risk": 68,
+ "area_debris_km2": 1.25,
+ "area_water_km2": 0.35,
+ "area_unobserved_km2": 21.13,
+ "area_optical_added_km2": 0.0,
+ "osm_snapshot": "2023-07-08",
+ "radar_track_labels": [
+  "129 ascending",
+  "136 descending",
+  "27 ascending"
+ ],
+ "roads_destroyed_km": 18.8,
+ "roads_under_debris_km": 3.19,
+ "bridges_destroyed": 3,
+ "buildings_hit": 0,
+ "bounds": [
+  76.85,
+  31.62,
+  77.17,
+  31.92
+ ],
+ "center": [
+  77.00999999999999,
+  31.770000000000003
+ ],
+ "radar_pairs": [
+  {
+   "orbit": 129,
+   "direction": "ascending",
+   "before": "2023-06-29",
+   "after": "2023-07-11",
+   "baseline": [
+    "2023-05-24",
+    "2023-06-05",
+    "2023-06-17"
+   ],
+   "platform": "SENTINEL-1A"
+  },
+  {
+   "orbit": 136,
+   "direction": "descending",
+   "before": "2023-06-30",
+   "after": "2023-07-12",
+   "baseline": [
+    "2023-05-25",
+    "2023-06-06",
+    "2023-06-18"
+   ],
+   "platform": "SENTINEL-1A"
+  },
+  {
+   "orbit": 27,
+   "direction": "ascending",
+   "before": "2023-06-22",
+   "after": "2023-07-16",
+   "baseline": [
+    "2023-05-17",
+    "2023-05-29",
+    "2023-06-10"
+   ],
+   "platform": "SENTINEL-1A"
+  }
+ ],
+ "stages": {
+  "images": {
+   "state": "done",
+   "seconds": 351.4,
+   "passes": 15
+  },
+  "terrain": {
+   "state": "done",
+   "seconds": 2.5
+  },
+  "radar": {
+   "state": "done",
+   "seconds": 4.6,
+   "water_km2": 0.35,
+   "debris_km2": 1.25,
+   "unobserved_km2": 21.13
+  },
+  "optical": {
+   "state": "done",
+   "seconds": 57.1,
+   "pre_dates": [
+    "2023-06-03",
+    "2023-06-08",
+    "2023-06-13"
+   ],
+   "post_dates": [
+    "2023-08-02",
+    "2023-08-17"
+   ],
+   "clear_share": 0.005,
+   "optical_added_km2": 0.0,
+   "hand_m": 45.0,
+   "near_km": 0.5,
+   "min_px": 10
+  },
+  "osm": {
+   "state": "done",
+   "seconds": 80.2
+  },
+  "damage": {
+   "state": "done",
+   "seconds": 0.6
+  },
+  "access": {
+   "state": "done",
+   "seconds": 1.2
+  },
+  "model": {
+   "state": "done",
+   "seconds": 4.7,
+   "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
+   "weights": "lifeline_unet_s1.pt",
+   "threshold": 0.5,
+   "pixel_m": 20.0,
+   "terrain_mask": [
+    "observed==0",
+    "slope>15deg",
+    "hand>25m"
+   ],
+   "water_km2": 0.065,
+   "agree_with_radar_water": 0.0,
+   "model_only_km2": 0.065,
+   "model_water_on_debris_class_km2": 0.0,
+   "raw": {
+    "water_km2": 0.838,
+    "agree_with_radar_water": 0.0,
+    "model_only_km2": 0.686,
+    "model_water_on_debris_class_km2": 0.0,
+    "water_km2_on_slope_gt_20deg": 0.73
+   },
+   "masked": {
+    "water_km2": 0.065,
+    "agree_with_radar_water": 0.0,
+    "model_only_km2": 0.065,
+    "model_water_on_debris_class_km2": 0.0
+   }
+  },
+  "facts": {
+   "state": "done",
+   "seconds": 2.8
+  },
+  "report": {
+   "state": "done",
+   "seconds": 0.3
+  },
+  "previews": {
+   "state": "done",
+   "seconds": 1.5
+  }
+ },
+ "warnings": []
+}

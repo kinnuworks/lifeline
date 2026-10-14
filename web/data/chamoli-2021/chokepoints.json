@@ -1,0 +1,27 @@
+[
+  {
+    "rank": 1,
+    "osm_id": "way/683265975",
+    "kind": "bridge",
+    "name": "unnamed service bridge",
+    "lon": 79.629007,
+    "lat": 30.493301,
+    "villages_reconnected": 2,
+    "people_reconnected": 0,
+    "names": [
+      "Bhangyul",
+      "Garghaniya"
+    ],
+    "osm_ids": [
+      "way/683265975",
+      "way/683265976",
+      "way/683265978"
+    ],
+    "hit_prob": 1.0,
+    "p_close": 1.0,
+    "length_m": 738.0,
+    "highway": "service",
+    "combined_repair": true,
+    "people_basis": "OSM population tags"
+  }
+]

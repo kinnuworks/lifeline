@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [85.575905, 27.829082]}, "properties": {"name": "Melamchi", "name_ne": "", "p_cutoff": 1.0, "nearest_health": "Lagarche Health Post", "minutes_before": 80.9, "walk_minutes_after": 670.5}}]}

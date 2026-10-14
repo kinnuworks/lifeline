@@ -10,11 +10,27 @@
    "mock": false
   },
   {
-   "run_id": "placebo-2026-07",
-   "title": "No-flood check: Trishuli corridor, 25 Jul 2026",
-   "area_name": "No-flood check: Trishuli corridor, 25 Jul 2026",
-   "event_date": "2026-07-25",
-   "path": "placebo-2026-07/",
+   "run_id": "teesta-2023",
+   "title": "Teesta glacial lake flood, Sikkim, 4 Oct 2023",
+   "area_name": "Teesta glacial lake flood, Sikkim, 4 Oct 2023",
+   "event_date": "2023-10-04",
+   "path": "teesta-2023/",
+   "mock": false
+  },
+  {
+   "run_id": "beas-mandi-2023",
+   "title": "Beas flood, Mandi and Kullu, Himachal, 9 Jul 2023",
+   "area_name": "Beas flood, Mandi and Kullu, Himachal, 9 Jul 2023",
+   "event_date": "2023-07-09",
+   "path": "beas-mandi-2023/",
+   "mock": false
+  },
+  {
+   "run_id": "chamoli-2021",
+   "title": "Chamoli rock-ice avalanche and flood, Uttarakhand, 7 Feb 2021",
+   "area_name": "Chamoli rock-ice avalanche and flood, Uttarakhand, 7 Feb 2021",
+   "event_date": "2021-02-07",
+   "path": "chamoli-2021/",
    "mock": false
   },
   {
@@ -26,11 +42,11 @@
    "mock": false
   },
   {
-   "run_id": "teesta-2023",
-   "title": "Teesta glacial lake flood, Sikkim, 4 Oct 2023",
-   "area_name": "Teesta glacial lake flood, Sikkim, 4 Oct 2023",
-   "event_date": "2023-10-04",
-   "path": "teesta-2023/",
+   "run_id": "placebo-2026-07",
+   "title": "No-flood check: Trishuli corridor, 25 Jul 2026",
+   "area_name": "No-flood check: Trishuli corridor, 25 Jul 2026",
+   "event_date": "2026-07-25",
+   "path": "placebo-2026-07/",
    "mock": false
   }
  ]

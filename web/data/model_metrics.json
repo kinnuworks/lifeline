@@ -1,5 +1,5 @@
 {
- "weights": "src/bato/model/weights/bato_unet_s1.pt",
+ "weights": "src/lifeline/model/weights/lifeline_unet_s1.pt",
  "config": {
   "arch": "Unet",
   "encoder": "resnet34",

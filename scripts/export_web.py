@@ -98,6 +98,60 @@ def web_validation(v: dict) -> dict:
     }
 
 
+def _kml(features, name_of, style) -> str:
+    """Minimal KML that Google Earth and phone map apps open."""
+    from xml.sax.saxutils import escape
+
+    marks = []
+    for f in features:
+        g = f.get("geometry") or {}
+        nm = escape(str(name_of(f.get("properties") or {})))
+        if g.get("type") == "Point":
+            x, y = g["coordinates"][:2]
+            geom = f"<Point><coordinates>{x:.6f},{y:.6f}</coordinates></Point>"
+        elif g.get("type") in ("LineString", "MultiLineString"):
+            lines = [g["coordinates"]] if g["type"] == "LineString" else g["coordinates"]
+            geom = "<MultiGeometry>" + "".join("<LineString><coordinates>" + " ".join(f"{x:.6f},{y:.6f}" for x, y, *_ in ln) + "</coordinates></LineString>" for ln in lines) + "</MultiGeometry>"
+        else:
+            continue
+        marks.append(f"<Placemark><name>{nm}</name><styleUrl>#s</styleUrl>{geom}</Placemark>")
+    return ('<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document>'
+            f'<Style id="s">{style}</Style>' + "".join(marks) + "</Document></kml>")
+
+
+def _field_kit(run: Path, out: Path) -> None:
+    """Copy-paste alert text and files a field team can open on a phone or in Google Earth."""
+    try:
+        from lifeline.report.alert import build_alert
+
+        a = build_alert(run)
+        (out / "alert.json").write_text(json.dumps(a, ensure_ascii=False))
+    except Exception as e:  # the site works without it
+        print("alert skipped:", e)
+    st = load(run / "access" / "settlements.geojson")
+    if st:
+        cut = [f for f in st["features"] if (f["properties"].get("p_cutoff") or 0) >= 0.5]
+        fc = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": f["geometry"], "properties": {k: f["properties"].get(k) for k in ("name", "name_ne", "p_cutoff", "nearest_health", "minutes_before", "walk_minutes_after")}} for f in cut]}
+        (out / "cutoff_villages.geojson").write_text(json.dumps(fc, ensure_ascii=False))
+        (out / "cutoff_villages.kml").write_text(_kml(cut, lambda p: f"{p.get('name')} (cut off, p={p.get('p_cutoff', 0):.2f})",
+                                                       "<IconStyle><color>ff2b39c0</color><scale>1.1</scale></IconStyle>"))
+    rd = load(run / "damage" / "roads.geojson")
+    if rd:
+        bad = [f for f in rd["features"] if f["properties"].get("status") in ("destroyed_likely", "damaged_possible")]
+        fc = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": f["geometry"], "properties": {k: f["properties"].get(k) for k in ("name", "highway", "status", "hit_prob")}} for f in bad]}
+        (out / "damaged_roads.geojson").write_text(json.dumps(fc, ensure_ascii=False))
+        (out / "damaged_roads.kml").write_text(_kml(bad, lambda p: f"{p.get('name') or p.get('highway') or 'road'} ({p.get('status')})",
+                                                     "<LineStyle><color>ff2b39c0</color><width>4</width></LineStyle>"))
+    ch = run / "access" / "chokepoints.json"
+    if ch.exists():
+        c = json.loads(ch.read_text())
+        c = c.get("ranked", c) if isinstance(c, dict) else c
+        feats = [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [x["lon"], x["lat"]]},
+                  "properties": {"rank": x["rank"], "name": x["name"], "villages_reconnected": x["villages_reconnected"]}} for x in c]
+        (out / "repairs.kml").write_text(_kml(feats, lambda p: f"#{p['rank']} {p['name']}: reconnects {p['villages_reconnected']}",
+                                              "<IconStyle><color>ff2b79c8</color><scale>1.3</scale></IconStyle>"))
+
+
 def _areas_from_map(run: Path, radar: dict) -> dict:
     """Areas from the final flood map (radar plus optical fusion), falling back to the radar stage."""
     p = run / "rasters" / "flood_class.tif"
@@ -165,6 +219,7 @@ def main(run_id: str, out: Path | None = None, update_index: bool = True):
     for name in ("chokepoints.json",):
         if (run / "access" / name).exists():
             shutil.copy(run / "access" / name, out / name)
+    _field_kit(run, out)
     for name in ("flowpath.geojson", "validation.json", "copilot_samples.json", "optical.json"):
         if not (out / name).exists():   # optional for this run: an explicit empty file keeps the browser console clean
             (out / name).write_text("null")

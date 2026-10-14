@@ -33,6 +33,7 @@ async function loadRun(base) {
   const res = await Promise.all(files.map((f) => tryJSON(base + f)));
   const [summary, overlays, roads, bridges, bldg, settle, health, choke, flow, validation, samples, facts] = res;
   state.optical = await tryJSON(base + "optical.json");
+  state.alert = await tryJSON(base + "alert.json");
   state.cmpMode = null;
   Object.assign(state, { base, summary: summary || {}, overlays: overlays || [], roads, bridges, bldg, settle, health,
     choke: choke || [], flow, validation, samples: samples || [], facts: facts || [] });
@@ -52,7 +53,7 @@ function renderAll() {
   for (const id of ["sitrep-link", "sitrep-en"]) $("#" + id).href = state.base + "sitrep_en.pdf";
   $("#sitrep-ne").href = state.base + "sitrep_ne.pdf";
   renderFrags(); renderScore(); renderChips(); renderCompare(); renderTTC(); renderTable(); renderChoke();
-  renderValidation(); renderCopilotIntro(); renderTraceOut(null);
+  renderValidation(); renderCopilotIntro(); renderTraceOut(null); renderFieldKit();
   for (const [kind, map] of Object.entries(state.maps)) if (map && map._llReady) applyRun(map, kind);
 }
 
@@ -170,7 +171,7 @@ function renderCompare() {
   if (state.cmpMode === "optical") {
     stage.hidden = false;
     $("#cmp-before").src = state.base + "optical_before.jpg"; $("#cmp-after").src = state.base + "optical_after.jpg";
-    $("#cmp-title").textContent = "Sentinel-2 · Bidur";
+    $("#cmp-title").textContent = state.runId === "trishuli-2026" ? "Sentinel-2 · Trishuli at Bidur" : `Sentinel-2 · ${(s.title || "").split(",")[0]}`;
     $("#cmp-tag-before").textContent = opt.before_dates?.length ? `Before · ${fmtDate(opt.before_dates.at(-1))}` : "Before";
     $("#cmp-tag-after").textContent = opt.after_dates?.length ? `After · ${fmtDate(opt.after_dates[0])}` : "After";
     tog.hidden = true; cls.hidden = true;
@@ -564,9 +565,12 @@ function renderTraceOut(o) {
 
 /* ------------------------------------------------------------------ run any valley */
 const PRESETS = {
-  trishuli: { name: "Trishuli 2026", bbox: [85.10, 27.85, 85.45, 28.30], date: "2026-08-26", run: "trishuli-2026" },
-  melamchi: { name: "Melamchi 2021", bbox: [85.48, 27.78, 85.62, 28.05], date: "2021-06-15" },
-  teesta: { name: "Teesta 2023", bbox: [88.40, 27.15, 88.75, 27.95], date: "2023-10-04" },
+  quick: { name: "Bidur, 10 km (fast demo)", bbox: [85.12, 27.88, 85.22, 27.98], date: "2026-08-26" },
+  trishuli: { name: "Trishuli 2026", bbox: [84.93, 27.78, 85.45, 28.30], date: "2026-08-26", run: "trishuli-2026" },
+  melamchi: { name: "Melamchi 2021", bbox: [85.48, 27.78, 85.68, 28.05], date: "2021-06-15", run: "melamchi-2021" },
+  teesta: { name: "Teesta 2023", bbox: [88.40, 27.15, 88.70, 27.65], date: "2023-10-04", run: "teesta-2023" },
+  beas: { name: "Beas, Mandi 2023", bbox: [76.85, 31.62, 77.17, 31.92], date: "2023-07-09", run: "beas-mandi-2023" },
+  chamoli: { name: "Chamoli 2021", bbox: [79.55, 30.38, 79.85, 30.62], date: "2021-02-07", run: "chamoli-2021" },
 };
 const STAGES = [["find_images", "Finding images"], ["radar_change", "Radar change"], ["osm", "OpenStreetMap"], ["damage", "Damage"], ["cutoff", "Cut off"], ["report", "Report"]];
 const run = { bbox: PRESETS.trishuli.bbox.slice(), preset: "trishuli", drawing: false, polling: null };
@@ -736,3 +740,65 @@ boot();
   }, { rootMargin: "-45% 0px -50% 0px" });
   targets.forEach((t) => io.observe(t));
 })();
+
+/* ------------------------------------------------------------------ field kit */
+let alertLang = "en";
+function renderFieldKit() {
+  const box = $("#fieldkit"), a = state.alert;
+  box.hidden = !a;
+  if (!a) return;
+  const t = a[alertLang] || a.en || "";
+  const el = $("#alert-text"); el.textContent = t; el.lang = alertLang;
+  $("#alert-len").textContent = `${t.length} characters`;
+  $$("[data-alang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.alang === alertLang)));
+  const b = state.base;
+  const set = (id, f) => { const e = $("#" + id); if (e) e.href = b + f; };
+  set("dl-cut-kml", "cutoff_villages.kml"); set("dl-cut-geo", "cutoff_villages.geojson");
+  set("dl-road-kml", "damaged_roads.kml"); set("dl-road-geo", "damaged_roads.geojson");
+  set("dl-rep-kml", "repairs.kml"); set("dl-sitrep-en", "sitrep_en.pdf"); set("dl-sitrep-ne", "sitrep_ne.pdf");
+}
+$$("[data-alang]").forEach((b) => b.addEventListener("click", () => { alertLang = b.dataset.alang; renderFieldKit(); }));
+$("#alert-copy")?.addEventListener("click", async () => {
+  const btn = $("#alert-copy");
+  try { await navigator.clipboard.writeText($("#alert-text").textContent); btn.textContent = "Copied"; }
+  catch { btn.textContent = "Select the text to copy"; }
+  setTimeout(() => (btn.textContent = "Copy for SMS or WhatsApp"), 1800);
+});
+
+/* ------------------------------------------------------------------ guided tour */
+let touring = 0;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+async function runTour() {
+  const map = state.maps.hero; if (!map || !map._llReady) return;
+  const id = ++touring, s = state.summary, cap = $("#tour-cap");
+  const path = (state.flow?.features || []).find((f) => f.properties?.kind === "path")?.geometry?.coordinates;
+  const top = (state.choke || [])[0];
+  const villages = (state.flow?.features || []).filter((f) => f.properties?.kind === "village").length;
+  const say = async (n, text, ms) => { if (id !== touring) throw 0; $("#tour-step").textContent = `${n} / 4`; $("#tour-text").textContent = text; cap.hidden = false; await sleep(REDUCE ? 600 : ms); if (id !== touring) throw 0; };
+  const fly = (o) => map.flyTo({ duration: REDUCE ? 0 : o.d || 3800, essential: true, ...o });
+  try {
+    if (path?.length > 2) {
+      if (!map.getSource("tour-path")) {
+        map.addSource("tour-path", { type: "geojson", data: { type: "Feature", geometry: { type: "LineString", coordinates: path } } });
+        map.addLayer({ id: "tour-path", type: "line", source: "tour-path", paint: { "line-color": COLORS.water, "line-width": 4, "line-opacity": 0.9, "line-dasharray": [1.5, 1] } });
+      }
+      const a = path[0], m = path[Math.floor(path.length * 0.25)];
+      fly({ center: a, zoom: 12.3, pitch: 62, bearing: 200 });
+      await say(1, `${fmtDate(s.event_date)}. Upstream, near the border, a glacier collapse sends a debris flood down the Bhote Koshi.`, 4600);
+      fly({ center: m, zoom: 11.6, pitch: 60, bearing: 205, d: 5200 });
+      await say(2, `Lifeline traces where it ran on the elevation model${villages ? `: ${villages} settlements sit on its path` : ""}. Orange is debris the radar saw; grey is ground it could not see.`, 5600);
+    }
+    if (top) {
+      fly({ center: [top.lon, top.lat], zoom: 13.2, pitch: 64, bearing: 170, d: 4200 });
+      await say(3, `Here the highway and a bridge are gone. ${s.villages_cut_off ?? "Many"} settlements across the area have lost their road to a hospital or clinic.`, 5200);
+      fly({ center: [top.lon, top.lat], zoom: 11.4, pitch: 50, bearing: 160, d: 3600 });
+      document.querySelectorAll(".maplibregl-marker").forEach((el) => el.classList.add("tour-glow"));
+      await say(4, `Reopen this first: ${top.name} and the closed stretches next to it reconnect ${top.villages_reconnected} settlements, ${[...new Set(top.names || [])].slice(0, 3).join(", ")} among them.`, 6500);
+    }
+  } catch { /* stopped */ }
+  document.querySelectorAll(".tour-glow").forEach((el) => el.classList.remove("tour-glow"));
+  if (id === touring) { cap.hidden = true; touring++; }
+}
+$("#tour-btn")?.addEventListener("click", () => runTour());
+$("#tour-stop")?.addEventListener("click", () => { touring++; $("#tour-cap").hidden = true; });
+$("#tour-cta")?.addEventListener("click", () => { $("#hero-map").scrollIntoView({ behavior: REDUCE ? "auto" : "smooth", block: "center" }); setTimeout(runTour, REDUCE ? 0 : 700); });

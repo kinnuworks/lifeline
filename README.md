@@ -70,8 +70,10 @@ The same code and settings, unchanged:
 | Same area, 25 Jul 2026, no flood (radar only) | 1.1 km² | 102 | 215 s |
 | Melamchi, Nepal, 15 Jun 2021 (never tuned on; no clear Sentinel-2 in the window) | 1.4 km² | 150 | 105 s |
 | Teesta glacial-lake flood, Sikkim, 4 Oct 2023 (never tuned on) | 8.6 km² | 490 | 538 s, of which 353 s Sentinel-2 |
+| Beas flood, Mandi and Kullu, Himachal, 9 Jul 2023 (never tuned on) | 1.6 km² | 0 of 131 mapped (OSM had few buildings here in 2023); 3 bridges incl. New Victoria Bridge, Mandi | 427 s |
+| Chamoli rock-ice avalanche, Uttarakhand, 7 Feb 2021 (never tuned on) | 1.3 km² (80 km² of steep winter ground not observed) | 1 | 529 s |
 
-The no-flood date runs on radar alone, because any Sentinel-2 image in the 40 days after 25 July would also show the 26 August flood. Melamchi and Teesta have no official grading to score against, so they show that the system runs anywhere, not how accurate it is there. All four are on the dashboard.
+The no-flood date runs on radar alone, because any Sentinel-2 image in the 40 days after 25 July would also show the 26 August flood. Melamchi, Teesta, Beas and Chamoli have no official grading to score against, so they show that the system runs anywhere, not how accurate it is there. All six runs are on the dashboard.
 
 ## What it does
 
@@ -84,7 +86,8 @@ Give it any area and any flood date.
    - **Flood segmentation model.** A U-Net with a ResNet-34 encoder (ImageNet start, allowed by the organisers), trained on Sen1Floods11 with India and Pakistan held out entirely. Sen1Floods11 test IoU 0.669 against 0.364 for a fixed threshold; Bolivia (held-out event) 0.661 against 0.617; the South Asian scenes it never saw 0.470 against 0.368. On Trishuli, masked to ground it can judge, it finds 60% of the new open water the radar change detection maps; on steep slopes it mistakes radar shadow for water, which is why it is a second opinion and not the map. Weights are in the repo (`src/lifeline/model/weights/lifeline_unet_s1.pt`, 49 MB). Details: [`docs/model/RESULTS.md`](docs/model/RESULTS.md), numbers in [`runs/model/metrics.json`](runs/model/metrics.json).
    - **Situation-report copilot.** Answers rescuers' questions and writes the one-page report in English and Nepali. Every number it may say lives in a facts ledger built from the maps; a guard checks every digit, Devanagari numeral and number word (English and Nepali) against the facts the copilot looked up, with their units, and rejects anything else. On a rejection it retries once, then falls back to fixed templates. Questions the maps cannot answer (deaths, reopening dates, how many helicopters) are refused. The guard checks numbers and units, not the meaning of the sentence around them.
    - **Red team.** 60 prompts in English, Nepali and romanised Nepali ([`tests/redteam_copilot.json`](tests/redteam_copilot.json)): injection, casualty bait, rounding, number words, predictions and ordinary questions. On the case-study run: 60 of 60 pass with templates alone and 60 of 60 with the model. One model answer ("That question is outside what I can answer") was a correct refusal that the refusal detector missed; the detector now recognises that phrasing and the saved answers were rescored without new calls (`scripts/redteam.py --rescore`). Rule-based refusals answer 39 of the 60 before the model is called. The guard catches 37 of 37 planted fabrications and raises no false alarm on 9 true statements filled from the run's own facts. Log: [`runs/trishuli-2026/copilot_redteam.json`](runs/trishuli-2026/copilot_redteam.json).
-5. **Bonus: flood path.** Click any point upstream; Lifeline traces the path downhill on the elevation model, finds the valley floor along it and lists the settlements on it in order. From the Rasuwagadhi border crossing it traces 93 km and 27 settlements.
+5. **Field kit.** A copy-paste alert for SMS or WhatsApp in English and Nepali (same ledger, same number guard), and the cut-off villages, damaged roads and repair priorities as KML and GeoJSON for Google Earth or a phone.
+6. **Bonus: flood path.** Click any point upstream; Lifeline traces the path downhill on the elevation model, finds the valley floor along it and lists the settlements on it in order. From the Rasuwagadhi border crossing it traces 93 km and 27 settlements.
 
 ## Run it
 

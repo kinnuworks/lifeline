@@ -327,6 +327,8 @@ async function ask(q) {
   addMsg("q", q, { lang: /[ऀ-ॿ]/.test(q) ? "ne" : "en" });
   const typing = addMsg("a", "", { typing: true });
   let reply = null;
+  const sample = state.samples.find((x) => norm(x.q) === norm(q));
+  if (!state.apiOnline && !sample) await wakeEngine();
   if (state.apiOnline) {
     try {
       const r = await fetch(`${API}/ask`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ run_id: state.runId, question: q, lang: state.lang }), signal: timeout(30000) });
@@ -594,13 +596,24 @@ function offlineMsg() {
   runMsg(`<span>The live engine is offline. You can open a precomputed run instead.</span><span class="chips">${runs.map((r) => `<button type="button" class="btn btn-ink btn-sm" data-open="${esc(r.run_id)}">Open ${esc(r.title)}</button>`).join("")}</span>`);
   $$("#run-msg [data-open]").forEach((b) => b.addEventListener("click", () => openRun(b.dataset.open, true)));
 }
-async function checkEngine() {
+async function checkEngine(wait = 2500) {
   const el = $("#engine"), t = $("#engine-text");
   if (!API) { state.apiOnline = false; el.className = "engine is-off"; t.textContent = "Live engine not configured. Precomputed runs only."; return; }
-  try { const r = await fetch(`${API}/health`, { signal: timeout(2500) }); state.apiOnline = r.ok; } catch { state.apiOnline = false; }
+  try { const r = await fetch(`${API}/health`, { signal: timeout(wait), cache: "no-store" }); state.apiOnline = r.ok; } catch { state.apiOnline = false; }
   el.className = "engine " + (state.apiOnline ? "is-live" : "is-off");
   t.textContent = state.apiOnline ? "Live engine online. A run takes a while; you can keep reading while it works." : "Live engine offline. Precomputed runs still work.";
   const mode = $("#chat-mode"); mode.textContent = state.apiOnline ? "Live" : "Samples"; mode.classList.toggle("is-live", state.apiOnline);
+}
+// The engine scales to zero when nobody uses it, so the first request after a quiet spell
+// waits for it to start. One shared wake-up call, given up to 90 s.
+let waking = null;
+function wakeEngine() {
+  if (state.apiOnline || !API) return Promise.resolve();
+  if (!waking) {
+    $("#engine").className = "engine is-off"; $("#engine-text").textContent = "Waking the live engine. After a quiet spell this takes up to a minute.";
+    waking = checkEngine(90000).finally(() => { waking = null; });
+  }
+  return waking;
 }
 function initRunPanel() {
   renderStages([]);
@@ -617,8 +630,12 @@ function initRunPanel() {
   });
   $("#run-form").addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (run.polling) return;
-    await checkEngine();
+    if (run.polling || run.starting) return;
+    run.starting = true;
+    try {
+      await checkEngine();
+      if (!state.apiOnline) { runMsg(`<span>Starting the live engine. After a quiet spell this takes up to a minute.</span>`); await wakeEngine(); }
+    } finally { run.starting = false; }
     if (!state.apiOnline) { renderStages([]); offlineMsg(); return; }
     const go = $("#run-go"); go.disabled = true; go.textContent = "Running";
     runMsg(""); renderStages([{ key: "find_images", status: "running" }]);
@@ -720,7 +737,7 @@ async function boot() {
   lazy($("#access-map"), initAccessMap);
   lazy($("#run-map"), initRunMap);
   renderModel();
-  checkEngine();
+  checkEngine().then(() => { if (!state.apiOnline) wakeEngine(); });
   $("#vt-more").addEventListener("click", () => { showAll = !showAll; renderTable(); });
 
   // reveal-on-scroll (design system)

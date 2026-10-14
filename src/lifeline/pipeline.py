@@ -132,7 +132,8 @@ def run(bbox, event: dt.date, run_id: str | None = None, label: str = "", max_or
         pairs = stac.choose_pairs(R.bbox, event, baseline_passes=baseline_passes)[:max_orbits]
         if not pairs:
             raise RuntimeError("No Sentinel-1 pass on the same orbit track covers this area both before and within "
-                               "two weeks after this date. Try a date a few days later, or a slightly different box.")
+                               "two weeks after this date. If the flood was in the last two weeks, the next pass may not "
+                               "be in the archive yet; otherwise try a slightly larger box.")
         with ThreadPoolExecutor(max_workers=1) as bg:
             osm_future = bg.submit(fetch_osm, R.bbox, event, R.dir / "osm", log)
             scenes = []
@@ -233,7 +234,7 @@ def run(bbox, event: dt.date, run_id: str | None = None, label: str = "", max_or
             # ---- OpenStreetMap
             t = time.time()
             try:
-                osm_stats = osm_future.result(timeout=900)
+                osm_stats = osm_future.result(timeout=900 if optical_budget_s is None else 420)   # live runs wait less
             except Exception as e:  # keep the flood map; damage and cut-off need OpenStreetMap
                 R.warn(f"OpenStreetMap could not be read ({str(e)[:120]}); damage and cut-off are empty for this run")
                 osm_stats = _empty_osm(R.dir)

@@ -33,6 +33,22 @@ _exported: dict[str, bool] = {}   # run id -> website data written (False while 
 FIRST_S1_DATE = dt.date(2014, 10, 3)
 
 
+def _close_orphans() -> None:
+    """A run still marked running when the engine starts was cut off by a restart; say so instead of spinning forever."""
+    try:
+        for m in RUNS.glob("live-*/meta.json"):
+            meta = json.loads(m.read_text())
+            if meta.get("status") == "running":
+                meta["status"] = "failed"
+                meta["error"] = "The engine restarted during this run. Please run it again."
+                m.write_text(json.dumps(meta, indent=1))
+    except Exception:
+        pass
+
+
+_close_orphans()
+
+
 class RunRequest(BaseModel):
     bbox: list[float] = Field(min_length=4, max_length=4)
     date: dt.date
@@ -95,8 +111,36 @@ def start_run(req: RunRequest):
     return {"id": rid, "run_id": rid, "status_url": f"/runs/{rid}"}
 
 
+def _little_change_note(meta: dict) -> str | None:
+    """When a run finds almost no flood, say when the radar actually looked, so a zero reads as a measurement."""
+    rad = meta.get("radar") or {}
+    found = sum(float(rad.get(k) or 0) for k in ("water_km2", "debris_km2", "optical_added_km2"))
+    if not rad or found >= 0.1:
+        return None
+    after = []
+    for o in rad.get("orbits", []):
+        m = re.match(r"track (\d+) \w+ \d{4}-\d{2}-\d{2} -> (\d{4}-\d{2}-\d{2})", str(o.get("orbit", "")))
+        if m:
+            after.append((m.group(2), m.group(1)))
+    when = ", ".join(f"{dt.date.fromisoformat(d):%-d %b %Y} (track {t})" for d, t in sorted(after))
+    note = "Little or no flood change found."
+    if when:
+        note += f" The first radar passes after the flood date were on {when}; water that drained before then does not show."
+    if float(rad.get("unobserved_km2") or 0) >= 0.5:
+        note += f" {rad['unobserved_km2']} km² of steep ground was hidden from the radar and is marked not observed, not clear."
+    return note
+
+
 def _run_and_export(bbox, date, rid, label):
     d = run(bbox, date, rid, label, optical_budget_s=180)
+    try:
+        meta = json.loads((d / "meta.json").read_text())
+        note = _little_change_note(meta)
+        if note:
+            meta.setdefault("warnings", []).append(note)
+            (d / "meta.json").write_text(json.dumps(meta, indent=1))
+    except Exception:
+        pass
     try:
         import importlib.util
 

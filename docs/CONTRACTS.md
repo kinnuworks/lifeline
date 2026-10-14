@@ -1,4 +1,4 @@
-# Bato run contract
+# Lifeline run contract
 
 Every module reads and writes files inside one run folder. Nothing else is shared.
 
@@ -39,7 +39,7 @@ runs/<run_id>/
 ```
 
 Rules
-- Copernicus EMS, UNOSAT and post-event OpenStreetMap never enter any file above except `validation/`. A test enforces this.
+- Copernicus EMS, UNOSAT and post-event OpenStreetMap never enter any file above except `validation/`. Two tests check this: one scans the pipeline source for references to them, one checks that the comparison writes only under `validation/`.
 - Every number shown to a user must exist in `facts.json`. The copilot guard rejects any other number.
 - Coordinates on the website are EPSG:4326; rasters stay on the run grid and are reprojected for display.
 

@@ -46,7 +46,10 @@ We build a routable network from the pre-flood roads. Each road stretch the dama
 Because the map is not certain. A village behind one doubtful bridge is different from a village behind three destroyed ones, and rescue teams need to know which.
 
 **Why do you say 52 settlements are cut off when the official maps imply 7?**
-The official maps grade roads only inside their six small areas, so any village whose route is broken outside them looks connected to the reference. Running our routing with only their graded roads closed, we agree on 295 of 338 settlements. On the 98 whose route crosses a graded area we agree on 69.
+The official maps grade roads only inside their mapped areas, so any village whose route is broken outside them looks connected to the reference, and their 7 is a lower bound. Running our routing with only their graded roads closed (338 settlements with a road link to care before the flood), we find all 7 of theirs (recall 7 of 7) and flag 43 more. Overall we agree on 295 of 338, but saying nobody is cut off would agree on 331, so recall is the figure that matters. On the 98 whose route crosses a graded area we agree on 69. Some of our extra cut-offs may come from road false alarms (next question); we have not traced each one. With the later grading maps it is 8 of 8 found, 42 more, 296 of 338.
+
+**How many false alarms do you raise?**
+EMS lists no matching building it graded "no visible damage", so a building false-alarm rate cannot be computed directly. Of the 2,617 buildings we flag inside the EMS areas, 727 have no EMS damage record, so about 72% have one. For roads, 47% of the graded road length we flag (57.6 of 122.4 km) is on stretches EMS graded "no visible damage", and we flag 37% of all road length it graded that way. These are first-grading figures from `runs/trishuli-2026/validation/emsr927.json`.
 
 **What did you get wrong along the way?**
 An early version let every road keep a small chance of closing from its raw score. Over long hill routes those small chances added up and marked 148 villages cut off, many nowhere near the damage. We saw it on the map; only roads the map flags or cannot see can close now. We had also scored the old version against the official road grading, so say plainly that the agreement figure (now 295 of 338; 217 of 339 before) is not independent of this fix.
@@ -66,7 +69,7 @@ Copy the field alert (English or Nepali, SMS length) to the response group, send
 ## AI
 
 **What does the trained model do?**
-A U-Net with a ResNet-34 encoder, trained on Sen1Floods11 (a variant with Kuro Siwo added was tried and scored worse on held-out scenes), predicts open water from Sentinel-1 VV and VH. It checks the radar water map. It is good at open water; it cannot see debris-covered ground that is not water, and steep shadow looks like water to it, so its output is masked to ground it can judge.
+A U-Net with a ResNet-34 encoder, trained on Sen1Floods11 (a variant with Kuro Siwo added was tried and scored worse on held-out scenes), predicts open water from Sentinel-1 VV and VH. It is a second opinion on the radar water map: masked to ground it can judge, it marks as water 60% of the new open water the change detection maps. It is good at open water; it cannot see debris-covered ground that is not water, and steep shadow looks like water to it, so its output is masked to ground it can judge.
 
 **How does the copilot avoid inventing numbers?**
 Every number it may use is in a facts ledger built from the maps. A checker reads each answer, including Nepali numerals and number words, and rejects any number that is not a fact it looked up. On a rejection it retries once, then falls back to fixed templates. Questions the maps cannot answer, such as deaths or reopening dates, are refused. A 60-question attack set, in English and Nepali, is in `tests/redteam_copilot.json`.

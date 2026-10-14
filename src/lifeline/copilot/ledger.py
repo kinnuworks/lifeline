@@ -92,6 +92,13 @@ def fact_decimals(fact: dict) -> int:
     return 0
 
 
+def one_name(n) -> str:
+    """A settlement name with its own comma ("Gnon-Sangdong, Lower Dzongu") reads as two places in a list."""
+    n = str(n)
+    head, sep, tail = n.partition(", ")
+    return f"{head} ({tail})" if sep and "," not in tail else n
+
+
 def list_join(vals) -> str:
     """Join names for reading; a semicolon when a name has its own comma ("Gnon-Sangdong, Lower Dzongu"),
     so a list of 9 is never read as 10."""
@@ -500,8 +507,8 @@ def _facts_access(L: Ledger, run: Path) -> None:
         return (-(r[1] or 0), -(_num(r[0].get("population")) or 0), str(r[0].get("name") or ""))
 
     top = sorted(cut_rows, key=sort_key)
-    names = [str(r[0].get("name")) for r in top if r[0].get("name")]
-    names_ne = [str(r[0].get("name_ne") or r[0].get("name")) for r in top if r[0].get("name")]
+    names = [one_name(r[0].get("name")) for r in top if r[0].get("name")]
+    names_ne = [one_name(r[0].get("name_ne") or r[0].get("name")) for r in top if r[0].get("name")]
     if names:
         L.add("access.villages.cut_off_names", names, "", "Cut-off settlements, most certain first",
               "सम्पर्क टुटेका बस्ती (सबैभन्दा निश्चितदेखि)", src, kind="list", value_ne=names_ne)
@@ -576,13 +583,16 @@ def _facts_chokepoints(L: Ledger, run: Path) -> None:
                   value_ne=f"{nm_ne} र सोही बाटोका अन्य बन्द खण्ड")
         v = _num(c.get("villages_reconnected"))
         if v is not None:
-            L.add(f"{k}.villages", int(v), "villages", f"Settlements reconnected by reopening repair point {r}",
-                  f"मर्मत स्थान {r} खोल्दा फेरि जोडिने बस्ती", src, kind="count")
+            L.add(f"{k}.villages", int(v), "villages",
+                  f"Settlements reconnected by reopening repair point {r} (counted on the most likely damage map, "
+                  "so it can include settlements that are only at risk, not on the cut-off list)",
+                  f"मर्मत स्थान {r} खोल्दा फेरि जोडिने बस्ती (सबैभन्दा सम्भावित क्षति नक्सामा गनिएको, जोखिममा मात्र रहेका बस्ती पनि पर्न सक्छन्)",
+                  src, kind="count")
         pp = _num(c.get("people_reconnected"))
         if pp is not None and pp > 0:
             L.add(f"{k}.people", int(pp), "people", f"People reconnected by reopening repair point {r}",
                   f"मर्मत स्थान {r} खोल्दा फेरि जोडिने मानिस", src, kind="count")
-        names = [str(n) for n in (c.get("names") or []) if n]
+        names = [one_name(n) for n in (c.get("names") or []) if n]
         if names:
             L.add(f"{k}.names", names, "", f"Settlements reconnected by repair point {r}",
                   f"मर्मत स्थान {r} खोल्दा जोडिने बस्ती", src, kind="list", value_ne=c.get("names_ne") or None)

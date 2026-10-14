@@ -1,4 +1,4 @@
-# Training data for the Bato water segmentation model
+# Training data for the Lifeline water segmentation model
 
 The model is trained only on the two datasets the hackathon brief allows: Sen1Floods11 and Kuro Siwo. The encoder starts from ImageNet weights (ResNet34), which the organisers confirmed is allowed. No other flood data, flood map or damage map is used.
 
@@ -27,7 +27,7 @@ What is left for training: 196 train chips and 69 validation chips from the othe
 - `scripts/prepare_kurosiwo.py` keeps the post-event image only (VV, VH, converted from linear power to dB), sets the label to 1 for permanent water or flood (mask values 1 and 2), 0 otherwise, and -1 where `valid_mask` is 0. Chips that are more than half invalid are dropped (16). Output: 3,080 chips of 224 x 224 at 10 m in `data/kurosiwo/chips/` (1.0 GB).
 - Events in the subset (Kuro Siwo activation id, count): Togo 470 (166), France 492 (213), Italy 496 (21), Germany 497 (398), France 498 (102), Ireland 502 (438), Belgium 518 (306), Netherlands 520 (78), Australia 554 (40), USA 1111004 (438), Peru 1111010 (77), Philippines 1111011 (362), USA 1111013 (441).
 - Held out: Kuro Siwo has two South Asian events, Pakistan 2022 (1111009, Larkana) and the event catalogued as Nepal 2019 (1111007, Patna area in Bihar). 442 Pakistan samples were in our subset and were skipped; no 1111007 samples were in it. They are excluded by `HELD_OUT_ACTS` in the preparation script.
-- Use: a second model was trained on Sen1Floods11 plus these chips. It scored lower on Sen1Floods11 validation (IoU 0.627 against 0.696) and is not the shipped model; its test numbers are in `runs/model/metrics_kuro.json` and in RESULTS.md.
+- Use: a second model was trained on Sen1Floods11 plus these chips. It scored lower on Sen1Floods11 validation (IoU 0.627 against 0.696) and is not the shipped model; its test numbers are in RESULTS.md.
 
 ## Preprocessing
 

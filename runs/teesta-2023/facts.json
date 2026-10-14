@@ -677,7 +677,7 @@
    "Passingdong",
    "Bringbong",
    "Gnon",
-   "Gnon-Sangdong, Lower Dzongu",
+   "Gnon-Sangdong (Lower Dzongu)",
    "Rapchyong",
    "Sudur"
   ],
@@ -693,7 +693,7 @@
    "Passingdong",
    "Bringbong",
    "Gnon",
-   "Gnon-Sangdong, Lower Dzongu",
+   "Gnon-Sangdong (Lower Dzongu)",
    "Rapchyong",
    "Sudur"
   ]
@@ -3582,8 +3582,8 @@
   "key": "chokepoint.1.villages",
   "value": 7,
   "unit": "villages",
-  "label_en": "Settlements reconnected by reopening repair point 1",
-  "label_ne": "मर्मत स्थान 1 खोल्दा फेरि जोडिने बस्ती",
+  "label_en": "Settlements reconnected by reopening repair point 1 (counted on the most likely damage map, so it can include settlements that are only at risk, not on the cut-off list)",
+  "label_ne": "मर्मत स्थान 1 खोल्दा फेरि जोडिने बस्ती (सबैभन्दा सम्भावित क्षति नक्सामा गनिएको, जोखिममा मात्र रहेका बस्ती पनि पर्न सक्छन्)",
   "source": "access/chokepoints.json",
   "kind": "count"
  },
@@ -3593,7 +3593,7 @@
   "value": [
    "Passingdong",
    "Lingthem",
-   "Gnon-Sangdong, Lower Dzongu",
+   "Gnon-Sangdong (Lower Dzongu)",
    "Gnon",
    "Sudur",
    "Rapchyong",
@@ -3642,8 +3642,8 @@
   "key": "chokepoint.2.villages",
   "value": 5,
   "unit": "villages",
-  "label_en": "Settlements reconnected by reopening repair point 2",
-  "label_ne": "मर्मत स्थान 2 खोल्दा फेरि जोडिने बस्ती",
+  "label_en": "Settlements reconnected by reopening repair point 2 (counted on the most likely damage map, so it can include settlements that are only at risk, not on the cut-off list)",
+  "label_ne": "मर्मत स्थान 2 खोल्दा फेरि जोडिने बस्ती (सबैभन्दा सम्भावित क्षति नक्सामा गनिएको, जोखिममा मात्र रहेका बस्ती पनि पर्न सक्छन्)",
   "source": "access/chokepoints.json",
   "kind": "count"
  },
@@ -3700,8 +3700,8 @@
   "key": "chokepoint.3.villages",
   "value": 1,
   "unit": "villages",
-  "label_en": "Settlements reconnected by reopening repair point 3",
-  "label_ne": "मर्मत स्थान 3 खोल्दा फेरि जोडिने बस्ती",
+  "label_en": "Settlements reconnected by reopening repair point 3 (counted on the most likely damage map, so it can include settlements that are only at risk, not on the cut-off list)",
+  "label_ne": "मर्मत स्थान 3 खोल्दा फेरि जोडिने बस्ती (सबैभन्दा सम्भावित क्षति नक्सामा गनिएको, जोखिममा मात्र रहेका बस्ती पनि पर्न सक्छन्)",
   "source": "access/chokepoints.json",
   "kind": "count"
  },
@@ -3765,8 +3765,8 @@
   "key": "chokepoint.4.villages",
   "value": 1,
   "unit": "villages",
-  "label_en": "Settlements reconnected by reopening repair point 4",
-  "label_ne": "मर्मत स्थान 4 खोल्दा फेरि जोडिने बस्ती",
+  "label_en": "Settlements reconnected by reopening repair point 4 (counted on the most likely damage map, so it can include settlements that are only at risk, not on the cut-off list)",
+  "label_ne": "मर्मत स्थान 4 खोल्दा फेरि जोडिने बस्ती (सबैभन्दा सम्भावित क्षति नक्सामा गनिएको, जोखिममा मात्र रहेका बस्ती पनि पर्न सक्छन्)",
   "source": "access/chokepoints.json",
   "kind": "count"
  },

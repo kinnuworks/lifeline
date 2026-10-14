@@ -6,7 +6,7 @@
 
 Track B, Multimodal AI Hackathon 2026 (IIT Mandi): *Mapping Flood Damage from Space*.
 
-**Live:** dashboard https://lifeline-flood.vercel.app · engine https://kinnuworks--lifeline-web.us-east.modal.run (draw any box and date in "Run any valley"; a 10 x 10 km box took 125 s from the public site, most of it waiting on OpenStreetMap)
+**Live:** dashboard https://lifeline-flood.vercel.app · engine https://kinnuworks--lifeline-web.us-east.modal.run (draw any box and date in "Run any valley"; a 10 × 10 km area takes about 25 s to 2 minutes on the hosted engine, most of it waiting on OpenStreetMap)
 
 ![Lifeline dashboard](docs/img/hero.png)
 
@@ -28,7 +28,7 @@ The 26 August 2026 glacier-collapse flood on the Bhote Koshi-Trishuli corridor, 
 
 ### Checked against the official maps
 
-Copernicus EMS activation EMSR927 graded the damage from very-high-resolution optical images. Lifeline never reads those maps; a separate checker compares them with the output after the run, and a test fails the build if pipeline code refers to them. The settings we searched were chosen on one official area only (3, Bidur) and frozen; areas 1, 2 and 5 are held out. Every place the official maps touched a design choice is listed below. Figures below use the first grading maps.
+Copernicus EMS activation EMSR927 graded the damage from very-high-resolution optical images. Lifeline never reads those maps; a separate checker compares them with the output after the run, and a test scans the pipeline source code for references to the EMS files (their name, web address or data folder) and fails if it finds one. The settings we searched were chosen on one official area only (3, Bidur) and frozen; areas 1, 2 and 5 are held out. Every place the official maps touched a design choice is listed below. Figures below use the first grading maps.
 
 | Official map area | Role | Flood extent F1 | Precision | Recall | Damaged buildings we flagged | Damaged roads, agreement | Damaged bridges we flagged |
 |---|---|---|---|---|---|---|---|
@@ -39,6 +39,8 @@ Copernicus EMS activation EMSR927 graded the damage from very-high-resolution op
 | All four | | **0.75** | **0.86** | **0.66** | **88%** | **0.71** (recall 0.89) | **31 of 46** |
 
 **Held-out areas only (1, 2 and 5):** flood extent F1 0.66 (precision 0.88, recall 0.53), damaged buildings found 70% (601 of 857), damaged bridges found 18 of 28. Area 3 is the development area and carries most of the pooled pixels and buildings, so these held-out figures are the fairer estimate for a new valley.
+
+**False alarms.** EMS lists no building it graded "no visible damage" that matches an OpenStreetMap building, so a building false-alarm rate cannot be computed directly. What can be measured: 727 of the 2,617 buildings Lifeline flags inside the EMS areas have no EMS damage record, so about 72% of flagged buildings there match an EMS damage record. For roads, 57.6 km of the 122.4 km of EMS-graded road that Lifeline flags (47%) lies on stretches EMS graded "no visible damage"; put the other way, Lifeline flags 37% of the road length EMS graded undamaged.
 
 Areas 4 and 6 were cancelled by EMS for cloud. Full table with 95% intervals: [`runs/trishuli-2026/validation/emsr927.md`](runs/trishuli-2026/validation/emsr927.md) (the later grading maps: [`emsr927_latest.md`](runs/trishuli-2026/validation/emsr927_latest.md)).
 
@@ -56,7 +58,7 @@ Areas 4 and 6 were cancelled by EMS for cloud. Full table with 95% intervals: [`
 
 ### Cut-off check
 
-Treating the roads EMS graded destroyed as closed and running the same routing, Lifeline agrees on the status of 295 of 338 settlements (69 of the 98 whose route crosses a graded area). EMS grades roads only inside its six small areas, so its own cut-off count (7) is a lower bound. On the checker's network (338 settlements, 23 hubs) Lifeline marks 50 cut off; the headline 52 is from the full analysis (397 settlements, 25 health facilities). Most are behind the destroyed highway north of the graded areas. One design change came from looking at an earlier result: every road used to keep a small closure chance from its raw score, which summed over long hill routes and cut off villages far from any damage (148 in that version). Only roads the map flags or cannot see can close now.
+The checker treats the roads EMS graded destroyed as closed and runs the same routing on 338 settlements and 23 health facilities (the other 59 of the 397 are off the road network or had no road link to care before the flood). EMS grades roads only inside its mapped areas, so the cut-offs its maps imply are a lower bound. With the first grading maps they imply 7 settlements cut off. Lifeline marks all 7 (recall 7 of 7) and 43 more, 50 in all; the headline 52 is from the full analysis (397 settlements, 25 health facilities). Overall the two agree on 295 of 338 settlements, but a baseline that calls nobody cut off would agree on 331, so recall on the reference cut-offs is the meaningful figure. 29 of the 43 extra cut-offs have a pre-flood route that crosses a graded area (agreement there: 69 of 98); some of them may come from road stretches EMS graded "no visible damage" (the road false alarms above), but we have not traced each one. With the later grading maps the figures are 8 of 8 found, 42 more, and agreement on 296 of 338 ([`emsr927_latest.md`](runs/trishuli-2026/validation/emsr927_latest.md)). One design change came from looking at an earlier result: every road used to keep a small closure chance from its raw score, which summed over long hill routes and cut off villages far from any damage (148 in that version). Only roads the map flags or cannot see can close now.
 
 ### Does it raise false alarms, and does it work elsewhere?
 
@@ -64,7 +66,7 @@ The same code and settings, unchanged:
 
 | Run | Ground flagged | Buildings likely destroyed | Run time (from its meta.json) |
 |---|---|---|---|
-| Trishuli, 26 Aug 2026 (case study) | 16.4 km² | 2,974 | 280 s (radar partly cached) |
+| Trishuli, 26 Aug 2026 (case study) | 16.4 km² | 2,974 | 297 s (radar partly cached) |
 | Same area, 25 Jul 2026, no flood (radar only) | 1.1 km² | 102 | 215 s |
 | Melamchi, Nepal, 15 Jun 2021 (never tuned on; no clear Sentinel-2 in the window) | 1.4 km² | 150 | 105 s |
 | Teesta glacial-lake flood, Sikkim, 4 Oct 2023 (never tuned on) | 8.6 km² | 490 | 538 s, of which 353 s Sentinel-2 |
@@ -95,12 +97,12 @@ cp .env.example .env            # optional: ANTHROPIC_API_KEY for the copilot; e
 uv run lifeline run --bbox 84.93 27.78 85.45 28.30 --date 2026-08-26 --id trishuli-2026
 ```
 
-Any other area and date work the same way (boxes up to 1 square degree on the command line, about 60 x 60 km in the live engine). Cold runs took 2 to 6 minutes for the radar part on a laptop; Sentinel-2 can add several minutes, so the live engine skips it after 3 minutes and says so. Outputs land in `runs/<id>/` (layout in [`docs/CONTRACTS.md`](docs/CONTRACTS.md)): GeoTIFF maps, GeoJSON for buildings, roads, bridges and settlements, the facts ledger, and `sitrep_en.pdf` / `sitrep_ne.pdf`.
+Any other area and date work the same way (boxes up to 1 square degree on the command line, about 60 x 60 km in the live engine). The six runs in the table above took 105 to 538 s each (`runtime_seconds` in each run's `meta.json`); a 10 × 10 km area takes about 25 s to 2 minutes on the hosted engine. Sentinel-2 can add several minutes, so the live engine skips it after 3 minutes and says so. Outputs land in `runs/<id>/` (layout in [`docs/CONTRACTS.md`](docs/CONTRACTS.md)): GeoTIFF maps, GeoJSON for buildings, roads, bridges and settlements, the facts ledger, and `sitrep_en.pdf` / `sitrep_ne.pdf`.
 
 - **Dashboard:** `uv run python scripts/export_web.py trishuli-2026`, then `python3 -m http.server 5174 --directory web` and open http://localhost:5174.
 - **Live engine** (what the dashboard's "Run any valley" panel calls): hosted on Modal (`modal deploy deploy/modal_app.py`, scales to zero when idle). Locally: `uv run uvicorn lifeline.api.server:app --port 8000`, then set `API_BASE` in `web/config.js`. A Dockerfile is included.
 - **Check against the official maps:** `uv run python scripts/validate_emsr927.py fetch`, then `sh scripts/validate_run.sh trishuli-2026`.
-- **Tests:** `uv run pytest -q`. One test fails the build if any pipeline code refers to a published damage map.
+- **Tests:** `uv run pytest -q`. One test scans the pipeline source (`src/lifeline` outside the validation module, and `scripts` other than `validate*`) for references to the EMS or UNOSAT files and fails if it finds one.
 
 ## Data rules
 
@@ -120,7 +122,8 @@ Any other area and date work the same way (boxes up to 1 square degree on the co
 - Sentinel-2 helps only where the sky was clear; for this event the clear "after" images are 25 to 38 days after the flood.
 - OpenStreetMap is incomplete in remote valleys: 107 settlements had no mapped road to care even before the flood, and unmapped buildings and bridges cannot be counted. Population is tagged for 3 of 397 settlements, so people counts are not reported as totals.
 - Road closures are drawn independently per OSM way; one landslide that closes several ways counts as separate events. Facility capacity is not modelled, and OSM tags many health posts as hospitals.
-- The bounding box of the case study reaches a few kilometres into Tibet; those places are routed only to facilities inside the box.
+- The bounding box of the case study reaches a few kilometres into Tibet. Places there are counted (one of the 52 cut-off settlements is across the border) and routed only to facilities inside the box.
+- Walking times follow only the roads and footpaths mapped in OpenStreetMap. Where bridges are destroyed some walks become long detours (the longest for a cut-off settlement is about 30 hours, from Syapru Besi), so walking times are an upper bound.
 - The official maps grade selected areas from optical images; they are a yardstick, not ground truth.
 - Village names mapped only in Devanagari are romanised automatically for English text and may differ from local spelling. Free-form Nepali copilot answers are checked for numbers, not for style.
 - Educational prototype, not an operational tool. Numbers come from satellite analysis and have not been checked on the ground.
@@ -132,9 +135,10 @@ Any other area and date work the same way (boxes up to 1 square degree on the co
 
 ## Credits and attribution
 
-- Contains modified Copernicus Sentinel data 2021-2026.
-- Produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
+- Contains modified Copernicus Sentinel data 2026.
+- Produced using Copernicus WorldDEM-30 © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
 - © OpenStreetMap contributors.
+- The other case studies contain modified Copernicus Sentinel data 2021-2025.
 - European Union, Copernicus Emergency Management Service data (EMSR927), used for checking only.
 - Sen1Floods11: Bonafilia et al., *Sen1Floods11: a georeferenced dataset to train and test deep learning flood algorithms for Sentinel-1*, CVPR Workshops 2020.
 - Kuro Siwo: Bountos et al., *Kuro Siwo: 33 billion m² under the water. A global multi-temporal satellite dataset for rapid flood mapping*, NeurIPS 2024 Datasets and Benchmarks.

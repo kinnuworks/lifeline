@@ -41,7 +41,7 @@ Selection should follow validation IoU. We trained three models and report all o
 
 Model C has the highest validation IoU by 0.009, which is smaller than the change in validation IoU from one epoch to the next (often 0.05). We ship model A. Two reasons, stated plainly because the second one uses the case-study scene:
 1. On the 96 held-out South Asian chips, A and C have the same IoU but C finds less of the water (recall 0.57 against 0.67). Lovász loss optimises the overlap score and leaves the probabilities poorly calibrated, so a 0.5 cut-off is less reliable on new terrain.
-2. On the Trishuli scene (an earlier run of the pipeline), C marked only 10 percent of the pixels the change detection called open water, against 48 percent for A. This is an agreement check, not ground truth, but it confirms point 1. No labels from the case study were used.
+2. On the Trishuli scene (an earlier run of the pipeline), C marked only 10 percent of the pixels the change detection called open water, against 48 percent for A. This is an agreement check without ground truth; it is consistent with point 1. No labels from the case study were used.
 
 Kuro Siwo did help on Bolivia but hurt on the other test sets. With only part of Kuro Siwo downloaded (13 events, mostly European), it shifted the model toward those scenes.
 
@@ -83,5 +83,5 @@ Cannot do:
 - `src/lifeline/model/dataset.py`, `unet.py`, `train.py`, `infer.py`, `evaluate.py`
 - `src/lifeline/model/infer.py`: `predict_water(vv_db, vh_db, tile=512, overlap=64) -> np.ndarray` (float32, 0 to 1, NaN where input is NaN, any array size) and `run_on_run_dir(run_dir) -> dict` (pipeline entry point)
 - `scripts/download_sen1floods11.py`, `scripts/prepare_kurosiwo.py`, `scripts/eval_himalaya.py`
-- `runs/model/metrics.json` (shipped model), `metrics_kuro.json`, `metrics_lovasz.json`, `train_log*.csv`
+- `runs/model/metrics.json` and `runs/model/train_log.csv` (shipped model). Models B and C were trained and dropped; their scores are in the table above, and their metric files are not in the repository.
 - `tests/test_model_infer.py`

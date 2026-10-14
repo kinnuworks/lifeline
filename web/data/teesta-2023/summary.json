@@ -1,0 +1,169 @@
+{
+ "run_id": "teesta-2023",
+ "title": "Teesta glacial lake flood, Sikkim, 4 Oct 2023",
+ "event_date": "2023-10-04",
+ "generated_at": "2026-10-14T15:11:18+00:00",
+ "radar_passes": 15,
+ "radar_tracks": 3,
+ "buildings_checked": 8835,
+ "bridges_assessed": 139,
+ "roads_km_checked": 2268.0,
+ "villages_routed": 41,
+ "health_facilities": 99,
+ "villages_cut_off": 9,
+ "villages_at_risk": 6,
+ "area_debris_km2": 7.12,
+ "area_water_km2": 1.47,
+ "area_unobserved_km2": 49.15,
+ "area_optical_added_km2": 0.68,
+ "osm_snapshot": "2023-10-03",
+ "radar_track_labels": [
+  "12 ascending",
+  "48 descending",
+  "114 ascending"
+ ],
+ "roads_destroyed_km": 79.1,
+ "roads_under_debris_km": 35.43,
+ "bridges_destroyed": 18,
+ "buildings_hit": 567,
+ "bounds": [
+  88.4,
+  27.15,
+  88.7,
+  27.65
+ ],
+ "center": [
+  88.55000000000001,
+  27.4
+ ],
+ "radar_pairs": [
+  {
+   "orbit": 12,
+   "direction": "ascending",
+   "before": "2023-09-25",
+   "after": "2023-10-07",
+   "baseline": [
+    "2023-08-20",
+    "2023-09-01",
+    "2023-09-13"
+   ],
+   "platform": "SENTINEL-1A"
+  },
+  {
+   "orbit": 48,
+   "direction": "descending",
+   "before": "2023-09-28",
+   "after": "2023-10-10",
+   "baseline": [
+    "2023-08-23",
+    "2023-09-04",
+    "2023-09-16"
+   ],
+   "platform": "SENTINEL-1A"
+  },
+  {
+   "orbit": 114,
+   "direction": "ascending",
+   "before": "2023-10-02",
+   "after": "2023-10-14",
+   "baseline": [
+    "2023-08-27",
+    "2023-09-08",
+    "2023-09-20"
+   ],
+   "platform": "SENTINEL-1A"
+  }
+ ],
+ "stages": {
+  "images": {
+   "state": "done",
+   "seconds": 133.1,
+   "passes": 15
+  },
+  "terrain": {
+   "state": "done",
+   "seconds": 4.1
+  },
+  "radar": {
+   "state": "done",
+   "seconds": 5.8,
+   "water_km2": 1.47,
+   "debris_km2": 6.44,
+   "unobserved_km2": 49.15
+  },
+  "optical": {
+   "state": "done",
+   "seconds": 352.9,
+   "pre_dates": [
+    "2023-09-06",
+    "2023-09-16"
+   ],
+   "post_dates": [
+    "2023-10-26",
+    "2023-10-31",
+    "2023-11-05",
+    "2023-11-10"
+   ],
+   "clear_share": 0.858,
+   "optical_added_km2": 0.68,
+   "hand_m": 45.0,
+   "near_km": 0.5,
+   "min_px": 10
+  },
+  "osm": {
+   "state": "done",
+   "seconds": 33.1
+  },
+  "damage": {
+   "state": "done",
+   "seconds": 3.8
+  },
+  "access": {
+   "state": "done",
+   "seconds": 5.0
+  },
+  "model": {
+   "state": "done",
+   "seconds": 22.3,
+   "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
+   "weights": "lifeline_unet_s1.pt",
+   "threshold": 0.5,
+   "pixel_m": 20.0,
+   "terrain_mask": [
+    "observed==0",
+    "slope>15deg",
+    "hand>25m"
+   ],
+   "water_km2": 1.406,
+   "agree_with_radar_water": 0.3351,
+   "model_only_km2": 0.912,
+   "model_water_on_debris_class_km2": 0.24,
+   "raw": {
+    "water_km2": 54.838,
+    "agree_with_radar_water": 0.4313,
+    "model_only_km2": 40.702,
+    "model_water_on_debris_class_km2": 0.386,
+    "water_km2_on_slope_gt_20deg": 51.522
+   },
+   "masked": {
+    "water_km2": 1.406,
+    "agree_with_radar_water": 0.3351,
+    "model_only_km2": 0.912,
+    "model_water_on_debris_class_km2": 0.24
+   }
+  },
+  "facts": {
+   "state": "done",
+   "seconds": 0.4
+  },
+  "report": {
+   "state": "done",
+   "seconds": 2.2
+  },
+  "previews": {
+   "state": "done",
+   "seconds": 8.6
+  }
+ },
+ "warnings": []
+}

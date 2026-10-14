@@ -1,0 +1,2128 @@
+{
+ "activation": "EMSR927",
+ "credit": "European Union, Copernicus Emergency Management Service data",
+ "generated_at": "2026-10-14T14:49:52Z",
+ "run_id": "trishuli-2026",
+ "stage": "first",
+ "reference": "EMS grading maps (photo-interpretation of VHR optical images). Used only to check results.",
+ "settings": {
+  "building_tolerance_m": 15.0,
+  "road_buffer_m": 20.0,
+  "bridge_tolerance_m": 30.0,
+  "bootstrap_block_m": 200.0,
+  "bootstrap_block_px": 10,
+  "n_boot": 1000,
+  "seed": 0
+ },
+ "aois": [
+  {
+   "aoi": "AOI01",
+   "name": "Syapru Besi",
+   "status": "delivered",
+   "products_available": "GRA_PRODUCT",
+   "product_used": [
+    "GRA_PRODUCT"
+   ],
+   "image_dates": [
+    "2026-08-27 05:05:00"
+   ],
+   "fraction_inside_run_grid": 1.0,
+   "not_analysed_area_km2": 0.0,
+   "result": "compared",
+   "extent": {
+    "prediction": "flood_class in {1, 2}",
+    "all_pixels": {
+     "pixels": {
+      "tp": 1051,
+      "fp": 13,
+      "fn": 1720,
+      "tn": 5855
+     },
+     "iou": 0.3775,
+     "precision": 0.9878,
+     "recall": 0.3793,
+     "f1": 0.5481,
+     "ci95": {
+      "iou": [
+       0.2837,
+       0.4635
+      ],
+      "precision": [
+       0.9723,
+       0.9978
+      ],
+      "recall": [
+       0.2846,
+       0.4651
+      ],
+      "f1": [
+       0.442,
+       0.6335
+      ]
+     },
+     "n_blocks": 114
+    },
+    "observed_pixels_only": {
+     "pixels": {
+      "tp": 1051,
+      "fp": 13,
+      "fn": 1589,
+      "tn": 4857
+     },
+     "iou": 0.3962,
+     "precision": 0.9878,
+     "recall": 0.3981,
+     "f1": 0.5675,
+     "ci95": {
+      "iou": [
+       0.2951,
+       0.4828
+      ],
+      "precision": [
+       0.9718,
+       0.998
+      ],
+      "recall": [
+       0.2959,
+       0.4863
+      ],
+      "f1": [
+       0.4557,
+       0.6512
+      ]
+     },
+     "n_blocks": 112
+    },
+    "ems_event_km2": 1.1084,
+    "ours_flooded_km2": 0.4256,
+    "observed_fraction": 0.8693,
+    "mean_flood_prob_inside_ems_event": 0.3295,
+    "mean_flood_prob_outside_ems_event": 0.0106,
+    "flood_prob_ge_0.5": {
+     "pixels": {
+      "tp": 1051,
+      "fp": 13,
+      "fn": 1720,
+      "tn": 5855
+     },
+     "iou": 0.3775,
+     "precision": 0.9878,
+     "recall": 0.3793,
+     "f1": 0.5481,
+     "ci95": {
+      "iou": [
+       0.2837,
+       0.4635
+      ],
+      "precision": [
+       0.9723,
+       0.9978
+      ],
+      "recall": [
+       0.2846,
+       0.4651
+      ],
+      "f1": [
+       0.442,
+       0.6335
+      ]
+     },
+     "n_blocks": 114
+    }
+   },
+   "buildings": {
+    "n_ems": 433,
+    "n_ours_in_area": 353,
+    "n_ours_flagged_in_area": 179,
+    "match_tolerance_m": 15.0,
+    "confusion": {
+     "destroyed": {
+      "destroyed_likely": 168,
+      "damaged_possible": 37,
+      "clear": 12,
+      "unobserved": 0,
+      "no_osm_match": 106
+     },
+     "damaged": {
+      "destroyed_likely": 1,
+      "damaged_possible": 9,
+      "clear": 22,
+      "unobserved": 0,
+      "no_osm_match": 0
+     },
+     "possibly_damaged": {
+      "destroyed_likely": 1,
+      "damaged_possible": 0,
+      "clear": 66,
+      "unobserved": 0,
+      "no_osm_match": 11
+     }
+    },
+    "hit_rate_destroyed_damaged": {
+     "flagged": 215,
+     "n": 249,
+     "rate": 0.8635,
+     "ci95": [
+      0.8152,
+      0.9006
+     ]
+    },
+    "hit_rate_destroyed_damaged_observed_only": {
+     "flagged": 215,
+     "n": 249,
+     "rate": 0.8635,
+     "ci95": [
+      0.8152,
+      0.9006
+     ]
+    },
+    "hit_rate_destroyed": {
+     "flagged": 205,
+     "n": 217,
+     "rate": 0.9447,
+     "ci95": [
+      0.9058,
+      0.9681
+     ]
+    },
+    "flag_rate_possibly_damaged": {
+     "flagged": 1,
+     "n": 67,
+     "rate": 0.0149,
+     "ci95": [
+      0.0026,
+      0.0798
+     ]
+    },
+    "false_alarm_rate_no_visible_damage": {
+     "flagged": 0,
+     "n": 0,
+     "rate": null,
+     "ci95": null
+    },
+    "false_alarm_note": "EMS lists no buildings graded no_visible_damage that match an OSM building here, so the false alarm rate cannot be computed.",
+    "ours_flagged_without_ems_record": 22,
+    "n_ems_without_osm_match": 117
+   },
+   "roads": {
+    "buffer_m": 20.0,
+    "ems_length_m": {
+     "destroyed": 6147.8,
+     "possibly_damaged": 1486.0,
+     "no_visible_damage": 3871.9
+    },
+    "length_m": {
+     "destroyed": {
+      "destroyed_likely": 4904.6,
+      "damaged_possible": 424.2,
+      "clear": 1186.5,
+      "unobserved": 0.0
+     },
+     "possibly_damaged": {
+      "destroyed_likely": 81.1,
+      "damaged_possible": 600.9,
+      "clear": 765.7,
+      "unobserved": 0.0
+     },
+     "no_visible_damage": {
+      "destroyed_likely": 0.0,
+      "damaged_possible": 784.8,
+      "clear": 3019.7,
+      "unobserved": 0.0
+     }
+    },
+    "destroyed_damaged_vs_no_visible_damage": {
+     "agreement": 0.809,
+     "recall_length": 0.8179,
+     "false_alarm_length": 0.2063,
+     "compared_length_m": 10319.8
+    },
+    "including_possibly_damaged": {
+     "agreement": 0.7674,
+     "recall_length": 0.7548,
+     "false_alarm_length": 0.2063,
+     "compared_length_m": 11767.5
+    },
+    "unobserved_length_m": 0.0
+   },
+   "bridges": {
+    "n_ems_destroyed_damaged": 5,
+    "tolerance_m": 30.0,
+    "flagged": 5,
+    "matched_osm": 5,
+    "text": "5/5",
+    "details": [
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.343722,
+      "lat": 28.163455,
+      "osm_ids": [
+       "way/83925838",
+       "way/83925838"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.339983,
+      "lat": 28.164235,
+      "osm_ids": [
+       "way/1017959928",
+       "way/1017959928"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.342627,
+      "lat": 28.165918,
+      "osm_ids": [
+       "way/83925870",
+       "way/83925870"
+      ],
+      "our_status": [
+       "damaged_possible"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.342254,
+      "lat": 28.181551,
+      "osm_ids": [
+       "way/341557606",
+       "way/341557606"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.34336,
+      "lat": 28.182794,
+      "osm_ids": [
+       "way/341557608",
+       "way/341557608"
+      ],
+      "our_status": [
+       "damaged_possible"
+      ],
+      "flagged": true
+     }
+    ]
+   }
+  },
+  {
+   "aoi": "AOI02",
+   "name": "Timure",
+   "status": "delivered",
+   "products_available": "GRA_PRODUCT",
+   "product_used": [
+    "GRA_PRODUCT"
+   ],
+   "image_dates": [
+    "2026-08-27 05:05:00"
+   ],
+   "fraction_inside_run_grid": 1.0,
+   "not_analysed_area_km2": 0.0,
+   "result": "compared",
+   "extent": {
+    "prediction": "flood_class in {1, 2}",
+    "all_pixels": {
+     "pixels": {
+      "tp": 683,
+      "fp": 17,
+      "fn": 2555,
+      "tn": 4172
+     },
+     "iou": 0.2098,
+     "precision": 0.9757,
+     "recall": 0.2109,
+     "f1": 0.3469,
+     "ci95": {
+      "iou": [
+       0.1328,
+       0.2891
+      ],
+      "precision": [
+       0.9435,
+       0.9968
+      ],
+      "recall": [
+       0.1336,
+       0.2915
+      ],
+      "f1": [
+       0.2345,
+       0.4486
+      ]
+     },
+     "n_blocks": 103
+    },
+    "observed_pixels_only": {
+     "pixels": {
+      "tp": 673,
+      "fp": 17,
+      "fn": 2287,
+      "tn": 3220
+     },
+     "iou": 0.2261,
+     "precision": 0.9754,
+     "recall": 0.2274,
+     "f1": 0.3688,
+     "ci95": {
+      "iou": [
+       0.1419,
+       0.3117
+      ],
+      "precision": [
+       0.9423,
+       0.995
+      ],
+      "recall": [
+       0.1427,
+       0.3135
+      ],
+      "f1": [
+       0.2485,
+       0.4752
+      ]
+     },
+     "n_blocks": 101
+    },
+    "ems_event_km2": 1.2952,
+    "ours_flooded_km2": 0.28,
+    "observed_fraction": 0.8344,
+    "mean_flood_prob_inside_ems_event": 0.244,
+    "mean_flood_prob_outside_ems_event": 0.0135,
+    "flood_prob_ge_0.5": {
+     "pixels": {
+      "tp": 683,
+      "fp": 17,
+      "fn": 2555,
+      "tn": 4172
+     },
+     "iou": 0.2098,
+     "precision": 0.9757,
+     "recall": 0.2109,
+     "f1": 0.3469,
+     "ci95": {
+      "iou": [
+       0.1328,
+       0.2891
+      ],
+      "precision": [
+       0.9435,
+       0.9968
+      ],
+      "recall": [
+       0.1336,
+       0.2915
+      ],
+      "f1": [
+       0.2345,
+       0.4486
+      ]
+     },
+     "n_blocks": 103
+    }
+   },
+   "buildings": {
+    "n_ems": 431,
+    "n_ours_in_area": 381,
+    "n_ours_flagged_in_area": 187,
+    "match_tolerance_m": 15.0,
+    "confusion": {
+     "destroyed": {
+      "destroyed_likely": 180,
+      "damaged_possible": 16,
+      "clear": 120,
+      "unobserved": 0,
+      "no_osm_match": 56
+     },
+     "damaged": {
+      "destroyed_likely": 23,
+      "damaged_possible": 0,
+      "clear": 0,
+      "unobserved": 0,
+      "no_osm_match": 10
+     },
+     "possibly_damaged": {
+      "destroyed_likely": 11,
+      "damaged_possible": 0,
+      "clear": 6,
+      "unobserved": 0,
+      "no_osm_match": 9
+     }
+    },
+    "hit_rate_destroyed_damaged": {
+     "flagged": 219,
+     "n": 339,
+     "rate": 0.646,
+     "ci95": [
+      0.5937,
+      0.695
+     ]
+    },
+    "hit_rate_destroyed_damaged_observed_only": {
+     "flagged": 219,
+     "n": 339,
+     "rate": 0.646,
+     "ci95": [
+      0.5937,
+      0.695
+     ]
+    },
+    "hit_rate_destroyed": {
+     "flagged": 196,
+     "n": 316,
+     "rate": 0.6203,
+     "ci95": [
+      0.5656,
+      0.672
+     ]
+    },
+    "flag_rate_possibly_damaged": {
+     "flagged": 11,
+     "n": 17,
+     "rate": 0.6471,
+     "ci95": [
+      0.413,
+      0.8269
+     ]
+    },
+    "false_alarm_rate_no_visible_damage": {
+     "flagged": 0,
+     "n": 0,
+     "rate": null,
+     "ci95": null
+    },
+    "false_alarm_note": "EMS lists no buildings graded no_visible_damage that match an OSM building here, so the false alarm rate cannot be computed.",
+    "ours_flagged_without_ems_record": 10,
+    "n_ems_without_osm_match": 75
+   },
+   "roads": {
+    "buffer_m": 20.0,
+    "ems_length_m": {
+     "destroyed": 9523.2,
+     "possibly_damaged": 175.1
+    },
+    "length_m": {
+     "destroyed": {
+      "destroyed_likely": 5540.8,
+      "damaged_possible": 170.7,
+      "clear": 2309.0,
+      "unobserved": 0.0
+     },
+     "possibly_damaged": {
+      "destroyed_likely": 0.0,
+      "damaged_possible": 0.0,
+      "clear": 155.1,
+      "unobserved": 0.0
+     }
+    },
+    "destroyed_damaged_vs_no_visible_damage": {
+     "agreement": 0.7121,
+     "recall_length": 0.7121,
+     "false_alarm_length": null,
+     "compared_length_m": 8020.5
+    },
+    "including_possibly_damaged": {
+     "agreement": 0.6986,
+     "recall_length": 0.6986,
+     "false_alarm_length": null,
+     "compared_length_m": 8175.6
+    },
+    "unobserved_length_m": 0.0
+   },
+   "bridges": {
+    "n_ems_destroyed_damaged": 1,
+    "tolerance_m": 30.0,
+    "flagged": 0,
+    "matched_osm": 0,
+    "text": "0/1",
+    "details": [
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.377733,
+      "lat": 28.27115,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     }
+    ]
+   }
+  },
+  {
+   "aoi": "AOI03",
+   "name": "Bidur",
+   "status": "delivered",
+   "products_available": "GRA_PRODUCT,GRA_MONIT01",
+   "product_used": [
+    "GRA_PRODUCT"
+   ],
+   "image_dates": [
+    "2026-08-27 04:22:00"
+   ],
+   "fraction_inside_run_grid": 1.0,
+   "not_analysed_area_km2": 2.4766,
+   "result": "compared",
+   "extent": {
+    "prediction": "flood_class in {1, 2}",
+    "all_pixels": {
+     "pixels": {
+      "tp": 11926,
+      "fp": 2161,
+      "fn": 2797,
+      "tn": 29700
+     },
+     "iou": 0.7063,
+     "precision": 0.8466,
+     "recall": 0.81,
+     "f1": 0.8279,
+     "ci95": {
+      "iou": [
+       0.6734,
+       0.7342
+      ],
+      "precision": [
+       0.8129,
+       0.8754
+      ],
+      "recall": [
+       0.786,
+       0.8294
+      ],
+      "f1": [
+       0.8048,
+       0.8467
+      ]
+     },
+     "n_blocks": 585
+    },
+    "observed_pixels_only": {
+     "pixels": {
+      "tp": 11926,
+      "fp": 2161,
+      "fn": 2672,
+      "tn": 29550
+     },
+     "iou": 0.7116,
+     "precision": 0.8466,
+     "recall": 0.817,
+     "f1": 0.8315,
+     "ci95": {
+      "iou": [
+       0.6797,
+       0.7384
+      ],
+      "precision": [
+       0.8129,
+       0.8754
+      ],
+      "recall": [
+       0.794,
+       0.8352
+      ],
+      "f1": [
+       0.8093,
+       0.8495
+      ]
+     },
+     "n_blocks": 585
+    },
+    "ems_event_km2": 5.8892,
+    "ours_flooded_km2": 5.6348,
+    "observed_fraction": 0.9941,
+    "mean_flood_prob_inside_ems_event": 0.7006,
+    "mean_flood_prob_outside_ems_event": 0.1293,
+    "flood_prob_ge_0.5": {
+     "pixels": {
+      "tp": 11926,
+      "fp": 2161,
+      "fn": 2797,
+      "tn": 29700
+     },
+     "iou": 0.7063,
+     "precision": 0.8466,
+     "recall": 0.81,
+     "f1": 0.8279,
+     "ci95": {
+      "iou": [
+       0.6734,
+       0.7342
+      ],
+      "precision": [
+       0.8129,
+       0.8754
+      ],
+      "recall": [
+       0.786,
+       0.8294
+      ],
+      "f1": [
+       0.8048,
+       0.8467
+      ]
+     },
+     "n_blocks": 585
+    }
+   },
+   "buildings": {
+    "n_ems": 2343,
+    "n_ours_in_area": 7172,
+    "n_ours_flagged_in_area": 1843,
+    "match_tolerance_m": 15.0,
+    "confusion": {
+     "destroyed": {
+      "destroyed_likely": 1229,
+      "damaged_possible": 70,
+      "clear": 21,
+      "unobserved": 0,
+      "no_osm_match": 506
+     },
+     "damaged": {
+      "destroyed_likely": 138,
+      "damaged_possible": 29,
+      "clear": 15,
+      "unobserved": 0,
+      "no_osm_match": 38
+     },
+     "possibly_damaged": {
+      "destroyed_likely": 99,
+      "damaged_possible": 31,
+      "clear": 52,
+      "unobserved": 0,
+      "no_osm_match": 115
+     }
+    },
+    "hit_rate_destroyed_damaged": {
+     "flagged": 1466,
+     "n": 1502,
+     "rate": 0.976,
+     "ci95": [
+      0.967,
+      0.9826
+     ]
+    },
+    "hit_rate_destroyed_damaged_observed_only": {
+     "flagged": 1466,
+     "n": 1502,
+     "rate": 0.976,
+     "ci95": [
+      0.967,
+      0.9826
+     ]
+    },
+    "hit_rate_destroyed": {
+     "flagged": 1299,
+     "n": 1320,
+     "rate": 0.9841,
+     "ci95": [
+      0.9758,
+      0.9896
+     ]
+    },
+    "flag_rate_possibly_damaged": {
+     "flagged": 130,
+     "n": 182,
+     "rate": 0.7143,
+     "ci95": [
+      0.6448,
+      0.775
+     ]
+    },
+    "false_alarm_rate_no_visible_damage": {
+     "flagged": 0,
+     "n": 0,
+     "rate": null,
+     "ci95": null
+    },
+    "false_alarm_note": "EMS lists no buildings graded no_visible_damage that match an OSM building here, so the false alarm rate cannot be computed.",
+    "ours_flagged_without_ems_record": 524,
+    "n_ems_without_osm_match": 659
+   },
+   "roads": {
+    "buffer_m": 20.0,
+    "ems_length_m": {
+     "destroyed": 31569.0,
+     "possibly_damaged": 7471.0,
+     "no_visible_damage": 78505.2,
+     "not_analysed": 0.0
+    },
+    "length_m": {
+     "destroyed": {
+      "destroyed_likely": 34526.3,
+      "damaged_possible": 331.6,
+      "clear": 269.4,
+      "unobserved": 0.0
+     },
+     "possibly_damaged": {
+      "destroyed_likely": 5719.1,
+      "damaged_possible": 744.0,
+      "clear": 364.4,
+      "unobserved": 0.0
+     },
+     "no_visible_damage": {
+      "destroyed_likely": 30104.3,
+      "damaged_possible": 1062.6,
+      "clear": 50097.7,
+      "unobserved": 0.0
+     },
+     "not_analysed": {
+      "destroyed_likely": 0.1,
+      "damaged_possible": 0.0,
+      "clear": 0.0,
+      "unobserved": 0.0
+     }
+    },
+    "destroyed_damaged_vs_no_visible_damage": {
+     "agreement": 0.7299,
+     "recall_length": 0.9923,
+     "false_alarm_length": 0.3835,
+     "compared_length_m": 116391.9
+    },
+    "including_possibly_damaged": {
+     "agreement": 0.7419,
+     "recall_length": 0.9849,
+     "false_alarm_length": 0.3835,
+     "compared_length_m": 123219.4
+    },
+    "unobserved_length_m": 0.0
+   },
+   "bridges": {
+    "n_ems_destroyed_damaged": 18,
+    "tolerance_m": 30.0,
+    "flagged": 13,
+    "matched_osm": 13,
+    "text": "13/18",
+    "details": [
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.109023,
+      "lat": 27.858425,
+      "osm_ids": [
+       "way/168199206",
+       "way/168199206"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.108048,
+      "lat": 27.860566,
+      "osm_ids": [
+       "way/303036281",
+       "way/303036281"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.116285,
+      "lat": 27.87037,
+      "osm_ids": [
+       "way/342320932",
+       "way/342320932",
+       "way/342320931",
+       "way/342320931"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.13639,
+      "lat": 27.892323,
+      "osm_ids": [
+       "way/303036276",
+       "way/303036276"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.13872,
+      "lat": 27.909486,
+      "osm_ids": [
+       "way/340581850",
+       "way/340581850",
+       "way/1219434228",
+       "way/1219434228"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.137335,
+      "lat": 27.918865,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.147974,
+      "lat": 27.921319,
+      "osm_ids": [
+       "way/1463147997",
+       "way/1463147997"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.14945,
+      "lat": 27.921833,
+      "osm_ids": [
+       "way/237590767",
+       "way/237590767"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.150081,
+      "lat": 27.927672,
+      "osm_ids": [
+       "way/995486403",
+       "way/995486403",
+       "way/341654843",
+       "way/341654843"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.158303,
+      "lat": 27.939335,
+      "osm_ids": [
+       "way/342147151",
+       "way/342147151"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.159382,
+      "lat": 27.945838,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.162875,
+      "lat": 27.948553,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.164195,
+      "lat": 27.955193,
+      "osm_ids": [
+       "way/340503483",
+       "way/340503483"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.163743,
+      "lat": 27.955748,
+      "osm_ids": [
+       "way/341170660",
+       "way/341170660"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.166498,
+      "lat": 27.95828,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.169305,
+      "lat": 27.963084,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.184437,
+      "lat": 27.972487,
+      "osm_ids": [
+       "way/341049679",
+       "way/341049679"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.185662,
+      "lat": 27.97448,
+      "osm_ids": [
+       "way/341461646",
+       "way/341461646"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     }
+    ]
+   }
+  },
+  {
+   "aoi": "AOI04",
+   "name": "Bharatpur",
+   "status": "cancelled",
+   "products_available": "",
+   "result": "not compared: EMS cancelled this AOI and delivered no product"
+  },
+  {
+   "aoi": "AOI05",
+   "name": "Phosretar",
+   "status": "delivered",
+   "products_available": "GRA_PRODUCT,GRA_MONIT01",
+   "product_used": [
+    "GRA_PRODUCT"
+   ],
+   "image_dates": [
+    "2026-08-31 05:27:00"
+   ],
+   "fraction_inside_run_grid": 1.0,
+   "not_analysed_area_km2": 5.2216,
+   "result": "compared",
+   "extent": {
+    "prediction": "flood_class in {1, 2}",
+    "all_pixels": {
+     "pixels": {
+      "tp": 7844,
+      "fp": 1267,
+      "fn": 4129,
+      "tn": 33529
+     },
+     "iou": 0.5924,
+     "precision": 0.8609,
+     "recall": 0.6551,
+     "f1": 0.7441,
+     "ci95": {
+      "iou": [
+       0.5469,
+       0.631
+      ],
+      "precision": [
+       0.8236,
+       0.8899
+      ],
+      "recall": [
+       0.6112,
+       0.6963
+      ],
+      "f1": [
+       0.7071,
+       0.7738
+      ]
+     },
+     "n_blocks": 620
+    },
+    "observed_pixels_only": {
+     "pixels": {
+      "tp": 7844,
+      "fp": 1267,
+      "fn": 4121,
+      "tn": 33131
+     },
+     "iou": 0.5928,
+     "precision": 0.8609,
+     "recall": 0.6556,
+     "f1": 0.7444,
+     "ci95": {
+      "iou": [
+       0.547,
+       0.6312
+      ],
+      "precision": [
+       0.8236,
+       0.8899
+      ],
+      "recall": [
+       0.612,
+       0.6968
+      ],
+      "f1": [
+       0.7072,
+       0.7739
+      ]
+     },
+     "n_blocks": 620
+    },
+    "ems_event_km2": 4.7892,
+    "ours_flooded_km2": 3.6444,
+    "observed_fraction": 0.9913,
+    "mean_flood_prob_inside_ems_event": 0.6097,
+    "mean_flood_prob_outside_ems_event": 0.0817,
+    "flood_prob_ge_0.5": {
+     "pixels": {
+      "tp": 7844,
+      "fp": 1267,
+      "fn": 4129,
+      "tn": 33529
+     },
+     "iou": 0.5924,
+     "precision": 0.8609,
+     "recall": 0.6551,
+     "f1": 0.7441,
+     "ci95": {
+      "iou": [
+       0.5469,
+       0.631
+      ],
+      "precision": [
+       0.8236,
+       0.8899
+      ],
+      "recall": [
+       0.6112,
+       0.6963
+      ],
+      "f1": [
+       0.7071,
+       0.7738
+      ]
+     },
+     "n_blocks": 620
+    }
+   },
+   "buildings": {
+    "n_ems": 609,
+    "n_ours_in_area": 3061,
+    "n_ours_flagged_in_area": 408,
+    "match_tolerance_m": 15.0,
+    "confusion": {
+     "destroyed": {
+      "destroyed_likely": 105,
+      "damaged_possible": 43,
+      "clear": 73,
+      "unobserved": 0,
+      "no_osm_match": 71
+     },
+     "damaged": {
+      "destroyed_likely": 14,
+      "damaged_possible": 5,
+      "clear": 29,
+      "unobserved": 0,
+      "no_osm_match": 21
+     },
+     "possibly_damaged": {
+      "destroyed_likely": 34,
+      "damaged_possible": 44,
+      "clear": 124,
+      "unobserved": 0,
+      "no_osm_match": 46
+     }
+    },
+    "hit_rate_destroyed_damaged": {
+     "flagged": 167,
+     "n": 269,
+     "rate": 0.6208,
+     "ci95": [
+      0.5615,
+      0.6767
+     ]
+    },
+    "hit_rate_destroyed_damaged_observed_only": {
+     "flagged": 167,
+     "n": 269,
+     "rate": 0.6208,
+     "ci95": [
+      0.5615,
+      0.6767
+     ]
+    },
+    "hit_rate_destroyed": {
+     "flagged": 148,
+     "n": 221,
+     "rate": 0.6697,
+     "ci95": [
+      0.6052,
+      0.7283
+     ]
+    },
+    "flag_rate_possibly_damaged": {
+     "flagged": 78,
+     "n": 202,
+     "rate": 0.3861,
+     "ci95": [
+      0.3217,
+      0.4548
+     ]
+    },
+    "false_alarm_rate_no_visible_damage": {
+     "flagged": 0,
+     "n": 0,
+     "rate": null,
+     "ci95": null
+    },
+    "false_alarm_note": "EMS lists no buildings graded no_visible_damage that match an OSM building here, so the false alarm rate cannot be computed.",
+    "ours_flagged_without_ems_record": 171,
+    "n_ems_without_osm_match": 138
+   },
+   "roads": {
+    "buffer_m": 20.0,
+    "ems_length_m": {
+     "destroyed": 11109.4,
+     "damaged": 2160.9,
+     "possibly_damaged": 1261.4,
+     "no_visible_damage": 70576.0,
+     "not_analysed": 934.9
+    },
+    "length_m": {
+     "destroyed": {
+      "destroyed_likely": 9178.4,
+      "damaged_possible": 1511.0,
+      "clear": 1315.5,
+      "unobserved": 0.0
+     },
+     "damaged": {
+      "destroyed_likely": 262.7,
+      "damaged_possible": 255.1,
+      "clear": 2186.7,
+      "unobserved": 0.0
+     },
+     "possibly_damaged": {
+      "destroyed_likely": 438.1,
+      "damaged_possible": 80.6,
+      "clear": 699.5,
+      "unobserved": 0.0
+     },
+     "no_visible_damage": {
+      "destroyed_likely": 18116.7,
+      "damaged_possible": 7567.3,
+      "clear": 46583.9,
+      "unobserved": 0.0
+     },
+     "not_analysed": {
+      "destroyed_likely": 5.6,
+      "damaged_possible": 0.0,
+      "clear": 735.8,
+      "unobserved": 0.0
+     }
+    },
+    "destroyed_damaged_vs_no_visible_damage": {
+     "agreement": 0.6644,
+     "recall_length": 0.7619,
+     "false_alarm_length": 0.3554,
+     "compared_length_m": 86977.3
+    },
+    "including_possibly_damaged": {
+     "agreement": 0.6611,
+     "recall_length": 0.7362,
+     "false_alarm_length": 0.3554,
+     "compared_length_m": 88195.5
+    },
+    "unobserved_length_m": 0.0
+   },
+   "bridges": {
+    "n_ems_destroyed_damaged": 22,
+    "tolerance_m": 30.0,
+    "flagged": 13,
+    "matched_osm": 17,
+    "text": "13/22",
+    "details": [
+     {
+      "ems_grade": "damaged",
+      "lon": 84.975119,
+      "lat": 27.801362,
+      "osm_ids": [
+       "way/1408714165",
+       "way/1408714165"
+      ],
+      "our_status": [
+       "clear"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 84.990712,
+      "lat": 27.803672,
+      "osm_ids": [
+       "way/302711992",
+       "way/302711992"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 84.990716,
+      "lat": 27.803673,
+      "osm_ids": [
+       "way/302711992",
+       "way/302711992"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 84.990403,
+      "lat": 27.804219,
+      "osm_ids": [
+       "way/1266664498",
+       "way/1266664498"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 84.990431,
+      "lat": 27.804237,
+      "osm_ids": [
+       "way/1266664498",
+       "way/1266664498"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 84.969554,
+      "lat": 27.807288,
+      "osm_ids": [
+       "way/1408714161",
+       "way/1408714161"
+      ],
+      "our_status": [
+       "damaged_possible"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "damaged",
+      "lon": 84.945203,
+      "lat": 27.812193,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "damaged",
+      "lon": 84.945002,
+      "lat": 27.812902,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 84.961853,
+      "lat": 27.816535,
+      "osm_ids": [
+       "way/340856784",
+       "way/340856784"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.013166,
+      "lat": 27.809655,
+      "osm_ids": [
+       "way/302710112",
+       "way/302710112"
+      ],
+      "our_status": [
+       "clear"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.013199,
+      "lat": 27.8097,
+      "osm_ids": [
+       "way/302710112",
+       "way/302710112"
+      ],
+      "our_status": [
+       "clear"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.016169,
+      "lat": 27.809926,
+      "osm_ids": [
+       "way/209012420",
+       "way/209012420"
+      ],
+      "our_status": [
+       "clear"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.021434,
+      "lat": 27.831605,
+      "osm_ids": [
+       "way/302554531",
+       "way/302554531"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.022009,
+      "lat": 27.832652,
+      "osm_ids": [
+       "way/1493017039",
+       "way/1493017039"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.022508,
+      "lat": 27.835618,
+      "osm_ids": [
+       "way/302755357",
+       "way/302755357"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.071795,
+      "lat": 27.854077,
+      "osm_ids": [
+       "way/235982823",
+       "way/235982823"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.081609,
+      "lat": 27.856489,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.058341,
+      "lat": 27.857416,
+      "osm_ids": [
+       "way/303036286",
+       "way/303036286"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.061891,
+      "lat": 27.859433,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.057581,
+      "lat": 27.858343,
+      "osm_ids": [
+       "way/303036286",
+       "way/303036286"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.057111,
+      "lat": 27.858917,
+      "osm_ids": [
+       "way/303036286",
+       "way/303036286"
+      ],
+      "our_status": [
+       "destroyed_likely"
+      ],
+      "flagged": true
+     },
+     {
+      "ems_grade": "destroyed",
+      "lon": 85.098778,
+      "lat": 27.859398,
+      "osm_ids": [],
+      "our_status": [
+       "no_osm_bridge"
+      ],
+      "flagged": false
+     }
+    ]
+   }
+  },
+  {
+   "aoi": "AOI06",
+   "name": "Kyundi",
+   "status": "cancelled",
+   "products_available": "",
+   "result": "not compared: EMS cancelled this AOI and delivered no product"
+  }
+ ],
+ "pooled": {
+  "extent_all_pixels": {
+   "pixels": {
+    "tp": 21504,
+    "fp": 3458,
+    "fn": 11201,
+    "tn": 73256
+   },
+   "iou": 0.5946,
+   "precision": 0.8615,
+   "recall": 0.6575,
+   "f1": 0.7458,
+   "ci95": {
+    "iou": [
+     0.5669,
+     0.6214
+    ],
+    "precision": [
+     0.8388,
+     0.8836
+    ],
+    "recall": [
+     0.6285,
+     0.6855
+    ],
+    "f1": [
+     0.7236,
+     0.7665
+    ]
+   },
+   "n_blocks": 1422
+  },
+  "extent_observed_pixels_only": {
+   "pixels": {
+    "tp": 21494,
+    "fp": 3458,
+    "fn": 10669,
+    "tn": 70758
+   },
+   "iou": 0.6034,
+   "precision": 0.8614,
+   "recall": 0.6683,
+   "f1": 0.7527,
+   "ci95": {
+    "iou": [
+     0.5745,
+     0.6293
+    ],
+    "precision": [
+     0.8375,
+     0.8822
+    ],
+    "recall": [
+     0.6393,
+     0.6957
+    ],
+    "f1": [
+     0.7297,
+     0.7725
+    ]
+   },
+   "n_blocks": 1418
+  },
+  "extent_flood_prob_ge_0.5": {
+   "pixels": {
+    "tp": 21504,
+    "fp": 3458,
+    "fn": 11201,
+    "tn": 73256
+   },
+   "iou": 0.5946,
+   "precision": 0.8615,
+   "recall": 0.6575,
+   "f1": 0.7458,
+   "ci95": {
+    "iou": [
+     0.5669,
+     0.6214
+    ],
+    "precision": [
+     0.8388,
+     0.8836
+    ],
+    "recall": [
+     0.6285,
+     0.6855
+    ],
+    "f1": [
+     0.7236,
+     0.7665
+    ]
+   },
+   "n_blocks": 1422
+  },
+  "buildings": {
+   "n_ems": 3816,
+   "n_ours_in_area": 10967,
+   "n_ours_flagged_in_area": 2617,
+   "match_tolerance_m": 15.0,
+   "confusion": {
+    "destroyed": {
+     "destroyed_likely": 1682,
+     "damaged_possible": 166,
+     "clear": 226,
+     "unobserved": 0,
+     "no_osm_match": 739
+    },
+    "damaged": {
+     "destroyed_likely": 176,
+     "damaged_possible": 43,
+     "clear": 66,
+     "unobserved": 0,
+     "no_osm_match": 69
+    },
+    "possibly_damaged": {
+     "destroyed_likely": 145,
+     "damaged_possible": 75,
+     "clear": 248,
+     "unobserved": 0,
+     "no_osm_match": 181
+    }
+   },
+   "hit_rate_destroyed_damaged": {
+    "flagged": 2067,
+    "n": 2359,
+    "rate": 0.8762,
+    "ci95": [
+     0.8623,
+     0.8889
+    ]
+   },
+   "hit_rate_destroyed_damaged_observed_only": {
+    "flagged": 2067,
+    "n": 2359,
+    "rate": 0.8762,
+    "ci95": [
+     0.8623,
+     0.8889
+    ]
+   },
+   "hit_rate_destroyed": {
+    "flagged": 1848,
+    "n": 2074,
+    "rate": 0.891,
+    "ci95": [
+     0.8769,
+     0.9037
+    ]
+   },
+   "flag_rate_possibly_damaged": {
+    "flagged": 220,
+    "n": 468,
+    "rate": 0.4701,
+    "ci95": [
+     0.4253,
+     0.5154
+    ]
+   },
+   "false_alarm_rate_no_visible_damage": {
+    "flagged": 0,
+    "n": 0,
+    "rate": null,
+    "ci95": null
+   },
+   "false_alarm_note": "EMS lists no buildings graded no_visible_damage that match an OSM building here, so the false alarm rate cannot be computed.",
+   "ours_flagged_without_ems_record": 727,
+   "n_ems_without_osm_match": 989
+  },
+  "roads": {
+   "length_m": {
+    "destroyed": {
+     "destroyed_likely": 54150.1,
+     "damaged_possible": 2437.5,
+     "clear": 5080.4,
+     "unobserved": 0.0
+    },
+    "possibly_damaged": {
+     "destroyed_likely": 6238.3,
+     "damaged_possible": 1425.5,
+     "clear": 1984.7,
+     "unobserved": 0.0
+    },
+    "no_visible_damage": {
+     "destroyed_likely": 48221.0,
+     "damaged_possible": 9414.7,
+     "clear": 99701.3,
+     "unobserved": 0.0
+    },
+    "not_analysed": {
+     "destroyed_likely": 5.7,
+     "damaged_possible": 0.0,
+     "clear": 735.8,
+     "unobserved": 0.0
+    },
+    "damaged": {
+     "destroyed_likely": 262.7,
+     "damaged_possible": 255.1,
+     "clear": 2186.7,
+     "unobserved": 0.0
+    }
+   },
+   "agreement": 0.7073,
+   "recall_length": 0.8871,
+   "false_alarm_length": 0.3663
+  },
+  "bridges": {
+   "flagged": 31,
+   "n_ems_destroyed_damaged": 46,
+   "text": "31/46"
+  }
+ },
+ "cutoff": {
+  "hub": "health facilities",
+  "n_hubs": 23,
+  "road_pieces_removed": 1470,
+  "all_settlements": {
+   "n": 338,
+   "agree": 295,
+   "both_cut_off": 7,
+   "both_connected": 288,
+   "ref_only_cut_off": [],
+   "ours_only_cut_off": [
+    "Adamghat",
+    "Amachhodingmo",
+    "Archale Village",
+    "Bahundanda",
+    "Bhanjyang",
+    "Bhrajam",
+    "Briddhim",
+    "Brimdang",
+    "Chilime",
+    "Chipleti",
+    "Chyamdole",
+    "Dalphedi",
+    "Dandagaun",
+    "Dharnabhdaure",
+    "Domen",
+    "Gatlang",
+    "Godam",
+    "Goljung",
+    "Gonggang",
+    "Gothen",
+    "Gre",
+    "Jarsa Danda",
+    "Jharkaleri",
+    "Keurintar Village",
+    "Keurintar Village Area",
+    "Lingling",
+    "Mailung",
+    "Mastar",
+    "Nagathli",
+    "Nauwise Phant",
+    "Pairo",
+    "Pajung",
+    "Ratmate",
+    "Salim Bhitta",
+    "Simle",
+    "Siruchet",
+    "Somdang",
+    "Tatopani",
+    "Tetangchet",
+    "Thansing",
+    "Thulogaun",
+    "Tiwari",
+    "White Soil Pocket Area"
+   ],
+   "ref_cut_off": 7,
+   "ours_cut_off": 50
+  },
+  "settlements_whose_route_crosses_an_ems_aoi": {
+   "n": 98,
+   "agree": 69,
+   "both_cut_off": 7,
+   "both_connected": 62,
+   "ref_only_cut_off": [],
+   "ours_only_cut_off": [
+    "Adamghat",
+    "Amachhodingmo",
+    "Archale Village",
+    "Bahundanda",
+    "Bhanjyang",
+    "Bhrajam",
+    "Briddhim",
+    "Brimdang",
+    "Chilime",
+    "Chyamdole",
+    "Dalphedi",
+    "Gatlang",
+    "Godam",
+    "Goljung",
+    "Gonggang",
+    "Gothen",
+    "Gre",
+    "Jarsa Danda",
+    "Keurintar Village",
+    "Keurintar Village Area",
+    "Lingling",
+    "Mastar",
+    "Nagathli",
+    "Nauwise Phant",
+    "Pajung",
+    "Ratmate",
+    "Tatopani",
+    "Tetangchet",
+    "White Soil Pocket Area"
+   ],
+   "ref_cut_off": 7,
+   "ours_cut_off": 36
+  },
+  "excluded": [
+   {
+    "name": "Kalleri Village",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Rigaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Haku",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Tengchet",
+    "note": "not on road network"
+   },
+   {
+    "name": "Syupchet",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Lingjo",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Puru",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Awan",
+    "note": "not on road network"
+   },
+   {
+    "name": "Phyang Gaon",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Gobre Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Babil Kharka",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Karang",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Tajimrang",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Kichet",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Lakcho",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Chhapchet",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Yamchet",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Sokthali",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Barre",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Purung",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Konglang",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Choge Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Chamtang",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Bolung Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Bot Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Nikline Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Chyandanda",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Ranibari",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Lampate Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Lemgung Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Pangme Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Heudung Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Dhadingbari",
+    "note": "not on road network"
+   },
+   {
+    "name": "Sangle Danda",
+    "note": "not on road network"
+   },
+   {
+    "name": "Tengche Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "De Gang Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Malung Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Katunje Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Bisan Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Kigong Gaun",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Dalgaun",
+    "note": "not on road network"
+   },
+   {
+    "name": "Pangling",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Haku Besi",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Sano Haku",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Gogne",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Gyap",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Kolgang",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Pocho",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Kachet",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Duibe",
+    "note": "not on road network"
+   },
+   {
+    "name": "Gairikharka",
+    "note": "not on road network"
+   },
+   {
+    "name": "Garthali",
+    "note": "not on road network"
+   },
+   {
+    "name": "Malabhanjyang",
+    "note": "not on road network"
+   },
+   {
+    "name": "Panchokharka",
+    "note": "not on road network"
+   },
+   {
+    "name": "Chhaharekharka",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Kigong Chok",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Tamang Chok",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Damai Tol",
+    "note": "no road link to a hub before the event"
+   },
+   {
+    "name": "Pahramuni Tol",
+    "note": "no road link to a hub before the event"
+   }
+  ],
+  "note": "EMS graded roads only inside its AOIs. Damage outside them is unknown to the reference, so reference cut-offs are a lower bound. The subset whose pre-event route to the nearest hub crosses an EMS AOI is the fairer comparison."
+ },
+ "notes": []
+}

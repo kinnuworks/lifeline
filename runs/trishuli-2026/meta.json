@@ -1,0 +1,276 @@
+{
+ "run_id": "trishuli-2026",
+ "label": "Bhote Koshi\u2013Trishuli flood, Nepal",
+ "bbox": [
+  84.93,
+  27.78,
+  85.45,
+  28.3
+ ],
+ "event_date": "2026-08-26",
+ "started_at": "2026-10-14T14:30:35+00:00",
+ "stages": {
+  "images": {
+   "state": "done",
+   "seconds": 158.5,
+   "passes": 15
+  },
+  "terrain": {
+   "state": "done",
+   "seconds": 7.5
+  },
+  "radar": {
+   "state": "done",
+   "seconds": 15.5,
+   "water_km2": 2.3,
+   "debris_km2": 12.7,
+   "unobserved_km2": 108.88
+  },
+  "optical": {
+   "state": "done",
+   "seconds": 0.6,
+   "pre_dates": [
+    "2026-08-11",
+    "2026-08-12",
+    "2026-08-24"
+   ],
+   "post_dates": [
+    "2026-09-20",
+    "2026-09-21",
+    "2026-09-28",
+    "2026-10-01",
+    "2026-10-03"
+   ],
+   "clear_share": 0.632,
+   "reused": true,
+   "optical_added_km2": 1.4,
+   "hand_m": 45.0,
+   "near_km": 0.5,
+   "min_px": 10
+  },
+  "osm": {
+   "state": "done",
+   "seconds": 54.0
+  },
+  "damage": {
+   "state": "done",
+   "seconds": 2.2
+  },
+  "access": {
+   "state": "done",
+   "seconds": 2.4
+  },
+  "model": {
+   "state": "done",
+   "seconds": 2.7,
+   "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
+   "weights": "lifeline_unet_s1.pt",
+   "threshold": 0.5,
+   "pixel_m": 20.0,
+   "terrain_mask": [
+    "observed==0",
+    "slope>15deg",
+    "hand>25m"
+   ],
+   "water_km2": 4.84,
+   "agree_with_radar_water": 0.5959,
+   "model_only_km2": 3.472,
+   "model_water_on_debris_class_km2": 1.02,
+   "raw": {
+    "water_km2": 56.049,
+    "agree_with_radar_water": 0.6379,
+    "model_only_km2": 42.45,
+    "model_water_on_debris_class_km2": 1.142,
+    "water_km2_on_slope_gt_20deg": 48.325
+   },
+   "masked": {
+    "water_km2": 4.84,
+    "agree_with_radar_water": 0.5959,
+    "model_only_km2": 3.472,
+    "model_water_on_debris_class_km2": 1.02
+   }
+  },
+  "facts": {
+   "state": "done",
+   "seconds": 1.7
+  },
+  "report": {
+   "state": "done",
+   "seconds": 0.8
+  },
+  "previews": {
+   "state": "done",
+   "seconds": 3.5
+  }
+ },
+ "warnings": [],
+ "status": "done",
+ "radar_pairs": [
+  {
+   "orbit": 85,
+   "direction": "ascending",
+   "before": "2026-08-16",
+   "after": "2026-08-28",
+   "baseline": [
+    "2026-07-11",
+    "2026-07-23",
+    "2026-08-04"
+   ],
+   "platform": "sentinel-1d"
+  },
+  {
+   "orbit": 121,
+   "direction": "descending",
+   "before": "2026-08-19",
+   "after": "2026-08-31",
+   "baseline": [
+    "2026-07-14",
+    "2026-07-26",
+    "2026-08-07"
+   ],
+   "platform": "sentinel-1d"
+  },
+  {
+   "orbit": 19,
+   "direction": "descending",
+   "before": "2026-08-24",
+   "after": "2026-09-05",
+   "baseline": [
+    "2026-07-19",
+    "2026-07-31",
+    "2026-08-12"
+   ],
+   "platform": "sentinel-1d"
+  }
+ ],
+ "radar": {
+  "orbits": [
+   {
+    "orbit": "track 85 ascending 2026-08-16 -> 2026-08-28",
+    "threshold_spreads": 3.22,
+    "water_db": -14.0,
+    "visible_share": 0.896
+   },
+   {
+    "orbit": "track 121 descending 2026-08-19 -> 2026-08-31",
+    "threshold_spreads": 3.23,
+    "water_db": -14.0,
+    "visible_share": 0.137
+   },
+   {
+    "orbit": "track 19 descending 2026-08-24 -> 2026-09-05",
+    "threshold_spreads": 3.24,
+    "water_db": -14.0,
+    "visible_share": 0.912
+   }
+  ],
+  "water_km2": 2.3,
+  "debris_km2": 12.7,
+  "unobserved_km2": 108.88,
+  "optical_added_km2": 1.4
+ },
+ "osm": {
+  "snapshot": "2026-07-27",
+  "tiles": 16,
+  "roads": 14831,
+  "bridges": 353,
+  "roads_km": 7412.1,
+  "roads_s": 7.0,
+  "places": 398,
+  "health": 25,
+  "points_s": 20.0,
+  "buildings": 188933,
+  "buildings_s": 27.0
+ },
+ "damage": {
+  "roads_under_damage_km": 99.64,
+  "roads": {
+   "unobserved": 98.16,
+   "clear": 7038.0,
+   "damaged_possible": 51.36,
+   "destroyed_likely": 224.57
+  },
+  "bridges": {
+   "destroyed_likely": 59,
+   "damaged_possible": 12,
+   "clear": 282,
+   "unobserved": 0
+  },
+  "buildings": {
+   "destroyed_likely": 2974,
+   "damaged_possible": 631,
+   "clear": 185312,
+   "unobserved": 16,
+   "checked": 188933
+  }
+ },
+ "access": {
+  "settlements_total": 397,
+  "settlements_with_road_before": 360,
+  "settlements_without_road_before": 37,
+  "settlements_connected_before": 290,
+  "cutoff_p90_plus": 48,
+  "cutoff_p50_to_90": 4,
+  "cutoff_total_p50_plus": 52,
+  "at_risk_p10_to_50": 0,
+  "road_cut_but_walkable": 1,
+  "cutoff_people_p50_plus": null,
+  "median_extra_minutes_still_connected": 0.0,
+  "max_extra_minutes_still_connected": 121.8,
+  "walk_reachable_but_road_cut": 49,
+  "destination_basis": "health",
+  "destination_note": "",
+  "destinations": 25,
+  "draws": 1000,
+  "seed": 7,
+  "unobserved_prior": 0.15,
+  "unobserved_edges": 70,
+  "unobserved_km": 98.3,
+  "top_repair": {
+   "rank": 1,
+   "osm_id": "way/84566285",
+   "kind": "bridge",
+   "name": "Pasang Lhamu Highway bridge",
+   "lon": 85.336965,
+   "lat": 28.16337,
+   "villages_reconnected": 18,
+   "people_reconnected": 0,
+   "names": [
+    "Amachhodingmo",
+    "Syapru Besi",
+    "Gatlang",
+    "Goljung",
+    "Chilime",
+    "Somdang",
+    "Gothen",
+    "Godam",
+    "Bahundanda",
+    "Tatopani",
+    "Nagathli",
+    "Gonggang",
+    "Brimdang",
+    "Gre",
+    "Jarsa Danda",
+    "Chyamdole",
+    "Tetangchet",
+    "Pangling"
+   ],
+   "osm_ids": [
+    "way/84566285",
+    "way/332122791",
+    "way/1266396385"
+   ],
+   "hit_prob": 1.0,
+   "p_close": 1.0,
+   "length_m": 1792.0,
+   "highway": "primary",
+   "combined_repair": true,
+   "people_basis": "OSM population tags"
+  },
+  "repairs_listed": 10,
+  "single_point_bridges": 12,
+  "population_tags": true
+ },
+ "runtime_seconds": 280.0,
+ "finished_at": "2026-10-14T14:49:43+00:00"
+}

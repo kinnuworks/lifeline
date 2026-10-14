@@ -1,0 +1,26 @@
+{
+ "run_id": "run_demo",
+ "area_name": "Rasuwa / Nuwakot corridor",
+ "area_name_ne": "रसुवा / नुवाकोट करिडोर",
+ "event_date": "2026-08-26",
+ "osm_snapshot": "2026-07-27",
+ "pairs": [
+  {
+   "platform": "Sentinel-1D",
+   "track": 85,
+   "direction": "ascending",
+   "before": "2026-08-16",
+   "after": "2026-08-28"
+  },
+  {
+   "platform": "Sentinel-1D",
+   "track": 121,
+   "direction": "descending",
+   "before": "2026-08-19",
+   "after": "2026-08-31"
+  }
+ ],
+ "warnings": [
+  "synthetic test data"
+ ]
+}

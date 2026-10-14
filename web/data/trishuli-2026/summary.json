@@ -1,0 +1,178 @@
+{
+ "run_id": "trishuli-2026",
+ "title": "Bhote Koshi–Trishuli flood, Nepal",
+ "event_date": "2026-08-26",
+ "generated_at": "2026-10-14T14:49:43+00:00",
+ "radar_passes": 15,
+ "radar_tracks": 3,
+ "buildings_checked": 188933,
+ "bridges_assessed": 353,
+ "roads_km_checked": 7412.1,
+ "villages_routed": 360,
+ "health_facilities": 25,
+ "villages_cut_off": 52,
+ "villages_at_risk": 0,
+ "area_debris_km2": 14.1,
+ "area_water_km2": 2.3,
+ "area_unobserved_km2": 108.88,
+ "area_optical_added_km2": 1.4,
+ "osm_snapshot": "2026-07-27",
+ "radar_track_labels": [
+  "85 ascending",
+  "121 descending",
+  "19 descending"
+ ],
+ "roads_destroyed_km": 224.6,
+ "roads_under_debris_km": 99.64,
+ "bridges_destroyed": 59,
+ "buildings_hit": 3605,
+ "bounds": [
+  84.93,
+  27.78,
+  85.45,
+  28.3
+ ],
+ "center": [
+  85.19,
+  28.04
+ ],
+ "radar_pairs": [
+  {
+   "orbit": 85,
+   "direction": "ascending",
+   "before": "2026-08-16",
+   "after": "2026-08-28",
+   "baseline": [
+    "2026-07-11",
+    "2026-07-23",
+    "2026-08-04"
+   ],
+   "platform": "sentinel-1d"
+  },
+  {
+   "orbit": 121,
+   "direction": "descending",
+   "before": "2026-08-19",
+   "after": "2026-08-31",
+   "baseline": [
+    "2026-07-14",
+    "2026-07-26",
+    "2026-08-07"
+   ],
+   "platform": "sentinel-1d"
+  },
+  {
+   "orbit": 19,
+   "direction": "descending",
+   "before": "2026-08-24",
+   "after": "2026-09-05",
+   "baseline": [
+    "2026-07-19",
+    "2026-07-31",
+    "2026-08-12"
+   ],
+   "platform": "sentinel-1d"
+  }
+ ],
+ "stages": {
+  "images": {
+   "state": "done",
+   "seconds": 158.5,
+   "passes": 15
+  },
+  "terrain": {
+   "state": "done",
+   "seconds": 7.5
+  },
+  "radar": {
+   "state": "done",
+   "seconds": 15.5,
+   "water_km2": 2.3,
+   "debris_km2": 12.7,
+   "unobserved_km2": 108.88
+  },
+  "optical": {
+   "state": "done",
+   "seconds": 0.6,
+   "pre_dates": [
+    "2026-08-11",
+    "2026-08-12",
+    "2026-08-24"
+   ],
+   "post_dates": [
+    "2026-09-20",
+    "2026-09-21",
+    "2026-09-28",
+    "2026-10-01",
+    "2026-10-03"
+   ],
+   "clear_share": 0.632,
+   "reused": true,
+   "optical_added_km2": 1.4,
+   "hand_m": 45.0,
+   "near_km": 0.5,
+   "min_px": 10
+  },
+  "osm": {
+   "state": "done",
+   "seconds": 54.0
+  },
+  "damage": {
+   "state": "done",
+   "seconds": 2.2
+  },
+  "access": {
+   "state": "done",
+   "seconds": 2.4
+  },
+  "model": {
+   "state": "done",
+   "seconds": 2.7,
+   "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
+   "weights": "lifeline_unet_s1.pt",
+   "threshold": 0.5,
+   "pixel_m": 20.0,
+   "terrain_mask": [
+    "observed==0",
+    "slope>15deg",
+    "hand>25m"
+   ],
+   "water_km2": 4.84,
+   "agree_with_radar_water": 0.5959,
+   "model_only_km2": 3.472,
+   "model_water_on_debris_class_km2": 1.02,
+   "raw": {
+    "water_km2": 56.049,
+    "agree_with_radar_water": 0.6379,
+    "model_only_km2": 42.45,
+    "model_water_on_debris_class_km2": 1.142,
+    "water_km2_on_slope_gt_20deg": 48.325
+   },
+   "masked": {
+    "water_km2": 4.84,
+    "agree_with_radar_water": 0.5959,
+    "model_only_km2": 3.472,
+    "model_water_on_debris_class_km2": 1.02
+   }
+  },
+  "facts": {
+   "state": "done",
+   "seconds": 1.7
+  },
+  "report": {
+   "state": "done",
+   "seconds": 0.8
+  },
+  "previews": {
+   "state": "done",
+   "seconds": 3.5
+  }
+ },
+ "warnings": [],
+ "check_buildings_hit_rate": 0.8762,
+ "check_bridges_flagged": 31,
+ "check_bridges_total": 46,
+ "check_flood_f1": 0.7458,
+ "check_flood_precision": 0.8615,
+ "check_roads_recall": 0.8871
+}

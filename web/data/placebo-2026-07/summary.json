@@ -1,0 +1,155 @@
+{
+ "run_id": "placebo-2026-07",
+ "title": "No-flood check: Trishuli corridor, 25 Jul 2026",
+ "event_date": "2026-07-25",
+ "generated_at": "2026-10-14T14:49:18+00:00",
+ "radar_passes": 15,
+ "radar_tracks": 3,
+ "buildings_checked": 188933,
+ "bridges_assessed": 353,
+ "roads_km_checked": 7412.1,
+ "villages_routed": 360,
+ "health_facilities": 25,
+ "villages_cut_off": 0,
+ "villages_at_risk": 0,
+ "area_debris_km2": 1.07,
+ "area_water_km2": 0.05,
+ "area_unobserved_km2": 108.89,
+ "osm_snapshot": "2026-07-24",
+ "radar_track_labels": [
+  "121 descending",
+  "19 descending",
+  "85 ascending"
+ ],
+ "roads_destroyed_km": 6.5,
+ "roads_under_debris_km": 2.45,
+ "bridges_destroyed": 0,
+ "buildings_hit": 147,
+ "bounds": [
+  84.93,
+  27.78,
+  85.45,
+  28.3
+ ],
+ "center": [
+  85.19,
+  28.04
+ ],
+ "radar_pairs": [
+  {
+   "orbit": 121,
+   "direction": "descending",
+   "before": "2026-07-14",
+   "after": "2026-07-26",
+   "baseline": [
+    "2026-06-13",
+    "2026-06-25",
+    "2026-07-02"
+   ],
+   "platform": "sentinel-1d"
+  },
+  {
+   "orbit": 19,
+   "direction": "descending",
+   "before": "2026-07-19",
+   "after": "2026-07-31",
+   "baseline": [
+    "2026-06-18",
+    "2026-06-25",
+    "2026-07-07"
+   ],
+   "platform": "sentinel-1d"
+  },
+  {
+   "orbit": 85,
+   "direction": "ascending",
+   "before": "2026-07-23",
+   "after": "2026-08-04",
+   "baseline": [
+    "2026-06-22",
+    "2026-06-29",
+    "2026-07-11"
+   ],
+   "platform": "sentinel-1d"
+  }
+ ],
+ "stages": {
+  "images": {
+   "state": "done",
+   "seconds": 179.2,
+   "passes": 15
+  },
+  "terrain": {
+   "state": "done",
+   "seconds": 7.2
+  },
+  "radar": {
+   "state": "done",
+   "seconds": 13.4,
+   "water_km2": 0.05,
+   "debris_km2": 1.07,
+   "unobserved_km2": 108.89
+  },
+  "optical": {
+   "state": "skipped",
+   "seconds": 0.0
+  },
+  "osm": {
+   "state": "done",
+   "seconds": 60.3
+  },
+  "damage": {
+   "state": "done",
+   "seconds": 2.2
+  },
+  "access": {
+   "state": "done",
+   "seconds": 3.0
+  },
+  "model": {
+   "state": "done",
+   "seconds": 5.5,
+   "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
+   "weights": "lifeline_unet_s1.pt",
+   "threshold": 0.5,
+   "pixel_m": 20.0,
+   "terrain_mask": [
+    "observed==0",
+    "slope>15deg",
+    "hand>25m"
+   ],
+   "water_km2": 0.621,
+   "agree_with_radar_water": 0.1395,
+   "model_only_km2": 0.614,
+   "model_water_on_debris_class_km2": 0.013,
+   "raw": {
+    "water_km2": 43.429,
+    "agree_with_radar_water": 0.1395,
+    "model_only_km2": 31.5,
+    "model_water_on_debris_class_km2": 0.013,
+    "water_km2_on_slope_gt_20deg": 40.57
+   },
+   "masked": {
+    "water_km2": 0.621,
+    "agree_with_radar_water": 0.1395,
+    "model_only_km2": 0.614,
+    "model_water_on_debris_class_km2": 0.013
+   }
+  },
+  "facts": {
+   "state": "done",
+   "seconds": 1.2
+  },
+  "report": {
+   "state": "done",
+   "seconds": 0.4
+  },
+  "previews": {
+   "state": "done",
+   "seconds": 2.6
+  }
+ },
+ "warnings": [
+  "Optical check skipped: switched off for this run"
+ ]
+}

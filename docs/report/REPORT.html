@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lifeline: technical report</title>
+<style>
+  @page { size: A4; margin: 15mm 16mm 15mm 16mm; }
+  :root { --ink:#1D1D1F; --ink2:#3A3A3F; --muted:#6E6E73; --line:#DADADF; --accent:#B8611C; }
+  * { box-sizing: border-box; }
+  body { font: 9.6pt/1.42 "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--ink2); margin: 0; }
+  h1 { font-size: 21pt; line-height: 1.05; letter-spacing: -.02em; color: var(--ink); margin: 0 0 3pt; }
+  h2 { font-size: 12.2pt; color: var(--ink); margin: 13pt 0 4pt; letter-spacing: -.01em; }
+  h3 { font-size: 10pt; color: var(--ink); margin: 8pt 0 2pt; }
+  p { margin: 0 0 5pt; }
+  ul { margin: 0 0 5pt; padding-left: 13pt; }
+  li { margin: 0 0 2pt; }
+  .sub { color: var(--muted); font-size: 9.6pt; margin-bottom: 8pt; }
+  .box { border: 1px solid var(--line); border-radius: 6pt; padding: 7pt 9pt; margin: 6pt 0 8pt; background: #FAFAFB; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6pt; margin: 6pt 0 4pt; }
+  .kpi b { display: block; font-size: 15pt; color: var(--ink); letter-spacing: -.02em; }
+  .kpi span { font-size: 8pt; color: var(--muted); line-height: 1.25; display: block; }
+  table { border-collapse: collapse; width: 100%; font-size: 8.4pt; margin: 4pt 0 6pt; }
+  th, td { text-align: left; padding: 2.6pt 4pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--ink); font-weight: 600; border-bottom: 1px solid #B9B9BE; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 600; color: var(--ink); }
+  figure { margin: 6pt 0 8pt; }
+  figure img { width: 100%; display: block; }
+  figcaption { font-size: 8.2pt; color: var(--muted); margin-top: 3pt; }
+  code { font: 8.4pt Menlo, monospace; color: var(--ink); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12pt; }
+  .page { break-before: page; }
+  .small { font-size: 8.3pt; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>Lifeline</h1>
+<div class="sub">Who can still reach help after a Himalayan flood. Technical report, Track B: Mapping Flood Damage from Space. Dhiraj Kavuri, October 2026.</div>
+
+<p>Lifeline takes an area and a flood date and, using only free satellite data and OpenStreetMap as it stood before the flood, answers three questions: where the flood and debris hit, what was damaged, and which villages lost their road to a hospital or clinic. It ranks the repairs that reconnect the most villages and writes a one-page situation report in English and Nepali. Both AI options in the brief are built and evaluated. Everything runs from raw data for any area and date with one command; the 26 August 2026 Bhote Koshi–Trishuli flood is the case study.</p>
+
+<div class="box">
+  <div class="kpis">
+    <div class="kpi"><b>0.75</b><span>flood-extent F1 against the official EMSR927 maps, four areas pooled (precision 0.86)</span></div>
+    <div class="kpi"><b>88%</b><span>of buildings the official maps grade damaged that Lifeline flags (2,067 of 2,359)</span></div>
+    <div class="kpi"><b>52</b><span>settlements cut off from any hospital or clinic, 48 of them with 90%+ probability</span></div>
+    <div class="kpi"><b>1.1 km²</b><span>flagged on a date with no flood, against 16.4 km² for the event</span></div>
+  </div>
+  <p class="small" style="margin:0">One run over 3,037 km² of Rasuwa, Nuwakot and Dhading. 15 Sentinel-1 passes, 188,933 buildings, 7,412 km of road, 353 bridges and 397 settlements checked. The official maps are read only by a separate checker after the run; a test fails the build if pipeline code refers to them.</p>
+</div>
+
+<h2>1. Data and rules</h2>
+<table>
+  <tr><th>Input</th><th>How it is read</th><th>Used for</th></tr>
+  <tr><td>Sentinel-1 RTC, VV and VH</td><td>Planetary Computer STAC, any date, cloud-optimised overviews at 20 m, 16 parallel reads</td><td>flood and debris mapping</td></tr>
+  <tr><td>Sentinel-2 L2A</td><td>same; scene classification mask removes cloud</td><td>vegetation loss and new water where the sky is clear</td></tr>
+  <tr><td>Copernicus DEM GLO-30</td><td>same</td><td>slope, height above nearest drainage (HAND), radar visibility, flood path</td></tr>
+  <tr><td>OpenStreetMap</td><td>ohsome API full-history extraction, keyless, snapshot at the earlier of event − 1 day and 27 July 2026</td><td>buildings, roads, bridges, settlements, health facilities</td></tr>
+  <tr><td>Sen1Floods11, Kuro Siwo</td><td>listed training data</td><td>water segmentation model</td></tr>
+  <tr><td>EMSR927 (EMS)</td><td>checker only, <code>src/lifeline/validate/</code></td><td>scoring after the run</td></tr>
+</table>
+<p>The ohsome snapshot is the strictest reading of the OSM rule: road validity is checked against the snapshot date, so no edit made after the flood can enter. Overpass, which returns today's map, is not used.</p>
+
+<h2>2. Where did the flood hit?</h2>
+<p><b>Same-orbit pairs with a per-pixel baseline.</b> For each Sentinel-1 track over the area (here one ascending and two descending tracks of Sentinel-1D), Lifeline takes the first pass after the event, the last pass before it and three earlier passes on the same track. Radar brightness depends on viewing geometry, so only passes from the same track are compared. Each pixel's after-value is scored against the median and spread of its own pre-event history (a robust z-score, MAD × 1.4826), for VV and VH, darkening and brightening. Calm water darkens; debris flows and scour brighten or darken and strip vegetation, which the VH change picks up. New dark water seen by any track is open water, the rest debris and scour. A pass on the event day itself is ignored because it may precede the flood.</p>
+<p><b>A threshold that controls false alarms without labels.</b> Pixels more than 150 m above the nearest stream cannot flood. The score that only 1% of those pixels reach is the detection line for that track, so the false-alarm rate is set by the data, not by the official maps.</p>
+<p><b>Honest about what radar cannot see.</b> Layover and shadow are computed from the DEM for each track's heading and incidence angle and marked "not observed". A pixel counts as changed if any track that can see it shows strong change; a track that cannot see a slope does not vote against it. Over the case study, 108.9 km² stays unobserved and is reported as such, never as "clear".</p>
+<p><b>Terrain and connectivity.</b> Change is weighted by a HAND prior (scale 20 m, cut at 60 m). Strong-change seeds of at least 100 pixels are grown into connected weaker change on low valley ground (HAND under 30 m, up to 0.5 km from a seed), the two-threshold method used for edges.</p>
+<p><b>Sentinel-2 where the radar is blind to the change.</b> In the gorge, debris often leaves radar brightness unchanged (the median change on missed pixels is 0.0 dB) while the optical image shows bare ground where forest stood. Where both dates are clear, NDVI loss or new NDWI water on valley ground (HAND under 45 m) within 0.5 km of radar damage is added as "possibly damaged" (1.4 km² here). Landslides high on a hillside or fields far from the river are not added.</p>
+<p><b>Settings chosen on one area.</b> The radar settings (combination rule, seed size, growth distance) and the Sentinel-2 settings (height limit, distance, patch size) were each chosen by best F1 on one official area only (area 3, Bidur). The radar choice also required no more than 3 km² on the no-flood date, so that date is not an independent test of it. Records: <code>validation/fusion_dev.json</code> and <code>validation/optical_fusion_dev.json</code>. The radar choice beat the runner-up on Bidur by 0.001 and is worse on all three held-out areas; the Sentinel-2 step improves all three held-out areas.</p>
+
+<figure>
+  <img src="../img/fig_flood.png" alt="Radar before and after and the mapped debris along the Trishuli near Bidur">
+  <figcaption>Figure 1. The Trishuli near Bidur and Betrawati, about 10 × 11 km. Sentinel-1 VV before and after, and the mapped classes. Two days after the flood most open water had drained; the event shows mainly as debris and scour.</figcaption>
+</figure>
+
+<h2>3. What was damaged?</h2>
+<p>Every pre-event OSM building, road and bridge takes the highest flood probability within one 20 m pixel, because OSM geometry and radar pixels are both a few metres off. Roads are sampled every 10 m and use their 95th percentile, so one noisy pixel does not close a road. Above 0.7 is "likely destroyed", 0.4 to 0.7 "possibly damaged", and features in unobserved ground are "unobserved". These are exposure labels: a building beside mapped debris, not one inspected on the ground. Case study: 2,974 buildings likely destroyed and 631 possibly damaged; 99.6 km of road lies under mapped debris or water (on 224.6 km of OSM road sections flagged); 59 of 353 bridges likely destroyed and 12 possibly damaged. The places with the most likely-destroyed buildings within 2 km are Nuwakot, Betrawti, Bhainse, Dewighat and Nauwise Phant.</p>
+
+<h2 class="page">4. Who is cut off?</h2>
+<p>A routable graph is built from the same pre-event roads (14,831 ways; walking-only ways excluded from driving). Destinations are the 25 hospitals and clinics in pre-event OSM. Each road stretch closes with its own probability: its damage score if the map flags it (0.4 or more), a prior of 0.15 if the radar could not see it, and zero otherwise. Stretches of the same OSM way close together. Lifeline draws 1,000 versions of the network and, for each settlement, reports the share in which it cannot reach any health facility: p<sub>cut-off</sub>. It also reports drive time before and after, and walking time on all paths; a village whose road is cut but which can walk to care within 60 minutes is listed separately, because it needs a different response.</p>
+<p>A greedy search then ranks repairs: at each step it compares reopening any one closed OSM way with reopening all the closed stretches on one cut-off village's old route, and keeps whichever reconnects the most villages. Bridges that are the only road link for a group of villages are listed as single points of failure.</p>
+
+<figure>
+  <img src="../img/fig_cutoff.png" alt="Cut-off map of settlements" style="width:86%;margin:0 auto">
+  <figcaption>Figure 2. Settlements by access status. Red: cut off from any hospital or clinic in most draws. The star marks the top repair: the 3 closed stretches of the Pasang Lhamu Highway around one bridge near Syapru Besi, which together reconnect 18 settlements. Orange lines: road likely destroyed.</figcaption>
+</figure>
+
+<p><b>Result.</b> 290 of 397 settlements could reach care by road before the flood. 52 are now cut off (48 with p ≥ 0.9, 4 between 0.5 and 0.9), 1 more has lost its road but can walk to care within an hour, and 107 had no mapped road to care even before. 12 bridges are single points of failure.</p>
+<p><b>A failure we found and fixed.</b> An earlier version let every road keep a small closure chance from its raw score. Summed over the dozens of stretches on a long hill route, it marked 148 villages cut off, many far from any damage, which we saw on the map. Closure is now limited to roads the map flags or cannot see. We had already scored that version against the official road grading, so the agreement figure below (295 of 338, against 217 before) is not independent of this change.</p>
+
+<h2>5. AI component: both options</h2>
+<h3>(a) Flood segmentation model</h3>
+<p>A U-Net with a ResNet-34 encoder (ImageNet start, permitted) takes VV, VH and VV−VH in dB and predicts open water. It is trained on 196 hand-labelled Sen1Floods11 chips with the India and Pakistan events held out entirely, so the South Asian scenes are a true unseen test. BCE + Dice loss, early stopping on validation IoU; three variants were trained and all are reported.</p>
+<table>
+  <tr><th>Test set</th><th class="n">Chips</th><th class="n">Model IoU</th><th class="n">Fixed-threshold IoU</th></tr>
+  <tr><td>Sen1Floods11 official test</td><td class="n">90</td><td class="n"><b>0.669</b></td><td class="n">0.364</td></tr>
+  <tr><td>Bolivia (event never seen)</td><td class="n">15</td><td class="n"><b>0.661</b></td><td class="n">0.617</td></tr>
+  <tr><td>India + Pakistan (held out entirely)</td><td class="n">96</td><td class="n"><b>0.470</b></td><td class="n">0.368</td></tr>
+</table>
+<p>On the Trishuli scene the raw model marks 56 km² as water, 48 km² of it on slopes over 20° where radar shadow looks like water. Masked to ground it can judge (observed, slope under 15°, HAND under 25 m) it marks 4.8 km² and finds 60% of the 2.3 km² of new open water the change detection maps. This is the honest finding: a water model trained on lowland floods transfers to Himalayan valleys only with a terrain mask, and it cannot see debris that is not water. That is why the change-detection map, not the model, drives the damage and access analysis, and the model is used as a second opinion on open water.</p>
+
+<h3>(b) Situation-report copilot, English and Nepali</h3>
+<p>Every figure the copilot may say lives in a facts ledger built from the run's maps (2,300+ facts with English and Nepali labels and source files). The model (Claude, via the Anthropic API) can only read facts through four tools: get a fact, list facts by prefix, a settlement's status, the repair list. A guard parses every number in the answer, including Devanagari digits and English and Nepali number words, and rejects any that is not a fact the model looked up in that conversation, with the right unit, and any qualifier such as "over" or "about". On rejection the model retries once; then a fixed template answers. Questions the maps cannot answer (deaths, reopening dates, how many helicopters) are refused. Spend is capped in code. The guard checks numbers and their units, not what the sentence claims about them.</p>
+<p><b>Red team.</b> 60 adversarial and ordinary questions in English, Nepali and romanised Nepali (prompt injection, casualty bait, rounding requests, number words, future predictions), plus 46 planted statements for the guard. Results on the case-study run (rule-based refusals answer 39 of the 60 before the model is called): all 60 pass with templates alone and all 60 with the model (one correct model refusal was missed by the refusal detector at first; the detector was extended and the saved answers rescored); the guard catches 37 of 37 planted fabrications and raises no false alarm on 9 true statements filled from the run's own facts. Full log: <code>runs/trishuli-2026/copilot_redteam.json</code>. The one-page report (<code>sitrep_en.pdf</code>, <code>sitrep_ne.pdf</code>) is produced by the same ledger, so its numbers are traceable to a map file.</p>
+
+<h2 class="page">6. Checked against the official maps</h2>
+<p>EMS activation EMSR927 graded damage in six areas from very-high-resolution optical images; areas 4 and 6 were cancelled for cloud. Lifeline's output is compared after the run. Intervals are 95% bootstrap over 200 m blocks.</p>
+<table>
+  <tr><th>Area</th><th>Role</th><th class="n">Extent F1</th><th class="n">Precision</th><th class="n">Recall</th><th class="n">Damaged buildings flagged</th><th class="n">Road agreement</th><th class="n">Bridges flagged</th></tr>
+  <tr><td>1 Syapru Besi</td><td>held out</td><td class="n">0.55</td><td class="n">0.99</td><td class="n">0.38</td><td class="n">86%</td><td class="n">0.81</td><td class="n">5 / 5</td></tr>
+  <tr><td>2 Timure</td><td>held out</td><td class="n">0.35</td><td class="n">0.98</td><td class="n">0.21</td><td class="n">65%</td><td class="n">0.71</td><td class="n">0 / 1</td></tr>
+  <tr><td>3 Bidur</td><td>development</td><td class="n">0.83</td><td class="n">0.85</td><td class="n">0.81</td><td class="n">98%</td><td class="n">0.73</td><td class="n">13 / 18</td></tr>
+  <tr><td>5 Phosretar</td><td>held out</td><td class="n">0.74</td><td class="n">0.86</td><td class="n">0.66</td><td class="n">62%</td><td class="n">0.66</td><td class="n">13 / 22</td></tr>
+  <tr class="total"><td>All four</td><td></td><td class="n">0.75</td><td class="n">0.86</td><td class="n">0.66</td><td class="n">88%</td><td class="n">0.71</td><td class="n">31 / 46</td></tr>
+</table>
+<p>Pooled extent IoU is 0.59 (0.57 to 0.62), F1 0.75 (0.72 to 0.77). Road recall on segments EMS grades destroyed or damaged is 0.89, with a false-alarm rate of 0.37 on segments it grades undamaged. 989 EMS building records have no OSM building within 15 m and cannot be matched; that is a gap in OpenStreetMap, not something the radar can fix.</p>
+<p><b>Reading the table.</b> Precision is high everywhere (0.85 to 0.99): what Lifeline flags is almost always damage. Recall drops in the narrow upper gorge (areas 1 and 2). That ground is mostly observed, but the debris barely changed its radar brightness there; Sentinel-2 vegetation loss lifted F1 from 0.28 to 0.55 in area 1 and from 0.18 to 0.35 in area 2, with settings chosen on area 3 only.</p>
+<p><b>Cut-off check.</b> Treating EMS-graded destroyed roads as closed and running the same routing, Lifeline agrees on the status of 295 of 338 settlements; on the 99 whose route crosses a graded area, 69. EMS grades roads only inside its areas, so its cut-off count (7) is a lower bound against our 52.</p>
+
+<h2>7. Does it generalise, and does it cry wolf?</h2>
+<figure>
+  <img src="../img/fig_events.png" alt="Flagged area and destroyed buildings for four runs">
+  <figcaption>Figure 3. The same code and settings on the case study, on the same area on a date with no flood (radar only), and on two earlier floods it was never tuned on: Melamchi (Nepal, June 2021, Sentinel-1A) and the Teesta glacial-lake outburst (Sikkim, October 2023).</figcaption>
+</figure>
+<p>On the no-flood date (25 July 2026, mid-monsoon) Lifeline flags 1.1 km² across 3,037 km², 7% of the event figure. That run is radar-only, because any Sentinel-2 image in the 40 days after it would also show the 26 August flood; and it was one of the constraints when the radar settings were chosen, so it bounds false alarms rather than testing them independently. Melamchi and Teesta run end to end from raw data with no change: Melamchi in 114 s (no clear Sentinel-2 in the window), Teesta in 358 s for the radar plus 353 s for Sentinel-2. Both put damage along the rivers that were hit (Teesta: 8.6 km², 1.5 km² of it new water, and 490 buildings, most near Pegong, Sangkalang, Dikchu and Majitar). There is no official grading to score them against, so they show generality, not accuracy.</p>
+
+<h2>8. Live use</h2>
+<p>A judge draws a box (up to about 60 × 60 km) and picks a date on the dashboard, or runs <code>uv run lifeline run --bbox W S E N --date YYYY-MM-DD</code>. The engine finds the passes, reads the radar, DEM and OSM, and writes maps, damage, cut-off, facts and both reports. Cold runs took 2 to 6 minutes for the radar part; Sentinel-2 can add several minutes, so the live engine skips it after 3 minutes and says so. Every stage reports progress; a failed stage (for example no clear Sentinel-2 scene) is reported and skipped, not fatal. The dashboard shows the flood map with a before/after slider, damage layers, the cut-off list with probabilities, the repair list, the flood path tool and the copilot.</p>
+<p><b>Bonus, flood path.</b> Clicking a point traces steepest descent on the pit-filled DEM, estimates the valley floor along the path from HAND (up to 1.5 km either side) and lists the settlements on it in order downstream. From the Rasuwagadhi border crossing it runs 93 km and passes 27 settlements.</p>
+
+<h2>9. Limitations</h2>
+<ul>
+  <li>Sentinel-1 revisits each track every 12 days. Lifeline maps damage after it happens; it cannot warn of a glacier collapse.</li>
+  <li>In narrow gorges debris often barely changes the radar signal, and steep slopes are in layover or shadow. Recall in the upper Bhote Koshi is 0.21 to 0.38.</li>
+  <li>Most open water drained before the first pass, so this event is mapped mainly as debris and scour. Sentinel-2 helps only where the sky was clear; here the clear "after" images are 25 to 38 days after the flood.</li>
+  <li>OpenStreetMap is incomplete in remote valleys; 107 settlements had no mapped road to care before the flood, and unmapped buildings and bridges cannot be counted. OSM records a population for 3 of 397 settlements, so people counts are not reported as totals.</li>
+  <li>Road closures are drawn independently per OSM way; one landslide that closes several ways is counted as separate events. Health facility capacity is not modelled.</li>
+  <li>The official maps grade selected areas from optical images; they are a yardstick, not ground truth.</li>
+  <li>Romanised village names are generated from Devanagari where OSM has no English name and may differ from local spelling.</li>
+  <li>This is an educational prototype. Its numbers come from satellite analysis and have not been checked on the ground.</li>
+</ul>
+
+<h2>10. Reproduce</h2>
+<p><code>uv sync</code>, then <code>uv run lifeline run --bbox 84.93 27.78 85.45 28.30 --date 2026-08-26 --id trishuli-2026</code>. Checker: <code>sh scripts/validate_run.sh trishuli-2026</code>. Model: <code>uv run python -m lifeline.model.evaluate</code>. Copilot red team: <code>uv run python scripts/redteam.py runs/trishuli-2026</code>. Tests: <code>uv run pytest</code>.</p>
+<p class="small"><b>Attribution.</b> Contains modified Copernicus Sentinel data 2021–2026. Produced using Copernicus WorldDEM-30 © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. © OpenStreetMap contributors. European Union, Copernicus Emergency Management Service data (EMSR927), used for checking only. Sen1Floods11 (Bonafilia et al., CVPR Workshops 2020). Kuro Siwo (Bountos et al., NeurIPS 2024). <b>AI tools.</b> Code and documentation were written with the help of Claude Code; the copilot calls the Anthropic API.</p>
+
+</body>
+</html>

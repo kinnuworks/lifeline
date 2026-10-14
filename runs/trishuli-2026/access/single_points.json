@@ -1,0 +1,217 @@
+[
+  {
+    "osm_id": "way/84566285",
+    "kind": "bridge",
+    "name": "unnamed primary bridge",
+    "lon": 85.332525,
+    "lat": 28.157386,
+    "villages_cut": 30,
+    "people_cut": 0,
+    "names": [
+      "热索",
+      "Amachhodingmo",
+      "Syapru Besi",
+      "Timure",
+      "Gatlang",
+      "Goljung",
+      "Briddhim",
+      "Chilime",
+      "Somdang",
+      "Gothen",
+      "Godam",
+      "Bahundanda",
+      "Rasuwagdhi",
+      "Tatopani",
+      "Nagathli",
+      "Lingling",
+      "Gonggang",
+      "Brimdang",
+      "Dalphedi",
+      "Gre",
+      "Jarsa Danda",
+      "Chyamdole",
+      "Tetangchet",
+      "Bhrajam",
+      "Pangling",
+      "Pajung",
+      "Bhanjyang",
+      "Domen",
+      "Tiwari",
+      "Pairo"
+    ],
+    "p_close_now": 0.6
+  },
+  {
+    "osm_id": "way/341557606",
+    "kind": "bridge",
+    "name": "unnamed primary bridge",
+    "lon": 85.342201,
+    "lat": 28.1816,
+    "villages_cut": 9,
+    "people_cut": 0,
+    "names": [
+      "热索",
+      "Timure",
+      "Briddhim",
+      "Rasuwagdhi",
+      "Lingling",
+      "Dalphedi",
+      "Bhrajam",
+      "Pajung",
+      "Bhanjyang"
+    ],
+    "p_close_now": 1.0
+  },
+  {
+    "osm_id": "way/341557608",
+    "kind": "bridge",
+    "name": "unnamed primary bridge",
+    "lon": 85.343516,
+    "lat": 28.182585,
+    "villages_cut": 7,
+    "people_cut": 0,
+    "names": [
+      "热索",
+      "Timure",
+      "Briddhim",
+      "Rasuwagdhi",
+      "Lingling",
+      "Dalphedi",
+      "Bhanjyang"
+    ],
+    "p_close_now": 0.6
+  },
+  {
+    "osm_id": "way/245248450",
+    "kind": "bridge",
+    "name": "unnamed primary bridge",
+    "lon": 85.353097,
+    "lat": 28.200317,
+    "villages_cut": 6,
+    "people_cut": 0,
+    "names": [
+      "热索",
+      "Timure",
+      "Briddhim",
+      "Rasuwagdhi",
+      "Lingling",
+      "Dalphedi"
+    ],
+    "p_close_now": 0.0
+  },
+  {
+    "osm_id": "way/937414837",
+    "kind": "bridge",
+    "name": "unnamed unclassified bridge",
+    "lon": 85.301475,
+    "lat": 28.183773,
+    "villages_cut": 5,
+    "people_cut": 0,
+    "names": [
+      "Tatopani",
+      "Nagathli",
+      "Gonggang",
+      "Brimdang",
+      "Tetangchet"
+    ],
+    "p_close_now": 0.0
+  },
+  {
+    "osm_id": "way/937405899",
+    "kind": "bridge",
+    "name": "unnamed unclassified bridge",
+    "lon": 85.281173,
+    "lat": 28.21746,
+    "villages_cut": 3,
+    "people_cut": 0,
+    "names": [
+      "Tatopani",
+      "Nagathli",
+      "Brimdang"
+    ],
+    "p_close_now": 0.0
+  },
+  {
+    "osm_id": "way/340535861",
+    "kind": "bridge",
+    "name": "unnamed secondary bridge",
+    "lon": 85.415424,
+    "lat": 27.851047,
+    "villages_cut": 3,
+    "people_cut": 0,
+    "names": [
+      "Talakhu",
+      "Chhap",
+      "Chisapani"
+    ],
+    "p_close_now": 0.0
+  },
+  {
+    "osm_id": "way/1017959928",
+    "kind": "bridge",
+    "name": "unnamed unclassified bridge",
+    "lon": 85.339984,
+    "lat": 28.164233,
+    "villages_cut": 3,
+    "people_cut": 0,
+    "names": [
+      "Domen",
+      "Tiwari",
+      "Pairo"
+    ],
+    "p_close_now": 1.0
+  },
+  {
+    "osm_id": "way/248646102",
+    "kind": "bridge",
+    "name": "unnamed primary bridge",
+    "lon": 85.376048,
+    "lat": 28.266056,
+    "villages_cut": 2,
+    "people_cut": 0,
+    "names": [
+      "热索",
+      "Rasuwagdhi"
+    ],
+    "p_close_now": 0.0
+  },
+  {
+    "osm_id": "way/341573407",
+    "kind": "bridge",
+    "name": "unnamed track bridge",
+    "lon": 85.205712,
+    "lat": 28.074566,
+    "villages_cut": 1,
+    "people_cut": 0,
+    "names": [
+      "Gogne"
+    ],
+    "p_close_now": 0.5
+  },
+  {
+    "osm_id": "way/317948477",
+    "kind": "bridge",
+    "name": "unnamed track bridge",
+    "lon": 85.201356,
+    "lat": 28.192942,
+    "villages_cut": 1,
+    "people_cut": 0,
+    "names": [
+      "Somdang"
+    ],
+    "p_close_now": 0.0
+  },
+  {
+    "osm_id": "way/1443180803",
+    "kind": "bridge",
+    "name": "unnamed primary bridge",
+    "lon": 85.378035,
+    "lat": 28.278708,
+    "villages_cut": 1,
+    "people_cut": 0,
+    "names": [
+      "热索"
+    ],
+    "p_close_now": 0.905
+  }
+]

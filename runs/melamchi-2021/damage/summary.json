@@ -1,0 +1,22 @@
+{
+ "roads_under_damage_km": 6.71,
+ "roads": {
+  "clear": 1800.86,
+  "destroyed_likely": 18.57,
+  "unobserved": 59.16,
+  "damaged_possible": 3.31
+ },
+ "bridges": {
+  "destroyed_likely": 5,
+  "damaged_possible": 1,
+  "clear": 74,
+  "unobserved": 0
+ },
+ "buildings": {
+  "destroyed_likely": 150,
+  "damaged_possible": 69,
+  "clear": 41768,
+  "unobserved": 1,
+  "checked": 41988
+ }
+}

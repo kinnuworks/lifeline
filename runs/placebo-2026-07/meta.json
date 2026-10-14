@@ -1,0 +1,219 @@
+{
+ "run_id": "placebo-2026-07",
+ "label": "No-flood check: Trishuli corridor, 25 Jul 2026",
+ "bbox": [
+  84.93,
+  27.78,
+  85.45,
+  28.3
+ ],
+ "event_date": "2026-07-25",
+ "started_at": "2026-10-14T14:45:43+00:00",
+ "stages": {
+  "images": {
+   "state": "done",
+   "seconds": 179.2,
+   "passes": 15
+  },
+  "terrain": {
+   "state": "done",
+   "seconds": 7.2
+  },
+  "radar": {
+   "state": "done",
+   "seconds": 13.4,
+   "water_km2": 0.05,
+   "debris_km2": 1.07,
+   "unobserved_km2": 108.89
+  },
+  "optical": {
+   "state": "skipped",
+   "seconds": 0.0
+  },
+  "osm": {
+   "state": "done",
+   "seconds": 60.3
+  },
+  "damage": {
+   "state": "done",
+   "seconds": 2.2
+  },
+  "access": {
+   "state": "done",
+   "seconds": 3.0
+  },
+  "model": {
+   "state": "done",
+   "seconds": 5.5,
+   "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
+   "weights": "lifeline_unet_s1.pt",
+   "threshold": 0.5,
+   "pixel_m": 20.0,
+   "terrain_mask": [
+    "observed==0",
+    "slope>15deg",
+    "hand>25m"
+   ],
+   "water_km2": 0.621,
+   "agree_with_radar_water": 0.1395,
+   "model_only_km2": 0.614,
+   "model_water_on_debris_class_km2": 0.013,
+   "raw": {
+    "water_km2": 43.429,
+    "agree_with_radar_water": 0.1395,
+    "model_only_km2": 31.5,
+    "model_water_on_debris_class_km2": 0.013,
+    "water_km2_on_slope_gt_20deg": 40.57
+   },
+   "masked": {
+    "water_km2": 0.621,
+    "agree_with_radar_water": 0.1395,
+    "model_only_km2": 0.614,
+    "model_water_on_debris_class_km2": 0.013
+   }
+  },
+  "facts": {
+   "state": "done",
+   "seconds": 1.2
+  },
+  "report": {
+   "state": "done",
+   "seconds": 0.4
+  },
+  "previews": {
+   "state": "done",
+   "seconds": 2.6
+  }
+ },
+ "warnings": [
+  "Optical check skipped: switched off for this run"
+ ],
+ "status": "done",
+ "radar_pairs": [
+  {
+   "orbit": 121,
+   "direction": "descending",
+   "before": "2026-07-14",
+   "after": "2026-07-26",
+   "baseline": [
+    "2026-06-13",
+    "2026-06-25",
+    "2026-07-02"
+   ],
+   "platform": "sentinel-1d"
+  },
+  {
+   "orbit": 19,
+   "direction": "descending",
+   "before": "2026-07-19",
+   "after": "2026-07-31",
+   "baseline": [
+    "2026-06-18",
+    "2026-06-25",
+    "2026-07-07"
+   ],
+   "platform": "sentinel-1d"
+  },
+  {
+   "orbit": 85,
+   "direction": "ascending",
+   "before": "2026-07-23",
+   "after": "2026-08-04",
+   "baseline": [
+    "2026-06-22",
+    "2026-06-29",
+    "2026-07-11"
+   ],
+   "platform": "sentinel-1d"
+  }
+ ],
+ "radar": {
+  "orbits": [
+   {
+    "orbit": "track 121 descending 2026-07-14 -> 2026-07-26",
+    "threshold_spreads": 4.56,
+    "water_db": -14.0,
+    "visible_share": 0.139
+   },
+   {
+    "orbit": "track 19 descending 2026-07-19 -> 2026-07-31",
+    "threshold_spreads": 3.3,
+    "water_db": -14.0,
+    "visible_share": 0.912
+   },
+   {
+    "orbit": "track 85 ascending 2026-07-23 -> 2026-08-04",
+    "threshold_spreads": 3.31,
+    "water_db": -14.0,
+    "visible_share": 0.896
+   }
+  ],
+  "water_km2": 0.05,
+  "debris_km2": 1.07,
+  "unobserved_km2": 108.89
+ },
+ "osm": {
+  "snapshot": "2026-07-24",
+  "tiles": 16,
+  "roads": 14831,
+  "bridges": 353,
+  "roads_km": 7412.1,
+  "roads_s": 10.5,
+  "places": 398,
+  "health": 25,
+  "points_s": 27.9,
+  "buildings": 188933,
+  "buildings_s": 21.9
+ },
+ "damage": {
+  "roads_under_damage_km": 2.45,
+  "roads": {
+   "unobserved": 98.16,
+   "clear": 7303.39,
+   "destroyed_likely": 6.55,
+   "damaged_possible": 4.0
+  },
+  "bridges": {
+   "destroyed_likely": 0,
+   "damaged_possible": 0,
+   "clear": 353,
+   "unobserved": 0
+  },
+  "buildings": {
+   "destroyed_likely": 102,
+   "damaged_possible": 45,
+   "clear": 188770,
+   "unobserved": 16,
+   "checked": 188933
+  }
+ },
+ "access": {
+  "settlements_total": 397,
+  "settlements_with_road_before": 360,
+  "settlements_without_road_before": 37,
+  "settlements_connected_before": 290,
+  "cutoff_p90_plus": 0,
+  "cutoff_p50_to_90": 0,
+  "cutoff_total_p50_plus": 0,
+  "at_risk_p10_to_50": 0,
+  "road_cut_but_walkable": 0,
+  "cutoff_people_p50_plus": null,
+  "median_extra_minutes_still_connected": 0.0,
+  "max_extra_minutes_still_connected": 0.0,
+  "walk_reachable_but_road_cut": 0,
+  "destination_basis": "health",
+  "destination_note": "",
+  "destinations": 25,
+  "draws": 1000,
+  "seed": 7,
+  "unobserved_prior": 0.15,
+  "unobserved_edges": 70,
+  "unobserved_km": 98.3,
+  "top_repair": null,
+  "repairs_listed": 0,
+  "single_point_bridges": 12,
+  "population_tags": true
+ },
+ "runtime_seconds": 214.6,
+ "finished_at": "2026-10-14T14:49:18+00:00"
+}

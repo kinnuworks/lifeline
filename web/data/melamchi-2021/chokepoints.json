@@ -1,0 +1,24 @@
+[
+  {
+    "rank": 1,
+    "osm_id": "way/311521602",
+    "kind": "road",
+    "name": "Melamchi Road",
+    "lon": 85.568822,
+    "lat": 27.833091,
+    "villages_reconnected": 1,
+    "people_reconnected": null,
+    "names": [
+      "Melamchi"
+    ],
+    "osm_ids": [
+      "way/311521602"
+    ],
+    "hit_prob": 1.0,
+    "p_close": 1.0,
+    "length_m": 2058.0,
+    "highway": "secondary",
+    "combined_repair": false,
+    "people_basis": "no population tags in OSM; villages_reconnected counts settlements"
+  }
+]

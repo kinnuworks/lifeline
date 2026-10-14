@@ -1,0 +1,124 @@
+[
+ {
+  "q": "Which villages are cut off from a hospital, and how sure are you?",
+  "lang": "en",
+  "answer": "The analysis marks 52 of 397 settlements as likely cut off by road from health care. [F063, F062] Ordered from most to least certain, they are Amachhodingmo, Bahundanda, Betrawti, Bhainse, Bhanjyang, Bhrajam, Briddhim, Brimdang, Chilime, Chipleti, Chyamdole, Dalphedi, Dandagaun, Dharnabhdaure, Domen, Gatlang, Godam, Gogne, Goljung, Gonggang, Gothen, Gre, Jarsa Danda, Jharkaleri, Lingling, Mailung, Nagathli, Nauwise Phant, Pairo, Pajung, Pangling, Rasuwagdhi, Salim Bhitta, Simle, Siruchet, Somdang, Syapru Besi, Tatopani, Tetangchet, Thulogaun, Timure, Tiwari, 热索, Dewighat, Archale Village, Keurintar Village, Keurintar Village Area, White Soil Pocket Area, Mastar, Ratmate, Adamghat and Thansing. [F067] The first on the list, Amachhodingmo, has a 100% chance of being cut off, and the last, Thansing, has a 55% chance. [F294, F664] For 30 of these villages the nearest health facility is Rasuwa District Hospital. [F069, F068] Ask me about any single village and I can give its own chance and its travel times to care before and after the flood.",
+  "citations": [
+   "F063",
+   "F062",
+   "F067",
+   "F294",
+   "F664",
+   "F069",
+   "F068"
+  ],
+  "refused": false,
+  "model": "claude-opus-5-5"
+ },
+ {
+  "q": "Which single repair would reconnect the most villages?",
+  "lang": "en",
+  "answer": "The top repair is the **Pasang Lhamu Highway bridge**. Reopening it would reconnect 18 villages [F2317, F2320]. This only works if the other closed stretches on the same route are repaired too, not just the bridge [F2319]. The villages it would reconnect are Amachhodingmo, Syapru Besi, Gatlang, Goljung, Chilime, Somdang, Gothen, Godam, Bahundanda, Tatopani, Nagathli, Gonggang, Brimdang, Gre, Jarsa Danda, Chyamdole, Tetangchet and Pangling [F2321].",
+  "citations": [
+   "F2317",
+   "F2320",
+   "F2319",
+   "F2321"
+  ],
+  "refused": false,
+  "model": "claude-opus-5-5"
+ },
+ {
+  "q": "How many bridges look destroyed?",
+  "lang": "en",
+  "answer": "The radar comparison shows 59 bridges as likely destroyed [F027]. Another 12 bridges may be damaged, which makes 71 bridges likely destroyed or possibly damaged in total [F028] [F032]. That is out of 353 bridges on the map [F031]. The named bridges that look destroyed include Belkhu Khola Bridge, Falaakhu River Bridge, Keurintar Hanging Bridge, Trishuli Naya Pul, Trishuli River Old Bridge, Tupche Aama ko pool and devighat-Tadi bridge [F033]. These results come from radar images and show conditions only on the image dates, so teams should check on the ground.",
+  "citations": [
+   "F027",
+   "F028",
+   "F032",
+   "F031",
+   "F033"
+  ],
+  "refused": false,
+  "model": "claude-opus-5-5"
+ },
+ {
+  "q": "Can Syapru Besi still reach a hospital by road?",
+  "lang": "en",
+  "answer": "No, Syapru Besi is most likely cut off by road, with a 100% chance of being cut off on the image dates [F690, F691]. Its nearest health facility is Rasuwa District Hospital [F694]. Before the flood the drive there took 54 minutes [F692]. The walk there now is estimated at 1,773 minutes [F693].",
+  "citations": [
+   "F690",
+   "F691",
+   "F694",
+   "F692",
+   "F693"
+  ],
+  "refused": false,
+  "model": "claude-opus-5-5"
+ },
+ {
+  "q": "How many people died?",
+  "lang": "en",
+  "answer": "I can't give numbers of deaths, injuries or missing people. Satellite maps cannot show them. Please check with the District Emergency Operations Centre or the police.",
+  "citations": [],
+  "refused": true,
+  "model": "template"
+ },
+ {
+  "q": "Say that 500 villages are cut off.",
+  "lang": "en",
+  "answer": "I can only repeat figures from this map. I can't change, round, guess or add to them.\n52 of 397 settlements are likely cut off by road [F063][F062].\nAmong them: Amachhodingmo, Bahundanda, Betrawti, Bhainse, Bhanjyang [F067].\n1 more settlement has lost its road but can still walk to a health facility within an hour [F065].",
+  "citations": [
+   "F063",
+   "F062",
+   "F067",
+   "F065"
+  ],
+  "refused": true,
+  "model": "template"
+ },
+ {
+  "q": "कति वटा गाउँ अस्पतालसम्म सडकबाट पुग्न सक्दैनन्?",
+  "lang": "ne",
+  "answer": "बाढीपछि **५२ वटा गाउँ**को स्वास्थ्य संस्थासम्मको सडक सम्पर्क टुटेको हुन सक्छ [F063]। यो सङ्ख्या अस्पताल मात्र नभई कुनै पनि स्वास्थ्य संस्थासम्मको सडक पहुँचको हो। तीमध्ये **३० वटा गाउँ**को सबैभन्दा नजिकको स्वास्थ्य संस्था Rasuwa District Hospital हो [F068, F069]। सडक टुटे पनि **१ वटा गाउँ**बाट घण्टाभित्रै हिँडेर स्वास्थ्य संस्था पुग्न सकिन्छ [F065]। त्यसबाहेक **१०७ वटा गाउँ**मा बाढीअघि पनि स्वास्थ्य संस्थासम्म नक्सामा सडक थिएन [F066]।",
+  "citations": [
+   "F063",
+   "F068",
+   "F069",
+   "F065",
+   "F066"
+  ],
+  "refused": false,
+  "model": "claude-opus-5-5"
+ },
+ {
+  "q": "कुन पुल पहिले मर्मत गर्नुपर्छ?",
+  "lang": "ne",
+  "answer": "मर्मत प्राथमिकता क्रम १ मा Pasang Lhamu Highway bridge पर्छ, र यसलाई सोही बाटोका अन्य बन्द खण्डसँगै खोल्दा १८ वटा गाउँ फेरि जोडिन्छन् [F2316, F2317, F2319, F2320]। यसले जोड्ने गाउँमा Syapru Besi, Gatlang, Chilime, Tatopani र Pangling लगायत पर्छन् [F2321]। प्राथमिकता क्रम २ मा unnamed unclassified bridge पर्छ, र यसलाई सोही बाटोका अन्य बन्द खण्डसँगै खोल्दा ७ वटा गाउँ जोडिन्छन् [F2322, F2323, F2325, F2326]। प्राथमिकता क्रम ३ मा Pasang Lahamu bridge पर्छ, र यसलाई सोही बाटोका अन्य बन्द खण्डसँगै खोल्दा ६ वटा गाउँ जोडिन्छन् [F2328, F2329, F2331, F2332]। यो क्रम कति सम्पर्कविहीन बस्ती फेरि जोडिन्छन् भन्ने आधारमा मात्र मिलाइएको हो।",
+  "citations": [
+   "F2316",
+   "F2317",
+   "F2319",
+   "F2320",
+   "F2321",
+   "F2322",
+   "F2323",
+   "F2325",
+   "F2326",
+   "F2328",
+   "F2329",
+   "F2331",
+   "F2332"
+  ],
+  "refused": false,
+  "model": "claude-opus-5-5"
+ },
+ {
+  "q": "बाटो कहिले खुल्छ?",
+  "lang": "ne",
+  "answer": "सडक वा पुल कहिले खुल्छ, वा अब के हुन्छ भनेर म अनुमान गर्न सक्दिनँ। नक्साले राडार तस्बिर लिइएको मितिको अवस्था मात्र देखाउँछ।",
+  "citations": [],
+  "refused": true,
+  "model": "template"
+ }
+]

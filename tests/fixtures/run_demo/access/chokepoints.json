@@ -1,0 +1,44 @@
+[
+ {
+  "rank": 1,
+  "osm_id": 3000,
+  "kind": "bridge",
+  "name": "Mailung Khola Bridge",
+  "lon": 85.2,
+  "lat": 28.0,
+  "villages_reconnected": 3,
+  "people_reconnected": 3767,
+  "names": [
+   "Gatlang",
+   "Haku",
+   "Mailung"
+  ]
+ },
+ {
+  "rank": 2,
+  "osm_id": 4000,
+  "kind": "road",
+  "name": "Pasang Lhamu Highway",
+  "lon": 85.2,
+  "lat": 28.0,
+  "villages_reconnected": 2,
+  "people_reconnected": 1352,
+  "names": [
+   "Thuman",
+   "Bridim"
+  ]
+ },
+ {
+  "rank": 3,
+  "osm_id": 3001,
+  "kind": "bridge",
+  "name": "Bhote Koshi Bridge",
+  "lon": 85.23,
+  "lat": 28.03,
+  "villages_reconnected": 1,
+  "people_reconnected": 712,
+  "names": [
+   "Thuman"
+  ]
+ }
+]

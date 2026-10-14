@@ -1,0 +1,240 @@
+{
+ "run_id": "melamchi-2021",
+ "label": "Melamchi flood, Nepal, 15 Jun 2021",
+ "bbox": [
+  85.48,
+  27.78,
+  85.68,
+  28.05
+ ],
+ "event_date": "2021-06-15",
+ "started_at": "2026-10-14T14:49:19+00:00",
+ "stages": {
+  "images": {
+   "state": "done",
+   "seconds": 90.3,
+   "passes": 15
+  },
+  "terrain": {
+   "state": "done",
+   "seconds": 1.4
+  },
+  "radar": {
+   "state": "done",
+   "seconds": 2.0,
+   "water_km2": 0.22,
+   "debris_km2": 1.17,
+   "unobserved_km2": 14.82
+  },
+  "optical": {
+   "state": "skipped",
+   "seconds": 2.8
+  },
+  "osm": {
+   "state": "done",
+   "seconds": 20.0
+  },
+  "damage": {
+   "state": "done",
+   "seconds": 0.6
+  },
+  "access": {
+   "state": "done",
+   "seconds": 1.3
+  },
+  "model": {
+   "state": "done",
+   "seconds": 4.8,
+   "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
+   "weights": "lifeline_unet_s1.pt",
+   "threshold": 0.5,
+   "pixel_m": 20.0,
+   "terrain_mask": [
+    "observed==0",
+    "slope>15deg",
+    "hand>25m"
+   ],
+   "water_km2": 0.755,
+   "agree_with_radar_water": 0.4196,
+   "model_only_km2": 0.664,
+   "model_water_on_debris_class_km2": 0.06,
+   "raw": {
+    "water_km2": 28.13,
+    "agree_with_radar_water": 0.4325,
+    "model_only_km2": 25.696,
+    "model_water_on_debris_class_km2": 0.064,
+    "water_km2_on_slope_gt_20deg": 26.12
+   },
+   "masked": {
+    "water_km2": 0.755,
+    "agree_with_radar_water": 0.4196,
+    "model_only_km2": 0.664,
+    "model_water_on_debris_class_km2": 0.06
+   }
+  },
+  "facts": {
+   "state": "done",
+   "seconds": 0.2
+  },
+  "report": {
+   "state": "done",
+   "seconds": 1.1
+  },
+  "previews": {
+   "state": "done",
+   "seconds": 1.0
+  }
+ },
+ "warnings": [
+  "Optical check skipped: no clear Sentinel-2 scene within 40 days on both sides of the event"
+ ],
+ "status": "done",
+ "radar_pairs": [
+  {
+   "orbit": 19,
+   "direction": "descending",
+   "before": "2021-06-08",
+   "after": "2021-06-20",
+   "baseline": [
+    "2021-05-03",
+    "2021-05-15",
+    "2021-05-27"
+   ],
+   "platform": "SENTINEL-1A"
+  },
+  {
+   "orbit": 85,
+   "direction": "ascending",
+   "before": "2021-06-12",
+   "after": "2021-06-24",
+   "baseline": [
+    "2021-05-07",
+    "2021-05-19",
+    "2021-05-31"
+   ],
+   "platform": "SENTINEL-1A"
+  },
+  {
+   "orbit": 121,
+   "direction": "descending",
+   "before": "2021-06-03",
+   "after": "2021-06-27",
+   "baseline": [
+    "2021-04-28",
+    "2021-05-10",
+    "2021-05-22"
+   ],
+   "platform": "SENTINEL-1A"
+  }
+ ],
+ "radar": {
+  "orbits": [
+   {
+    "orbit": "track 19 descending 2021-06-08 -> 2021-06-20",
+    "threshold_spreads": 4.63,
+    "water_db": -14.0,
+    "visible_share": 0.906
+   },
+   {
+    "orbit": "track 85 ascending 2021-06-12 -> 2021-06-24",
+    "threshold_spreads": 3.49,
+    "water_db": -14.0,
+    "visible_share": 0.926
+   },
+   {
+    "orbit": "track 121 descending 2021-06-03 -> 2021-06-27",
+    "threshold_spreads": 5.42,
+    "water_db": -14.0,
+    "visible_share": 0.906
+   }
+  ],
+  "water_km2": 0.22,
+  "debris_km2": 1.17,
+  "unobserved_km2": 14.82
+ },
+ "osm": {
+  "snapshot": "2021-06-14",
+  "tiles": 4,
+  "roads": 3394,
+  "bridges": 80,
+  "roads_km": 1881.9,
+  "roads_s": 2.3,
+  "places": 59,
+  "health": 4,
+  "points_s": 8.9,
+  "buildings": 41988,
+  "buildings_s": 8.8
+ },
+ "damage": {
+  "roads_under_damage_km": 6.71,
+  "roads": {
+   "clear": 1800.86,
+   "destroyed_likely": 18.57,
+   "unobserved": 59.16,
+   "damaged_possible": 3.31
+  },
+  "bridges": {
+   "destroyed_likely": 5,
+   "damaged_possible": 1,
+   "clear": 74,
+   "unobserved": 0
+  },
+  "buildings": {
+   "destroyed_likely": 150,
+   "damaged_possible": 69,
+   "clear": 41768,
+   "unobserved": 1,
+   "checked": 41988
+  }
+ },
+ "access": {
+  "settlements_total": 58,
+  "settlements_with_road_before": 52,
+  "settlements_without_road_before": 6,
+  "settlements_connected_before": 50,
+  "cutoff_p90_plus": 1,
+  "cutoff_p50_to_90": 0,
+  "cutoff_total_p50_plus": 1,
+  "at_risk_p10_to_50": 0,
+  "road_cut_but_walkable": 0,
+  "cutoff_people_p50_plus": null,
+  "median_extra_minutes_still_connected": 0.0,
+  "max_extra_minutes_still_connected": 231.8,
+  "walk_reachable_but_road_cut": 1,
+  "destination_basis": "health",
+  "destination_note": "",
+  "destinations": 4,
+  "draws": 1000,
+  "seed": 7,
+  "unobserved_prior": 0.15,
+  "unobserved_edges": 40,
+  "unobserved_km": 59.2,
+  "top_repair": {
+   "rank": 1,
+   "osm_id": "way/311521602",
+   "kind": "road",
+   "name": "Melamchi Road",
+   "lon": 85.568822,
+   "lat": 27.833091,
+   "villages_reconnected": 1,
+   "people_reconnected": null,
+   "names": [
+    "Melamchi"
+   ],
+   "osm_ids": [
+    "way/311521602"
+   ],
+   "hit_prob": 1.0,
+   "p_close": 1.0,
+   "length_m": 2058.0,
+   "highway": "secondary",
+   "combined_repair": false,
+   "people_basis": "no population tags in OSM; villages_reconnected counts settlements"
+  },
+  "repairs_listed": 1,
+  "single_point_bridges": 0,
+  "population_tags": false
+ },
+ "runtime_seconds": 105.4,
+ "finished_at": "2026-10-14T14:51:04+00:00"
+}

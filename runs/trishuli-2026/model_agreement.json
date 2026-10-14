@@ -1,0 +1,153 @@
+{
+  "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
+  "weights": "lifeline_unet_s1.pt",
+  "threshold": 0.5,
+  "pixel_m": 20.0,
+  "terrain_mask": [
+    "observed==0",
+    "slope>15deg",
+    "hand>25m"
+  ],
+  "water_km2": 4.84,
+  "agree_with_radar_water": 0.5959,
+  "model_only_km2": 3.472,
+  "model_water_on_debris_class_km2": 1.02,
+  "raw": {
+    "water_km2": 56.049,
+    "agree_with_radar_water": 0.6379,
+    "model_only_km2": 42.45,
+    "model_water_on_debris_class_km2": 1.142,
+    "water_km2_on_slope_gt_20deg": 48.325
+  },
+  "masked": {
+    "water_km2": 4.84,
+    "agree_with_radar_water": 0.5959,
+    "model_only_km2": 3.472,
+    "model_water_on_debris_class_km2": 1.02
+  },
+  "seconds": 3.0,
+  "agreement_model_prob_raw": {
+    "all": {
+      "observed_pixels": 7319320,
+      "model_water_pixels": 109786,
+      "pipeline_open_water_pixels": 5739,
+      "iou_vs_open_water": 0.03272724022026747,
+      "share_of_pipeline_open_water_model_calls_water": 0.6379160132427252,
+      "share_of_model_water_pipeline_calls_open_water": 0.033346692656622885,
+      "unchanged_pixels": 7278297,
+      "share_of_unchanged_model_calls_water": 0.01418765955827304,
+      "debris_scour_pixels": 35256,
+      "share_of_debris_scour_model_calls_water": 0.08100748808713411
+    },
+    "slope_0_5_deg": {
+      "observed_pixels": 146267,
+      "model_water_pixels": 7943,
+      "pipeline_open_water_pixels": 3363,
+      "iou_vs_open_water": 0.2959651535992664,
+      "share_of_pipeline_open_water_model_calls_water": 0.7677668748141541,
+      "share_of_model_water_pipeline_calls_open_water": 0.32506609593352637,
+      "unchanged_pixels": 127877,
+      "share_of_unchanged_model_calls_water": 0.02654894938104585,
+      "debris_scour_pixels": 15027,
+      "share_of_debris_scour_model_calls_water": 0.1308311705596593
+    },
+    "slope_5_15_deg": {
+      "observed_pixels": 535229,
+      "model_water_pixels": 6609,
+      "pipeline_open_water_pixels": 1540,
+      "iou_vs_open_water": 0.11477428180574556,
+      "share_of_pipeline_open_water_model_calls_water": 0.5448051948051948,
+      "share_of_model_water_pipeline_calls_open_water": 0.12694810107429264,
+      "unchanged_pixels": 522448,
+      "share_of_unchanged_model_calls_water": 0.009914862340366887,
+      "debris_scour_pixels": 11241,
+      "share_of_debris_scour_model_calls_water": 0.0524864335913175
+    },
+    "slope_15_30_deg": {
+      "observed_pixels": 3180516,
+      "model_water_pixels": 23259,
+      "pipeline_open_water_pixels": 652,
+      "iou_vs_open_water": 0.008945525127642517,
+      "share_of_pipeline_open_water_model_calls_water": 0.32515337423312884,
+      "share_of_model_water_pipeline_calls_open_water": 0.009114751279074768,
+      "unchanged_pixels": 3173536,
+      "share_of_unchanged_model_calls_water": 0.007190717231504542,
+      "debris_scour_pixels": 6318,
+      "share_of_debris_scour_model_calls_water": 0.03513770180436847
+    },
+    "slope_30_90_deg": {
+      "observed_pixels": 3457308,
+      "model_water_pixels": 71975,
+      "pipeline_open_water_pixels": 184,
+      "iou_vs_open_water": 0.00038818261219170677,
+      "share_of_pipeline_open_water_model_calls_water": 0.15217391304347827,
+      "share_of_model_water_pipeline_calls_open_water": 0.00038902396665508855,
+      "unchanged_pixels": 3454436,
+      "share_of_unchanged_model_calls_water": 0.020804264429851935,
+      "debris_scour_pixels": 2670,
+      "share_of_debris_scour_model_calls_water": 0.029213483146067417
+    }
+  },
+  "agreement_model_prob": {
+    "all": {
+      "observed_pixels": 7319320,
+      "model_water_pixels": 12099,
+      "pipeline_open_water_pixels": 5739,
+      "iou_vs_open_water": 0.23720349563046192,
+      "share_of_pipeline_open_water_model_calls_water": 0.5959226346053319,
+      "share_of_model_water_pipeline_calls_open_water": 0.28266798909000745,
+      "unchanged_pixels": 7278297,
+      "share_of_unchanged_model_calls_water": 0.000842092593913109,
+      "debris_scour_pixels": 35256,
+      "share_of_debris_scour_model_calls_water": 0.0723281143635126
+    },
+    "slope_0_5_deg": {
+      "observed_pixels": 146267,
+      "model_water_pixels": 7747,
+      "pipeline_open_water_pixels": 3363,
+      "iou_vs_open_water": 0.3027673545966229,
+      "share_of_pipeline_open_water_model_calls_water": 0.7677668748141541,
+      "share_of_model_water_pipeline_calls_open_water": 0.33329030592487413,
+      "unchanged_pixels": 127877,
+      "share_of_unchanged_model_calls_water": 0.025039686573817027,
+      "debris_scour_pixels": 15027,
+      "share_of_debris_scour_model_calls_water": 0.1306315299128236
+    },
+    "slope_5_15_deg": {
+      "observed_pixels": 535229,
+      "model_water_pixels": 4352,
+      "pipeline_open_water_pixels": 1540,
+      "iou_vs_open_water": 0.16580925999208548,
+      "share_of_pipeline_open_water_model_calls_water": 0.5441558441558442,
+      "share_of_model_water_pipeline_calls_open_water": 0.19255514705882354,
+      "unchanged_pixels": 522448,
+      "share_of_unchanged_model_calls_water": 0.005602471442133954,
+      "debris_scour_pixels": 11241,
+      "share_of_debris_scour_model_calls_water": 0.05221955342051419
+    },
+    "slope_15_30_deg": {
+      "observed_pixels": 3180516,
+      "model_water_pixels": 0,
+      "pipeline_open_water_pixels": 652,
+      "iou_vs_open_water": 0.0,
+      "share_of_pipeline_open_water_model_calls_water": 0.0,
+      "share_of_model_water_pipeline_calls_open_water": 0.0,
+      "unchanged_pixels": 3173536,
+      "share_of_unchanged_model_calls_water": 0.0,
+      "debris_scour_pixels": 6318,
+      "share_of_debris_scour_model_calls_water": 0.0
+    },
+    "slope_30_90_deg": {
+      "observed_pixels": 3457308,
+      "model_water_pixels": 0,
+      "pipeline_open_water_pixels": 184,
+      "iou_vs_open_water": 0.0,
+      "share_of_pipeline_open_water_model_calls_water": 0.0,
+      "share_of_model_water_pipeline_calls_open_water": 0.0,
+      "unchanged_pixels": 3454436,
+      "share_of_unchanged_model_calls_water": 0.0,
+      "debris_scour_pixels": 2670,
+      "share_of_debris_scour_model_calls_water": 0.0
+    }
+  }
+}

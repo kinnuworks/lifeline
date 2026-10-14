@@ -1,0 +1,285 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 1,
+    "highway": "primary",
+    "name": "Pasang Lhamu Highway",
+    "bridge": false,
+    "hit_prob": 0.02,
+    "status": "clear"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.3,
+      28.0
+     ],
+     [
+      85.275,
+      28.0
+     ],
+     [
+      85.26,
+      28.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 2,
+    "highway": "unclassified",
+    "name": "",
+    "bridge": false,
+    "hit_prob": 0.03,
+    "status": "clear"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.28,
+      27.99
+     ],
+     [
+      85.28,
+      28.01
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 3,
+    "highway": "secondary",
+    "name": "Dhunche - Gatlang Road",
+    "bridge": false,
+    "hit_prob": 0.05,
+    "status": "clear"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.300102,
+      28.0
+     ],
+     [
+      85.3,
+      28.02
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 4,
+    "highway": "secondary",
+    "name": "Dhunche - Gatlang Road",
+    "bridge": false,
+    "hit_prob": null,
+    "status": "unobserved"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.3,
+      28.02
+     ],
+     [
+      85.3,
+      28.04
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 5,
+    "highway": "primary",
+    "name": "Pasang Lhamu Highway",
+    "bridge": false,
+    "hit_prob": 0.04,
+    "status": "clear"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.3,
+      28.0
+     ],
+     [
+      85.32,
+      28.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 6,
+    "highway": "primary",
+    "name": "Thade Khola",
+    "bridge": true,
+    "hit_prob": 0.92,
+    "status": "destroyed_likely"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.32,
+      28.0
+     ],
+     [
+      85.322,
+      28.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 7,
+    "highway": "primary",
+    "name": "Pasang Lhamu Highway",
+    "bridge": false,
+    "hit_prob": 0.05,
+    "status": "clear"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.322,
+      28.0
+     ],
+     [
+      85.34,
+      28.0
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 8,
+    "highway": "tertiary",
+    "name": "Ramche Road",
+    "bridge": false,
+    "hit_prob": 0.03,
+    "status": "clear"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.3,
+      28.0
+     ],
+     [
+      85.3,
+      27.98
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 9,
+    "highway": "tertiary",
+    "name": "Ramche Road",
+    "bridge": false,
+    "hit_prob": 0.85,
+    "status": "destroyed_likely"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.3,
+      27.98
+     ],
+     [
+      85.3,
+      27.97
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 10,
+    "highway": "tertiary",
+    "name": "Ramche Road",
+    "bridge": false,
+    "hit_prob": 0.04,
+    "status": "clear"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.3,
+      27.97
+     ],
+     [
+      85.32,
+      27.96
+     ],
+     [
+      85.34,
+      27.96
+     ]
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 11,
+    "highway": "path",
+    "name": "",
+    "bridge": false,
+    "hit_prob": 0.1,
+    "status": "clear"
+   },
+   "geometry": {
+    "type": "LineString",
+    "coordinates": [
+     [
+      85.34,
+      27.96
+     ],
+     [
+      85.32,
+      27.98
+     ],
+     [
+      85.305,
+      27.995
+     ],
+     [
+      85.3,
+      28.0
+     ]
+    ]
+   }
+  }
+ ]
+}

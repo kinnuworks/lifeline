@@ -1,0 +1,198 @@
+{
+ "product": "Lifeline",
+ "source": "facts.json",
+ "attributions": [
+  "Contains modified Copernicus Sentinel data 2026.",
+  "Produced using Copernicus WorldDEM-30 © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.",
+  "© OpenStreetMap contributors."
+ ],
+ "disclaimer": "Educational prototype, not an operational tool. Numbers come from satellite analysis and have not been checked on the ground.",
+ "languages": {
+  "en": {
+   "file": "sitrep_en.pdf",
+   "sections": {
+    "flooded": [
+     "The radar shows 1,640 ha (16.4 km²) flooded or buried by debris [F010][F011].",
+     "Of this, 230 ha is open water and 1,410 ha is debris or scour [F012][F014].",
+     "The radar could not see 10,888 ha because of terrain shadow, so conditions there are unknown [F016].",
+     "The places with the most likely destroyed buildings: Nuwakot, Betrawti, Bhainse, Dewighat, Nauwise Phant [F061]."
+    ],
+    "hit": [
+     "Buildings: 2,974 likely destroyed and 631 possibly damaged, out of 188,933 mapped [F025][F021][F022].",
+     "Roads: 224.6 km likely destroyed and 51.4 km possibly damaged, out of 7,412.1 km mapped [F038][F034][F035].",
+     "Bridges: 59 likely destroyed (Belkhu Khola Bridge, Falaakhu River Bridge, Keurintar Hanging Bridge, Pasang Lhamu Highway) and 12 possibly damaged, out of 353 mapped [F031][F027][F028][F033]."
+    ],
+    "cutoff": [
+     "52 of 397 settlements are likely cut off by road [F063][F062].",
+     "Among them: Amachhodingmo, Bahundanda, Betrawti, Bhainse, Bhanjyang [F067].",
+     "1 more settlement has lost its road but can still walk to a health facility within an hour [F065].",
+     "The nearest health facility for 30 of the cut-off settlements is Rasuwa District Hospital [F068][F069].",
+     "OpenStreetMap lists 25 health facilities in the area. Hospitals among them: 20 [F2313][F2314]."
+    ],
+    "chokepoints": [
+     "1. Reopening Pasang Lhamu Highway bridge (bridge) reconnects 18 settlements [F2316][F2317][F2320].",
+     "2. Reopening unnamed unclassified bridge (bridge) reconnects 7 settlements [F2322][F2323][F2326].",
+     "3. Reopening Pasang Lahamu bridge (bridge) reconnects 6 settlements [F2328][F2329][F2332].",
+     "4. Reopening Prithvi Rajmarg bridge (bridge) reconnects 4 settlements [F2334][F2335][F2338].",
+     "5. Reopening Pasang Lhamu Highway bridge (bridge) reconnects 3 settlements [F2340][F2341][F2344]."
+    ],
+    "dates": [
+     "Event date: 26 August 2026 [F001].",
+     "Radar images: before 16 August 2026, after 28 August 2026 [F003][F004].",
+     "Radar images: before 19 August 2026, after 31 August 2026 [F005][F006].",
+     "Radar images: before 24 August 2026, after 5 September 2026 [F007][F008]."
+    ]
+   },
+   "fact_ids": [
+    "F001",
+    "F002",
+    "F003",
+    "F004",
+    "F005",
+    "F006",
+    "F007",
+    "F008",
+    "F009",
+    "F010",
+    "F011",
+    "F012",
+    "F014",
+    "F016",
+    "F021",
+    "F022",
+    "F025",
+    "F027",
+    "F028",
+    "F031",
+    "F033",
+    "F034",
+    "F035",
+    "F038",
+    "F061",
+    "F062",
+    "F063",
+    "F065",
+    "F067",
+    "F068",
+    "F069",
+    "F2313",
+    "F2314",
+    "F2316",
+    "F2317",
+    "F2318",
+    "F2320",
+    "F2322",
+    "F2323",
+    "F2324",
+    "F2326",
+    "F2328",
+    "F2329",
+    "F2330",
+    "F2332",
+    "F2334",
+    "F2335",
+    "F2336",
+    "F2338",
+    "F2340",
+    "F2341",
+    "F2342",
+    "F2344"
+   ],
+   "dropped_lines": [],
+   "name": "Lifeline"
+  },
+  "ne": {
+   "file": "sitrep_ne.pdf",
+   "sections": {
+    "flooded": [
+     "राडार विश्लेषण अनुसार १,६४० हेक्टर (१६.४ वर्ग किलोमिटर) क्षेत्र डुबानमा परेको वा गेग्रानले पुरिएको देखिन्छ [F010][F011]।",
+     "यसमध्ये २३० हेक्टर खुला पानी र १,४१० हेक्टर गेग्रान वा कटान हो [F012][F014]।",
+     "पहाडको छायाँका कारण १०,८८८ हेक्टर क्षेत्र राडारले देख्न सकेन, त्यहाँको अवस्था थाहा छैन [F016]।",
+     "सबैभन्दा धेरै घर ध्वस्त भएका ठाउँ: नुवाकोट, बेत्रावती, भैंसे, देवीघाट, नौविसे फाँट [F061]।"
+    ],
+    "hit": [
+     "घर/भवन: नक्सामा भएका १,८८,९३३ वटामध्ये २,९७४ वटा ध्वस्त भएको हुन सक्छ र ६३१ वटामा क्षति भएको हुन सक्छ [F025][F021][F022]।",
+     "सडक: नक्सामा भएको ७,४१२.१ किलोमिटर मध्ये २२४.६ किलोमिटर ध्वस्त भएको हुन सक्छ र ५१.४ किलोमिटर मा क्षति भएको हुन सक्छ [F038][F034][F035]।",
+     "पुल: नक्सामा भएका ३५३ वटामध्ये ५९ वटा ध्वस्त भएको हुन सक्छ (Belkhu Khola Bridge, Falaakhu River Bridge, Keurintar Hanging Bridge, Pasang Lhamu Highway) र १२ वटामा क्षति भएको हुन सक्छ [F031][F027][F028][F033]।"
+    ],
+    "cutoff": [
+     "विश्लेषण गरिएका ३९७ वटा बस्तीमध्ये ५२ वटाको सडक सम्पर्क टुटेको हुन सक्छ [F063][F062]।",
+     "तीमध्ये: आमाछोदिङ्मो, बाहुनडाँडा, बेत्रावती, भैंसे, भञ्ज्याङ [F067]।",
+     "अरू १ वटा बस्तीको सडक टुटे पनि घण्टाभित्रै हिँडेर स्वास्थ्य संस्था पुग्न सकिन्छ [F065]।",
+     "सम्पर्क टुटेका ३० वटा बस्तीको सबैभन्दा नजिकको स्वास्थ्य संस्था Rasuwa District Hospital हो [F068][F069]।",
+     "OpenStreetMap मा यस क्षेत्रमा २५ वटा स्वास्थ्य संस्था छन्, जसमध्ये २० वटा अस्पताल हो [F2313][F2314]।"
+    ],
+    "chokepoints": [
+     "१. Pasang Lhamu Highway bridge (पुल) खोल्दा १८ वटा बस्ती फेरि जोडिन्छन् [F2316][F2317][F2320]।",
+     "२. unnamed unclassified bridge (पुल) खोल्दा ७ वटा बस्ती फेरि जोडिन्छन् [F2322][F2323][F2326]।",
+     "३. Pasang Lahamu bridge (पुल) खोल्दा ६ वटा बस्ती फेरि जोडिन्छन् [F2328][F2329][F2332]।",
+     "४. Prithvi Rajmarg bridge (पुल) खोल्दा ४ वटा बस्ती फेरि जोडिन्छन् [F2334][F2335][F2338]।",
+     "५. Pasang Lhamu Highway bridge (पुल) खोल्दा ३ वटा बस्ती फेरि जोडिन्छन् [F2340][F2341][F2344]।"
+    ],
+    "dates": [
+     "घटना मिति: अगस्ट २६, २०२६ [F001]।",
+     "राडार तस्बिर: पहिले अगस्ट १६, २०२६, पछि अगस्ट २८, २०२६ [F003][F004]।",
+     "राडार तस्बिर: पहिले अगस्ट १९, २०२६, पछि अगस्ट ३१, २०२६ [F005][F006]।",
+     "राडार तस्बिर: पहिले अगस्ट २४, २०२६, पछि सेप्टेम्बर ५, २०२६ [F007][F008]।"
+    ]
+   },
+   "fact_ids": [
+    "F001",
+    "F002",
+    "F003",
+    "F004",
+    "F005",
+    "F006",
+    "F007",
+    "F008",
+    "F009",
+    "F010",
+    "F011",
+    "F012",
+    "F014",
+    "F016",
+    "F021",
+    "F022",
+    "F025",
+    "F027",
+    "F028",
+    "F031",
+    "F033",
+    "F034",
+    "F035",
+    "F038",
+    "F061",
+    "F062",
+    "F063",
+    "F065",
+    "F067",
+    "F068",
+    "F069",
+    "F2313",
+    "F2314",
+    "F2316",
+    "F2317",
+    "F2318",
+    "F2320",
+    "F2322",
+    "F2323",
+    "F2324",
+    "F2326",
+    "F2328",
+    "F2329",
+    "F2330",
+    "F2332",
+    "F2334",
+    "F2335",
+    "F2336",
+    "F2338",
+    "F2340",
+    "F2341",
+    "F2342",
+    "F2344"
+   ],
+   "dropped_lines": [],
+   "name": "लाइफलाइन"
+  }
+ }
+}

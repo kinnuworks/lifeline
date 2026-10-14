@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en" data-accent="mono">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lifeline · Who can still reach help</title>
+<meta property="og:title" content="Lifeline · Who can still reach help">
+<meta property="og:description" content="Maps flood damage from free satellite data and works out which villages can no longer reach a hospital by road.">
+<meta property="og:type" content="website">
+<meta name="description" content="Lifeline maps flood damage from free satellite data and works out which villages can no longer reach a hospital by road. Case study: the 26 August 2026 Bhote Koshi and Trishuli flood in Rasuwa, Nepal.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231D1D1F'/%3E%3Cpath d='M9 26c2-6 9-6 9-11s-5-6-5-9' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='23' r='3' fill='%23E5484D'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="css/foundation.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="config.js"></script>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
+<script type="module" src="js/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <nav class="nav__bar" aria-label="Main">
+    <a class="nav__brand" href="#top" aria-label="Lifeline, back to top" data-name-label=", back to top">
+      <svg class="app-icon" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1D1D1F"/><path d="M9 26c2-6 9-6 9-11s-5-6-5-9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="22" cy="23" r="3" fill="#E5484D"/></svg>
+      <span data-name>Lifeline</span>
+    </a>
+    <div class="nav__links">
+      <a href="#where">Map</a>
+      <a href="#cutoff">Cut off</a>
+      <a href="#copilot">Copilot</a>
+      <a href="#checks">Checks</a>
+      <a href="#how">Method</a>
+    </div>
+    <a class="btn btn-ink btn-sm" href="#run">Run any valley</a>
+  </nav>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="container">
+    <span class="badge"><span class="badge__tag">Track B</span>Multimodal AI Hackathon 2026</span>
+    <h1>See who the flood cut off. <span class="t-muted">And what to fix first.</span></h1>
+    <p class="lead"><span data-name>Lifeline</span> reads free radar and optical satellite images, an elevation model and pre-flood OpenStreetMap. It maps the damage, finds the villages that have lost their road to a hospital, and ranks the repairs that reconnect the most villages.</p>
+    <div class="cta-row">
+      <a class="btn btn-ink btn-lg" href="#run">Run any valley
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-outline btn-lg" id="sitrep-link" href="data/trishuli-2026/sitrep_en.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>
+        Read the situation report</a>
+    </div>
+    <p class="trust"><span>Free satellite data</span><span>Runs from raw radar</span><span>English and <span lang="ne">नेपाली</span></span></p>
+  </div>
+
+  <div class="container hero__visual bleed">
+    <div class="stage stage--soft hero-stage">
+      <div class="window hero-window">
+        <div class="window__bar">
+          <div class="lights" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span class="window__title" id="hero-title">Lifeline · Trishuli corridor · 26 Aug 2026</span>
+          <label class="run-select"><span class="sr-only">Case study run</span><select id="run-select" aria-label="Case study run"></select></label>
+        </div>
+        <div class="mapwrap mapwrap--hero">
+          <div id="hero-map" class="map" role="region" aria-label="3D map of the Trishuli corridor showing flood debris, destroyed roads, cut-off villages and hospitals"></div>
+          <div class="map-ui map-ui--tl">
+            <div class="segmented segmented--map" role="group" aria-label="Map layer">
+              <button type="button" data-layer="flood_class" aria-pressed="true">Damage</button>
+              <button type="button" data-layer="before" aria-pressed="false"><span class="hide-sm">Radar before</span><span class="show-sm">Before</span></button>
+              <button type="button" data-layer="after" aria-pressed="false"><span class="hide-sm">Radar after</span><span class="show-sm">After</span></button>
+            </div>
+          </div>
+          <div class="map-ui map-ui--tr">
+            <button type="button" class="map-btn" id="hero-3d" aria-pressed="true">3D</button>
+          </div>
+          <div class="legend" aria-label="Legend">
+            <span><i class="sw sw--debris"></i>Debris</span>
+            <span><i class="sw sw--water"></i>Open water</span>
+            <span><i class="sw sw--blind"></i>Not observed</span>
+            <span><i class="sw sw--road"></i>Road destroyed</span>
+            <span><i class="sw sw--cut"></i>Cut off</span>
+            <span><i class="sw sw--care"></i>Hospital or clinic</span>
+          </div>
+        </div>
+      </div>
+      <div class="float float--a" aria-hidden="true" data-hide-empty>
+        <div class="frag"><span class="pulse-dot"></span><div><b class="t-mono" data-sum="villages_cut_off">&nbsp;</b> villages cut off<small>No road route to any hospital or clinic</small></div></div>
+      </div>
+      <div class="float float--b" aria-hidden="true">
+        <div class="frag frag--col"><small>Reopen first</small><b id="frag-choke-name">&nbsp;</b><span id="frag-choke-text">&nbsp;</span></div>
+      </div>
+      <div class="float float--c" aria-hidden="true">
+        <div class="frag frag--chat" lang="ne"><p class="bubble bubble--q" id="frag-q">&nbsp;</p><p class="bubble bubble--a" id="frag-a">&nbsp;</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCOREBOARD ============ -->
+<section class="section section--alt after-bleed" id="numbers" aria-labelledby="numbers-h">
+  <div class="container">
+    <div class="section-head section-head--left score-head">
+      <span class="eyebrow"><span class="dot"></span>Case study · <span id="score-area">Rasuwa, Nepal</span></span>
+      <h2 id="numbers-h">One run, from raw radar to a ranked repair list.</h2>
+    </div>
+    <dl class="score" id="score"></dl>
+    <p class="t-micro score-foot">Hover or focus a number to see how we know it. Numbers we have not measured yet are left out.</p>
+  </div>
+</section>
+
+<!-- ============ THREE QUESTIONS ============ -->
+<section class="section" id="where" aria-labelledby="three-h">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Three questions</span>
+      <h2 id="three-h">What a rescuer needs to know on day two.</h2>
+      <p class="lead">Each answer comes from a different source, and each carries its uncertainty with it.</p>
+    </div>
+
+    <div class="stack">
+      <!-- Q1 -->
+      <div class="split">
+        <div>
+          <span class="eyebrow"><span class="qnum">01</span>Where did it hit</span>
+          <h3>Open water, debris, and the ground radar could not see.</h3>
+          <p class="lead">Sentinel-1 radar sees through monsoon cloud. <span data-name>Lifeline</span> compares same-orbit passes from before and after the flood, checks open water with a trained model, and marks steep slopes the radar could not see as not observed instead of guessing.</p>
+          <div class="chips" id="where-chips"></div>
+        </div>
+        <div class="stage stage--soft reveal">
+          <div class="window">
+            <div class="window__bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="window__title">Sentinel-1 · VV</span></div>
+            <div class="compare" id="compare">
+              <img id="cmp-after" alt="Radar image after the flood, with the debris path showing as a bright band along the river" loading="lazy">
+              <div class="compare__before" id="cmp-before-wrap"><img id="cmp-before" alt="Radar image before the flood" loading="lazy"></div>
+              <img id="cmp-class" class="compare__class" alt="Flood map overlay: debris in brown, open water in blue, not observed hatched grey" loading="lazy" hidden>
+              <div class="compare__line" id="cmp-line" aria-hidden="true"></div>
+              <span class="compare__tag compare__tag--l" id="cmp-tag-before">Before</span>
+              <span class="compare__tag compare__tag--r" id="cmp-tag-after">After</span>
+            </div>
+            <div class="compare__ctl">
+              <label class="sr-only" for="cmp-range">Swipe between before and after radar</label>
+              <input class="range" id="cmp-range" type="range" min="0" max="100" value="50">
+              <button type="button" class="chip" id="cmp-toggle" aria-pressed="false">Flood map</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="split split--flip">
+        <div>
+          <span class="eyebrow"><span class="qnum">02</span>What was hit</span>
+          <h3>Every building, road and bridge, checked against the flood map.</h3>
+          <p class="lead"><span data-name>Lifeline</span> overlays the flood layers on OpenStreetMap as it stood before the flood. Each feature gets a probability that it was hit, so a washed-out bridge and a muddy road are not treated the same.</p>
+          <div class="chips" id="hit-chips"></div>
+        </div>
+        <div class="stage stage--soft reveal">
+          <div class="window">
+            <div class="window__bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="window__title" id="hit-title">Damage · upper Bhote Koshi</span></div>
+            <div class="mapwrap mapwrap--sq">
+              <div id="hit-map" class="map lazy-map" role="region" aria-label="Map of damaged roads, bridges and buildings in the upper Bhote Koshi valley"></div>
+              <div class="legend legend--sm" aria-label="Legend">
+                <span><i class="sw sw--road"></i>Destroyed, likely</span>
+                <span><i class="sw sw--possible"></i>Damaged, possible</span>
+                <span><i class="sw sw--unobs"></i>Not observed</span>
+                <span><i class="sw sw--bldg"></i>Building hit</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="split">
+        <div>
+          <span class="eyebrow"><span class="qnum">03</span>Who is cut off</span>
+          <h3>Which villages can no longer drive to a hospital.</h3>
+          <p class="lead"><span data-name>Lifeline</span> routes every village to its nearest hospital or clinic on the road network before and after the flood. It repeats the routing many times over uncertain damage, so each village gets a probability, not a guess.</p>
+          <div class="chips" id="cut-chips"></div>
+        </div>
+        <div class="stage stage--soft reveal">
+          <div class="window">
+            <div class="window__bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="window__title">Time to care, before and after</span></div>
+            <div class="ttc" id="ttc"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CUT-OFF DEEP DIVE ============ -->
+<section class="section section--alt" id="cutoff" aria-labelledby="cutoff-h">
+  <div class="container">
+    <div class="section-head section-head--left">
+      <span class="eyebrow">Who is cut off</span>
+      <h2 id="cutoff-h">A ranked list for the people deciding where to go first.</h2>
+      <p class="lead">Ranked by the chance a village has no road route to care. Walking time is the fallback when the road is gone.</p>
+    </div>
+
+    <div class="access">
+      <div class="window access__map">
+        <div class="window__bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="window__title">Access to care</span></div>
+        <div class="mapwrap mapwrap--access">
+          <div id="access-map" class="map lazy-map" role="region" aria-label="Map of villages coloured by the chance they are cut off from care"></div>
+          <div class="map-ui map-ui--tl">
+            <button type="button" class="map-btn map-btn--wide" id="trace-btn" aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4c4 2 2 6 6 8s4 6 10 8"/><circle cx="4" cy="4" r="2"/></svg>
+              Trace a flood path</button>
+          </div>
+          <div class="legend legend--sm" aria-label="Legend">
+            <span><i class="sw sw--cut"></i>Cut off, p ≥ 0.5</span>
+            <span><i class="sw sw--risk"></i>Detour only</span>
+            <span><i class="sw sw--ok"></i>Reachable</span>
+            <span><i class="sw sw--care"></i>Care</span>
+          </div>
+        </div>
+        <div class="trace-out" id="trace-out" hidden></div>
+      </div>
+      <div class="access__side">
+        <h3 class="t-title">Repairs that reconnect the most villages</h3>
+        <ol class="choke" id="choke"></ol>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Villages ranked by chance of being cut off">
+        <table class="vt" id="vt">
+          <thead><tr>
+            <th scope="col">Village</th>
+            <th scope="col">Chance cut off</th>
+            <th scope="col" class="num">Drive before</th>
+            <th scope="col" class="num">Drive now</th>
+            <th scope="col" class="num">Walk now</th>
+            <th scope="col">Nearest care</th>
+            <th scope="col">Why</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="table-foot"><span class="t-micro" id="vt-count"></span><button type="button" class="btn btn-outline btn-sm" id="vt-more" hidden>Show all villages</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COPILOT ============ -->
+<section class="section" id="copilot" aria-labelledby="copilot-h">
+  <div class="container split copilot">
+    <div>
+      <span class="eyebrow">Copilot</span>
+      <h2 id="copilot-h">Ask in English or Nepali. It only says what the map knows.</h2>
+      <p class="lead">Every number the copilot may say lives in the map's facts ledger. A guard checks each answer and rejects any number that is not there, so the reply either cites its facts or refuses.</p>
+      <div class="redteam card" id="redteam" hidden>
+        <div class="redteam__num t-mono" id="redteam-num"></div>
+        <div><p class="t-title">Invented numbers caught</p><p class="t-small">Red-team prompts that tried to make the copilot state a number outside the ledger. The guard caught <span id="redteam-text"></span>.</p></div>
+      </div>
+      <p class="t-small copilot__pdf">The same ledger writes the one-page situation report: <a class="link" id="sitrep-en" href="data/trishuli-2026/sitrep_en.pdf" target="_blank" rel="noopener">English</a> · <a class="link" id="sitrep-ne" href="data/trishuli-2026/sitrep_ne.pdf" target="_blank" rel="noopener" lang="ne">नेपाली</a></p>
+    </div>
+    <div class="stage stage--soft">
+      <div class="window chat">
+        <div class="window__bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="window__title"><span data-name>Lifeline</span> copilot</span><span class="chat__mode" id="chat-mode">Samples</span></div>
+        <div class="chat__top">
+          <div class="segmented" role="group" aria-label="Language">
+            <button type="button" data-lang="en" aria-pressed="true">EN</button>
+            <button type="button" data-lang="ne" aria-pressed="false" lang="ne">नेपाली</button>
+          </div>
+        </div>
+        <div class="chat__log" id="chat-log" aria-live="polite"></div>
+        <div class="chat__sugg chips" id="chat-sugg"></div>
+        <form class="chat__form" id="chat-form">
+          <label class="sr-only" for="chat-input">Ask a question</label>
+          <input id="chat-input" autocomplete="off" placeholder="Ask about this flood">
+          <button class="btn btn-ink btn-sm" type="submit">Ask</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RUN ANY VALLEY ============ -->
+<section class="section section--alt" id="run" aria-labelledby="run-h">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Try it</span>
+      <h2 id="run-h">Run any valley.</h2>
+      <p class="lead">Pick a past flood or draw a box, choose the date, and <span data-name>Lifeline</span> finds the images and runs the whole pipeline.</p>
+    </div>
+    <div class="try">
+      <form class="card run-card" id="run-form">
+        <div>
+          <p class="field-label">Start from a past flood</p>
+          <div class="chips" id="presets">
+            <button type="button" class="chip" data-preset="trishuli" aria-pressed="true">Trishuli 2026</button>
+            <button type="button" class="chip" data-preset="melamchi" aria-pressed="false">Melamchi 2021</button>
+            <button type="button" class="chip" data-preset="teesta" aria-pressed="false">Teesta 2023</button>
+          </div>
+        </div>
+        <div>
+          <p class="field-label">Or draw your own area</p>
+          <button type="button" class="btn btn-outline btn-sm" id="draw-btn" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2" stroke-dasharray="3 3"/></svg>
+            Draw a box</button>
+          <p class="bbox t-mono" id="bbox-out" aria-live="polite"></p>
+        </div>
+        <div>
+          <label class="field-label" for="run-date">Flood date</label>
+          <input class="input" type="date" id="run-date" value="2026-08-26" min="2014-10-01">
+        </div>
+        <button class="btn btn-ink run-go" type="submit" id="run-go">Run</button>
+        <p class="engine" id="engine"><span class="engine__dot"></span><span id="engine-text">Checking the live engine</span></p>
+      </form>
+      <div class="stage stage--soft run-stage">
+        <div class="window">
+          <div class="window__bar"><div class="lights" aria-hidden="true"><i></i><i></i><i></i></div><span class="window__title" id="run-title">New run</span></div>
+          <div class="mapwrap mapwrap--run">
+            <div id="run-map" class="map lazy-map" role="region" aria-label="Map for choosing the area to run. Use the Draw a box button, then drag on the map."></div>
+            <div class="draw-hint" id="draw-hint" hidden>Drag on the map to draw the area</div>
+          </div>
+          <ol class="stages" id="stages"></ol>
+          <div class="run-msg" id="run-msg" hidden></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALIDATION ============ -->
+<section class="section" id="checks" aria-labelledby="checks-h">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Checked against the official maps</span>
+      <h2 id="checks-h">Scored against Copernicus EMS, after the fact.</h2>
+      <p class="lead" id="checks-lead">The official rapid-mapping products are read only by the scoring step, after the run has finished. They never enter the pipeline.</p>
+    </div>
+    <div class="table-card">
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Agreement with the official maps, per area">
+        <table class="vt vt--val" id="val">
+          <thead><tr>
+            <th scope="col">Area</th>
+            <th scope="col" class="num" title="Overlap of flood extent (intersection over union)">Flood IoU</th>
+            <th scope="col" class="num" title="Share of officially damaged buildings also flagged">Buildings found</th>
+            <th scope="col" class="num" title="Officially damaged bridges also flagged">Bridges found</th>
+            <th scope="col" class="num" title="Road segments where the status agrees">Roads agree</th>
+            <th scope="col">Note</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <ul class="notes" id="val-notes"></ul>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section section--alt" id="how" aria-labelledby="how-h">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2 id="how-h">Four free sources in. One ledger of facts out.</h2>
+      <p class="lead">Each step writes files into one run folder. The copilot and the report can only read the last one.</p>
+    </div>
+
+    <ol class="pipe" aria-label="Pipeline">
+      <li class="pipe__col">
+        <p class="pipe__h">Inputs</p>
+        <div class="pipe__node"><b>Sentinel-1 radar</b><span>Before and after, same orbit</span></div>
+        <div class="pipe__node"><b>Sentinel-2 optical</b><span>Cloud-free scenes when they exist</span></div>
+        <div class="pipe__node"><b>Copernicus DEM</b><span>Elevation, slope, height above drainage</span></div>
+        <div class="pipe__node"><b>OpenStreetMap</b><span>Snapshot from before the flood</span></div>
+      </li>
+      <li class="pipe__col">
+        <p class="pipe__h">Where</p>
+        <div class="pipe__node pipe__node--key"><b>Radar change</b><span>Open water, debris and scour</span></div>
+        <div class="pipe__node"><b>Model check</b><span>Segmentation model confirms water</span></div>
+        <div class="pipe__node"><b>Not observed</b><span>Radar shadow and layover masked</span></div>
+      </li>
+      <li class="pipe__col">
+        <p class="pipe__h">What</p>
+        <div class="pipe__node pipe__node--key"><b>Damage</b><span>Hit probability per building, road and bridge</span></div>
+      </li>
+      <li class="pipe__col">
+        <p class="pipe__h">Who</p>
+        <div class="pipe__node pipe__node--key"><b>Access</b><span>Routing to care, many times over uncertain damage</span></div>
+        <div class="pipe__node"><b>Chokepoints</b><span>Repairs ranked by villages reconnected</span></div>
+      </li>
+      <li class="pipe__col">
+        <p class="pipe__h">Say</p>
+        <div class="pipe__node pipe__node--ink"><b>Facts ledger</b><span>Every number, with its source file</span></div>
+        <div class="pipe__node"><b>Copilot and report</b><span>A guard rejects numbers not in the ledger</span></div>
+      </li>
+    </ol>
+
+    <div class="how-grid">
+      <div class="card rules">
+        <p class="t-title">Data rules</p>
+        <ul class="checks">
+          <li>Official damage maps are never an input. A test fails the build if any reference file is read outside the scoring step.</li>
+          <li>OpenStreetMap is a snapshot from before the flood (never later than 27 July 2026, the newest date the ohsome service holds), so mappers' post-event edits cannot leak in.</li>
+          <li>Every number shown to a user exists in the run's facts ledger, with the file it came from.</li>
+          <li>Pixels radar could not see stay unknown. They are never counted as dry.</li>
+        </ul>
+      </div>
+      <div class="card model" id="model-card" hidden>
+        <p class="t-title">Trained water model</p>
+        <p class="t-small" id="model-name"></p>
+        <div class="model__rows" id="model-rows"></div>
+        <p class="t-micro" id="model-base"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIMITATIONS ============ -->
+<section class="section" id="limits" aria-labelledby="limits-h">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Limitations</span>
+      <h2 id="limits-h">What <span data-name>Lifeline</span> cannot do.</h2>
+    </div>
+    <div class="grid grid-3 limits">
+      <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><p class="t-title">It waits for the satellite</p><p>Sentinel-1 revisits a valley every few days. The first after image of this flood came two days after it.</p></div></div>
+      <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span><div><p class="t-title">It does not warn ahead</p><p><span data-name>Lifeline</span> maps what already happened. It cannot predict a glacier collapse or a lake outburst.</p></div></div>
+      <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span><div><p class="t-title">Steep slopes hide ground</p><p>In narrow gorges radar shadow and layover hide parts of the valley floor. Those areas are marked not observed.</p></div></div>
+      <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span><div><p class="t-title">Maps have gaps</p><p>Remote trails, footbridges and small settlements are often missing from OpenStreetMap. <span data-name>Lifeline</span> cannot route what is not mapped.</p></div></div>
+      <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17c3-3 6-3 9 0s6 3 9 0"/><path d="M3 11c3-3 6-3 9 0s6 3 9 0"/></svg></span><div><p class="t-title">Debris can look like bare ground</p><p>Fresh debris on a dry gravel bar can scatter radar much like it did before. Some of it will be missed.</p></div></div>
+      <div class="tile"><span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h10M10 5v3M7 8c0 4 3 7 7 8M13 8c-1 4-4 7-8 8"/><path d="M14 20l3.5-8 3.5 8M15.2 17.5h4.6"/></svg></span><div><p class="t-title" id="lim-ne-title">Nepali needs a native reviewer</p><p id="lim-ne-text">The Nepali answers and report are machine-written. Until a native speaker reviews them, treat the English as the reference.</p></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container foot">
+    <div class="foot__brand">
+      <svg class="app-icon" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1D1D1F"/><path d="M9 26c2-6 9-6 9-11s-5-6-5-9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="22" cy="23" r="3" fill="#E5484D"/></svg>
+      <div><p class="foot__name" data-name>Lifeline</p><p>Who can still reach help.</p></div>
+    </div>
+    <div class="foot__cols">
+      <div>
+        <p class="foot__h">Data</p>
+        <ul>
+          <li>Contains modified Copernicus Sentinel data 2026.</li>
+          <li>Produced using Copernicus WorldDEM-30 © DLR e.V. 2010–2014 and © Airbus Defence and Space GmbH 2014–2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.</li>
+          <li>© OpenStreetMap contributors.</li>
+          <li>European Union, Copernicus Emergency Management Service data (used for checking only).</li>
+          <li>Basemap from OpenFreeMap, built on OpenMapTiles. Terrain from the AWS Terrain Tiles open dataset.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot__h">Training data</p>
+        <ul>
+          <li>Bonafilia, D. et al. (2020). Sen1Floods11: a georeferenced dataset to train and test deep learning flood algorithms for Sentinel-1. CVPR Workshops.</li>
+          <li>Bountos, N. I. et al. (2024). Kuro Siwo: 33 billion m² under the water. A global multi-temporal satellite dataset for rapid flood mapping. NeurIPS Datasets and Benchmarks.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="foot__h">About</p>
+        <ul>
+          <li>Educational prototype, not an operational tool.</li>
+          <li>Made by Dhiraj Kavuri for the Multimodal AI Hackathon 2026, IIT Mandi.</li>
+          <li><a class="link" href="#" id="gh-link">Source on GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

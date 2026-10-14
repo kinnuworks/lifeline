@@ -1,0 +1,100 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 100,
+    "name": "Dhunche",
+    "place": "town",
+    "population": "5000"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.3005,
+     28.0005
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 101,
+    "name": "A",
+    "place": "village",
+    "population": "800"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.26,
+     28.002
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 102,
+    "name": "B",
+    "place": "village",
+    "population": "1500"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.34,
+     28.002
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 103,
+    "name": "C",
+    "place": "village",
+    "population": "400"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.34,
+     27.958
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 104,
+    "name": "D",
+    "place": "village",
+    "population": "600"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.302,
+     28.04
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "osm_id": 105,
+    "name": "E",
+    "place": "hamlet"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     85.24,
+     27.94
+    ]
+   }
+  }
+ ]
+}

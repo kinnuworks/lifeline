@@ -1,0 +1,263 @@
+{
+ "run_id": "teesta-2023",
+ "label": "Teesta glacial lake flood, Sikkim, 4 Oct 2023",
+ "bbox": [
+  88.4,
+  27.15,
+  88.7,
+  27.65
+ ],
+ "event_date": "2023-10-04",
+ "started_at": "2026-10-14T15:02:19+00:00",
+ "stages": {
+  "images": {
+   "state": "done",
+   "seconds": 133.1,
+   "passes": 15
+  },
+  "terrain": {
+   "state": "done",
+   "seconds": 4.1
+  },
+  "radar": {
+   "state": "done",
+   "seconds": 5.8,
+   "water_km2": 1.47,
+   "debris_km2": 6.44,
+   "unobserved_km2": 49.15
+  },
+  "optical": {
+   "state": "done",
+   "seconds": 352.9,
+   "pre_dates": [
+    "2023-09-06",
+    "2023-09-16"
+   ],
+   "post_dates": [
+    "2023-10-26",
+    "2023-10-31",
+    "2023-11-05",
+    "2023-11-10"
+   ],
+   "clear_share": 0.858,
+   "optical_added_km2": 0.68,
+   "hand_m": 45.0,
+   "near_km": 0.5,
+   "min_px": 10
+  },
+  "osm": {
+   "state": "done",
+   "seconds": 33.1
+  },
+  "damage": {
+   "state": "done",
+   "seconds": 3.8
+  },
+  "access": {
+   "state": "done",
+   "seconds": 5.0
+  },
+  "model": {
+   "state": "done",
+   "seconds": 22.3,
+   "model": "lifeline_unet_s1 (U-Net, ResNet34 encoder, Sentinel-1 VV+VH)",
+   "weights": "lifeline_unet_s1.pt",
+   "threshold": 0.5,
+   "pixel_m": 20.0,
+   "terrain_mask": [
+    "observed==0",
+    "slope>15deg",
+    "hand>25m"
+   ],
+   "water_km2": 1.406,
+   "agree_with_radar_water": 0.3351,
+   "model_only_km2": 0.912,
+   "model_water_on_debris_class_km2": 0.24,
+   "raw": {
+    "water_km2": 54.838,
+    "agree_with_radar_water": 0.4313,
+    "model_only_km2": 40.702,
+    "model_water_on_debris_class_km2": 0.386,
+    "water_km2_on_slope_gt_20deg": 51.522
+   },
+   "masked": {
+    "water_km2": 1.406,
+    "agree_with_radar_water": 0.3351,
+    "model_only_km2": 0.912,
+    "model_water_on_debris_class_km2": 0.24
+   }
+  },
+  "facts": {
+   "state": "done",
+   "seconds": 0.4
+  },
+  "report": {
+   "state": "done",
+   "seconds": 2.2
+  },
+  "previews": {
+   "state": "done",
+   "seconds": 8.6
+  }
+ },
+ "warnings": [],
+ "status": "done",
+ "radar_pairs": [
+  {
+   "orbit": 12,
+   "direction": "ascending",
+   "before": "2023-09-25",
+   "after": "2023-10-07",
+   "baseline": [
+    "2023-08-20",
+    "2023-09-01",
+    "2023-09-13"
+   ],
+   "platform": "SENTINEL-1A"
+  },
+  {
+   "orbit": 48,
+   "direction": "descending",
+   "before": "2023-09-28",
+   "after": "2023-10-10",
+   "baseline": [
+    "2023-08-23",
+    "2023-09-04",
+    "2023-09-16"
+   ],
+   "platform": "SENTINEL-1A"
+  },
+  {
+   "orbit": 114,
+   "direction": "ascending",
+   "before": "2023-10-02",
+   "after": "2023-10-14",
+   "baseline": [
+    "2023-08-27",
+    "2023-09-08",
+    "2023-09-20"
+   ],
+   "platform": "SENTINEL-1A"
+  }
+ ],
+ "radar": {
+  "orbits": [
+   {
+    "orbit": "track 12 ascending 2023-09-25 -> 2023-10-07",
+    "threshold_spreads": 3.7,
+    "water_db": -14.0,
+    "visible_share": 0.908
+   },
+   {
+    "orbit": "track 48 descending 2023-09-28 -> 2023-10-10",
+    "threshold_spreads": 3.7,
+    "water_db": -14.0,
+    "visible_share": 0.904
+   },
+   {
+    "orbit": "track 114 ascending 2023-10-02 -> 2023-10-14",
+    "threshold_spreads": 3.62,
+    "water_db": -14.0,
+    "visible_share": 0.899
+   }
+  ],
+  "water_km2": 1.47,
+  "debris_km2": 6.44,
+  "unobserved_km2": 49.15,
+  "optical_added_km2": 0.68
+ },
+ "osm": {
+  "snapshot": "2023-10-03",
+  "tiles": 9,
+  "roads": 1359,
+  "bridges": 139,
+  "roads_km": 2268.0,
+  "roads_s": 3.8,
+  "places": 41,
+  "health": 99,
+  "points_s": 12.1,
+  "buildings": 8835,
+  "buildings_s": 17.2
+ },
+ "damage": {
+  "roads_under_damage_km": 35.43,
+  "roads": {
+   "unobserved": 194.61,
+   "clear": 1974.01,
+   "damaged_possible": 20.29,
+   "destroyed_likely": 79.09
+  },
+  "bridges": {
+   "destroyed_likely": 18,
+   "damaged_possible": 6,
+   "clear": 115,
+   "unobserved": 0
+  },
+  "buildings": {
+   "destroyed_likely": 490,
+   "damaged_possible": 77,
+   "clear": 8268,
+   "unobserved": 0,
+   "checked": 8835
+  }
+ },
+ "access": {
+  "settlements_total": 41,
+  "settlements_with_road_before": 41,
+  "settlements_without_road_before": 0,
+  "settlements_connected_before": 39,
+  "cutoff_p90_plus": 9,
+  "cutoff_p50_to_90": 0,
+  "cutoff_total_p50_plus": 9,
+  "at_risk_p10_to_50": 6,
+  "road_cut_but_walkable": 0,
+  "cutoff_people_p50_plus": null,
+  "median_extra_minutes_still_connected": 0.0,
+  "max_extra_minutes_still_connected": 84.0,
+  "walk_reachable_but_road_cut": 1,
+  "destination_basis": "health",
+  "destination_note": "",
+  "destinations": 25,
+  "draws": 1000,
+  "seed": 7,
+  "unobserved_prior": 0.15,
+  "unobserved_edges": 31,
+  "unobserved_km": 194.9,
+  "top_repair": {
+   "rank": 1,
+   "osm_id": "way/266907781",
+   "kind": "bridge",
+   "name": "unnamed secondary bridge",
+   "lon": 88.525441,
+   "lat": 27.492303,
+   "villages_reconnected": 7,
+   "people_reconnected": 0,
+   "names": [
+    "Passingdong",
+    "Lingthem",
+    "Gnon-Sangdong, Lower Dzongu",
+    "Gnon",
+    "Sudur",
+    "Rapchyong",
+    "Bringbong"
+   ],
+   "osm_ids": [
+    "way/266907781",
+    "way/461631689",
+    "way/696693017",
+    "way/696697569"
+   ],
+   "hit_prob": 0.999,
+   "p_close": 0.999,
+   "length_m": 5995.0,
+   "highway": "secondary",
+   "combined_repair": true,
+   "people_basis": "OSM population tags"
+  },
+  "repairs_listed": 4,
+  "single_point_bridges": 3,
+  "population_tags": true
+ },
+ "runtime_seconds": 538.3,
+ "finished_at": "2026-10-14T15:11:18+00:00"
+}

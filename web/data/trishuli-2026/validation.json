@@ -1,0 +1,87 @@
+{
+ "reference": "Copernicus EMS rapid mapping, activation EMSR927 (first grading maps)",
+ "reference_note": "Official maps are read only by the checker, after the run. They are never an input. Settings were chosen on area 3 (Bidur) only; the other delivered areas are held out.",
+ "aois": [
+  {
+   "id": "AOI01",
+   "name": "Syapru Besi",
+   "status": "compared",
+   "flood_iou": 0.3775,
+   "flood_f1": 0.5481,
+   "flood_precision": 0.9878,
+   "flood_recall": 0.3793,
+   "buildings_hit_rate": 0.8635,
+   "roads_agree_rate": 0.809,
+   "bridges_flagged": 5,
+   "bridges_total": 5,
+   "role": "held out"
+  },
+  {
+   "id": "AOI02",
+   "name": "Timure",
+   "status": "compared",
+   "flood_iou": 0.2098,
+   "flood_f1": 0.3469,
+   "flood_precision": 0.9757,
+   "flood_recall": 0.2109,
+   "buildings_hit_rate": 0.646,
+   "roads_agree_rate": 0.7121,
+   "bridges_flagged": 0,
+   "bridges_total": 1,
+   "role": "held out"
+  },
+  {
+   "id": "AOI03",
+   "name": "Bidur",
+   "status": "compared",
+   "flood_iou": 0.7063,
+   "flood_f1": 0.8279,
+   "flood_precision": 0.8466,
+   "flood_recall": 0.81,
+   "buildings_hit_rate": 0.976,
+   "roads_agree_rate": 0.7299,
+   "bridges_flagged": 13,
+   "bridges_total": 18,
+   "role": "development area"
+  },
+  {
+   "id": "AOI04",
+   "name": "Bharatpur",
+   "status": "cancelled",
+   "note": "not compared: EMS cancelled this AOI and delivered no product"
+  },
+  {
+   "id": "AOI05",
+   "name": "Phosretar",
+   "status": "compared",
+   "flood_iou": 0.5924,
+   "flood_f1": 0.7441,
+   "flood_precision": 0.8609,
+   "flood_recall": 0.6551,
+   "buildings_hit_rate": 0.6208,
+   "roads_agree_rate": 0.6644,
+   "bridges_flagged": 13,
+   "bridges_total": 22,
+   "role": "held out"
+  },
+  {
+   "id": "AOI06",
+   "name": "Kyundi",
+   "status": "cancelled",
+   "note": "not compared: EMS cancelled this AOI and delivered no product"
+  }
+ ],
+ "pooled": {
+  "flood_iou": 0.5946,
+  "flood_f1": 0.7458,
+  "flood_precision": 0.8615,
+  "flood_recall": 0.6575,
+  "buildings_hit_rate": 0.8762,
+  "roads_agree_rate": 0.7073,
+  "roads_recall": 0.8871,
+  "bridges_flagged": 31,
+  "bridges_total": 46
+ },
+ "notes": [],
+ "credit": "European Union, Copernicus Emergency Management Service data"
+}

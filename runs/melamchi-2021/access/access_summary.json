@@ -1,0 +1,92 @@
+{
+  "settlements_total": 58,
+  "settlements_with_road_before": 52,
+  "settlements_without_road_before": 6,
+  "settlements_connected_before": 50,
+  "cutoff_p90_plus": 1,
+  "cutoff_p50_to_90": 0,
+  "cutoff_total_p50_plus": 1,
+  "at_risk_p10_to_50": 0,
+  "road_cut_but_walkable": 0,
+  "names_road_cut_but_walkable": [],
+  "names_p90_plus": [
+    "Melamchi"
+  ],
+  "names_p50_to_90": [],
+  "names_at_risk": [],
+  "cutoff_people_p50_plus": null,
+  "median_extra_minutes_still_connected": 0.0,
+  "max_extra_minutes_still_connected": 231.8,
+  "walk_reachable_but_road_cut": 1,
+  "destination_basis": "health",
+  "destination_note": "",
+  "destinations": 4,
+  "draws": 1000,
+  "seed": 7,
+  "unobserved_prior": 0.15,
+  "unobserved_edges": 40,
+  "unobserved_km": 59.2,
+  "graph": {
+    "nodes": 5179,
+    "edges": 6022,
+    "drivable_edges": 3012,
+    "walk_only_edges": 3010,
+    "bridge_edges": 71,
+    "bridges": 71,
+    "km_total": 1879.9,
+    "km_by_class": {
+      "path": 732.37,
+      "unclassified": 689.05,
+      "track": 226.5,
+      "tertiary": 149.51,
+      "secondary": 56.2,
+      "footway": 14.62,
+      "residential": 9.61,
+      "service": 2.04
+    },
+    "drivable_components": 53,
+    "largest_drivable_component_share": 0.916,
+    "unobserved_edges": 40,
+    "unobserved_km": 59.23,
+    "input_lines": 3394,
+    "crossing_splits": 4384,
+    "endpoint_gap_joins": 4941,
+    "endpoint_to_line_snaps": 379,
+    "snap_m": 15.0,
+    "slope_penalty": true,
+    "unobserved_prior": 0.15
+  },
+  "top_repair": {
+    "rank": 1,
+    "osm_id": "way/311521602",
+    "kind": "road",
+    "name": "Melamchi Road",
+    "lon": 85.568822,
+    "lat": 27.833091,
+    "villages_reconnected": 1,
+    "people_reconnected": null,
+    "names": [
+      "Melamchi"
+    ],
+    "osm_ids": [
+      "way/311521602"
+    ],
+    "hit_prob": 1.0,
+    "p_close": 1.0,
+    "length_m": 2058.0,
+    "highway": "secondary",
+    "combined_repair": false,
+    "people_basis": "no population tags in OSM; villages_reconnected counts settlements"
+  },
+  "repairs_listed": 1,
+  "still_cut_after_top_repairs": [],
+  "single_point_bridges": 0,
+  "single_point_bridge_names": [],
+  "population_tags": false,
+  "timings": {
+    "graph_s": 0.54,
+    "montecarlo_s": 0.11,
+    "chokepoints_s": 0.0,
+    "total_s": 0.69
+  }
+}

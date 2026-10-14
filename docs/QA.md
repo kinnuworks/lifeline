@@ -84,3 +84,5 @@ Every number it may use is in a facts ledger built from the maps. A checker read
 - This is an educational prototype, not an operational tool.
 
 **How does the model do on a Himalayan scene it never saw?** On the Trishuli case study, inside the four EMS areas, 97% of the water it marks lies inside the official extent (radar water rule 94%) and it recovers 17% of that extent (rule 12%). Recall is low because the official extent is mostly debris and the model is trained on open water only (`runs/trishuli-2026/validation/model_vs_ems.json`).
+
+**What if we pick an area where it finds nothing?** It says why. On Kathmandu (28 Sep 2024) it found no flood because the first radar passes came 4 to 11 days later and the water had drained; the run message lists those pass dates. In steep gorges (Rasuwagadhi 2025, Wayanad 2024) much of the ground is hidden from the radar and is marked not observed, never clear. See "Live runs on floods it was not built for" in the README.

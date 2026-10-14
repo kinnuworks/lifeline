@@ -115,6 +115,21 @@ Any other area and date work the same way (boxes up to 1 square degree on the co
 | Sen1Floods11, Kuro Siwo | listed training data | the segmentation model |
 | Copernicus EMS EMSR927 | official maps | checking only, in `src/lifeline/validate/` and nowhere else |
 
+## Live runs on floods it was not built for
+
+On 15 Oct 2026 we ran the hosted engine on areas and dates it had never been tuned on, the way judges will on the day. Every run finished; none crashed. Times are engine run times from `meta.json`.
+
+| Area and date | Box | Run time | Flooded or buried | Cut off | What it shows |
+|---|---|---|---|---|---|
+| Valencia, Spain, 29 Oct 2024 | 10 × 10 km | 33 s | 55.6 km² | 108 of 128 | A flat, urban flash flood far from the Himalaya |
+| Sikkim (Teesta), 4 Oct 2023 | 65 × 65 km, the largest allowed | 193 s | 13.4 km² | 4 of 71 | The largest box finishes in about 3 minutes; 222 km² of steep ground marked not observed |
+| Kathmandu, 28 Sep 2024 | 10 × 10 km | 42 s | 0 km² | 0 | The first radar passes came 4 to 11 days after the flood and the water had drained; the engine now says so with the pass dates |
+| Wayanad, India, 30 Jul 2024 | 10 × 10 km | 21 s | 0.13 km² | 1 of 14 | A narrow landslide track: the same weak spot as the upper gorge (6.3 km² not observed) |
+| Rasuwagadhi, Nepal, 8 Jul 2025 | 13 × 17 km | 18 s | 0 km² | 0 | A glacial-lake flood in a steep gorge: 14 km² was hidden from the radar and is marked not observed, not clear |
+| Upper Trishuli, 6 Oct 2026 | 10 × 10 km | 21 s | 0 km² | 0 | A date one week old still runs (one radar track available) |
+
+Bad inputs return a plain message before any work starts: dates before October 2014, dates in the last two days, boxes larger than about 60 km a side, or a reversed box. A third run at the same time gets "Two runs are already going". After a quiet spell the engine takes about 10 s to wake, and the dashboard waits for it.
+
 ## Limits
 
 - Sentinel-1 revisits each track every 12 days, so Lifeline maps damage after it happens. It cannot warn of a glacier collapse minutes ahead.

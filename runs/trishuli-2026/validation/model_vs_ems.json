@@ -1,0 +1,115 @@
+{
+ "note": "The model never saw this scene in training. EMS maps the event extent (landslide and debris) inside four areas; the model is trained to see open water only, so precision (how much of what it marks is inside the official extent) is the fair test and recall is low by design. A checking script only: the pipeline never reads EMS files.",
+ "areas": {
+  "AOI01 Syapru Besi": {
+   "ems_extent_px": 2640,
+   "unet_masked": {
+    "precision": 1.0,
+    "recall": 0.017,
+    "marked_px": 44
+   },
+   "unet_raw": {
+    "precision": 0.332,
+    "recall": 0.028,
+    "marked_px": 223
+   },
+   "radar_water_rule": {
+    "precision": 1.0,
+    "recall": 0.002,
+    "marked_px": 5
+   },
+   "lifeline_flood_map": {
+    "precision": 0.988,
+    "recall": 0.398,
+    "marked_px": 1064
+   }
+  },
+  "AOI02 Timure": {
+   "ems_extent_px": 2960,
+   "unet_masked": {
+    "precision": 1.0,
+    "recall": 0.028,
+    "marked_px": 84
+   },
+   "unet_raw": {
+    "precision": 0.314,
+    "recall": 0.108,
+    "marked_px": 1020
+   },
+   "radar_water_rule": {
+    "precision": 1.0,
+    "recall": 0.003,
+    "marked_px": 9
+   },
+   "lifeline_flood_map": {
+    "precision": 0.975,
+    "recall": 0.227,
+    "marked_px": 690
+   }
+  },
+  "AOI03 Bidur": {
+   "ems_extent_px": 17358,
+   "unet_masked": {
+    "precision": 0.854,
+    "recall": 0.061,
+    "marked_px": 1238
+   },
+   "unet_raw": {
+    "precision": 0.868,
+    "recall": 0.072,
+    "marked_px": 1447
+   },
+   "radar_water_rule": {
+    "precision": 0.962,
+    "recall": 0.074,
+    "marked_px": 1341
+   },
+   "lifeline_flood_map": {
+    "precision": 0.861,
+    "recall": 0.816,
+    "marked_px": 16449
+   }
+  },
+  "AOI05 Phosretar": {
+   "ems_extent_px": 15954,
+   "unet_masked": {
+    "precision": 0.999,
+    "recall": 0.337,
+    "marked_px": 5380
+   },
+   "unet_raw": {
+    "precision": 0.991,
+    "recall": 0.356,
+    "marked_px": 5736
+   },
+   "radar_water_rule": {
+    "precision": 0.934,
+    "recall": 0.219,
+    "marked_px": 3747
+   },
+   "lifeline_flood_map": {
+    "precision": 0.867,
+    "recall": 0.681,
+    "marked_px": 12525
+   }
+  }
+ },
+ "pooled": {
+  "unet_masked": {
+   "precision": 0.972,
+   "recall": 0.169
+  },
+  "unet_raw": {
+   "precision": 0.871,
+   "recall": 0.189
+  },
+  "radar_water_rule": {
+   "precision": 0.941,
+   "recall": 0.123
+  },
+  "lifeline_flood_map": {
+   "precision": 0.87,
+   "recall": 0.687
+  }
+ }
+}

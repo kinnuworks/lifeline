@@ -140,3 +140,14 @@
 /* selected chips keep their contrast on hover */
 .chip[aria-pressed="true"],.chip[aria-pressed="true"]:hover{background:var(--ink)!important;color:#fff!important}
 button.chip:not([aria-pressed="true"]):hover{background:var(--accent-wash);color:var(--accent-ink)}
+
+/* phones: keep the section links, as a compact second row in the bar */
+@media (max-width:760px){
+  .nav__bar{flex-wrap:wrap;height:auto;padding:8px 8px 6px 14px;row-gap:2px;border-radius:24px}
+  .nav__links{display:flex;order:5;flex-basis:100%;margin:0;justify-content:space-between;overflow-x:auto;scrollbar-width:none}
+  .nav__links::-webkit-scrollbar{display:none}
+  .nav__links a{padding:6px 7px;font-size:13px;white-space:nowrap}
+  .nav__links a.is-active::after{left:7px;right:7px;bottom:1px}
+  html{scroll-padding-top:122px}
+  .hero{padding-top:142px}
+}

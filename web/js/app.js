@@ -224,9 +224,13 @@ function renderTTC() {
 /* ------------------------------------------------------------------ village table */
 let showAll = false;
 // the full reason stays in the data; the table shows only the repair that would reconnect the village
+// OpenStreetMap names repeat the kind ("River Bridge bridge") or carry raw tags ("unclassified"); tidy them for people
+function tidyFix(t) {
+  return String(t || "").replace(/\b(bridge|pul|road)\s+\1\b/gi, "$1").replace(/\bunnamed (unclassified|residential|track|tertiary|secondary|primary|service|path) /i, "unnamed ").replace(/^unnamed/, "Unnamed");
+}
 function shortFix(v) {
   const m = /reopening (.+?) \((road|bridge)\) would reconnect it/.exec(v.reason || "");
-  if (m) return m[1].replace(/ bridge$/, "") + (m[2] === "bridge" ? " bridge" : " road");
+  if (m) return tidyFix(m[1].replace(/ bridge$/, "") + (m[2] === "bridge" ? " bridge" : " road"));
   if ((v.p_cutoff ?? 0) < 0.5) return "Still connected";
   return "Several closed stretches";
 }
@@ -243,8 +247,8 @@ function renderTable() {
       <td class="num">${fmtMin(v.walk_minutes_after)}</td>
       <td class="care">${esc(v.nearest_health || "–")}</td><td class="why">${esc(shortFix(v))}</td></tr>`;
   }).join("");
-  const n = rows.length;
-  $("#vt-count").textContent = n ? `Showing ${shown.length} of ${n} villages` : "";
+  const n = rows.length, across = settlements().length - n;
+  $("#vt-count").textContent = n ? `Showing ${shown.length} of ${n} villages${across > 0 ? ` (${across} across the border not listed)` : ""}` : "";
   const more = $("#vt-more"); more.hidden = n <= 10; more.textContent = showAll ? "Show top 10" : "Show all villages";
 }
 
@@ -252,8 +256,11 @@ function renderTable() {
 function renderChoke() {
   const ol = $("#choke");
   ol.closest(".access__side").hidden = !state.choke.length;
-  ol.innerHTML = state.choke.slice(0, 5).map((c, i) => `<li tabindex="0" data-i="${i}"><span class="choke__rank">${c.rank ?? i + 1}</span><div>
-    <p class="choke__name">${esc(c.name)}</p>
+  const top = state.choke.slice(0, 5), seen = {};
+  top.forEach((c) => { seen[tidyFix(c.name)] = (seen[tidyFix(c.name)] || 0) + 1; });
+  const label = (c) => { const t = tidyFix(c.name); const near = (c.names || []).find((n) => !/[\u3400-\u9fff]/.test(n)); return seen[t] > 1 && near ? `${t}, near ${near}` : t; };
+  ol.innerHTML = top.map((c, i) => `<li tabindex="0" data-i="${i}"><span class="choke__rank">${c.rank ?? i + 1}</span><div>
+    <p class="choke__name">${esc(label(c))}</p>
     <p class="choke__text">${c.combined_repair && c.osm_ids?.length > 1 ? `Reopening the ${c.osm_ids.length} closed stretches on this route` : `Reopening this ${c.kind === "road" ? "road section" : "bridge"}`} reconnects <b>${c.villages_reconnected}</b> ${c.villages_reconnected === 1 ? "village" : "villages"}${(c.people_reconnected > 0) ? `, about <b>${fmtInt(c.people_reconnected)}</b> people` : ""}.</p>
     ${c.names?.length ? `<p class="choke__names">${[...new Set(c.names)].filter((n) => !/[\u3400-\u9fff]/.test(n)).map(esc).join(", ")}</p>` : ""}</div></li>`).join("");
   $$("li", ol).forEach((li) => {

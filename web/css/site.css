@@ -60,6 +60,7 @@
   .legend{font-size:11px;gap:4px 10px;padding:7px 10px}
   .segmented--map button{padding:0 9px;font-size:12px}
   .window__title{display:none}
+  .mapwrap--hero .map-ui--tr{top:54px} /* second row, so Tour never covers the layer tabs */
 }
 
 /* floats */

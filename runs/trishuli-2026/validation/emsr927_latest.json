@@ -1,7 +1,7 @@
 {
  "activation": "EMSR927",
  "credit": "European Union, Copernicus Emergency Management Service data",
- "generated_at": "2026-10-14T18:26:51Z",
+ "generated_at": "2026-10-15T01:31:28Z",
  "run_id": "trishuli-2026",
  "stage": "latest",
  "reference": "EMS grading maps (photo-interpretation of VHR optical images). Used only to check results.",
@@ -2404,7 +2404,665 @@
     "note": "no road link to a hub before the event"
    }
   ],
-  "note": "EMS graded roads only inside its AOIs. Damage outside them is unknown to the reference, so reference cut-offs are a lower bound. The subset whose pre-event route to the nearest hub crosses an EMS AOI is the fairer comparison."
+  "note": "EMS graded roads only inside its AOIs. Damage outside them is unknown to the reference, so reference cut-offs are a lower bound. The subset whose pre-event route to the nearest hub crosses an EMS AOI is the fairer comparison.",
+  "drivable_roads_only": {
+   "hub": "health facilities",
+   "n_hubs": 22,
+   "road_pieces_removed": 1551,
+   "all_settlements": {
+    "n": 246,
+    "agree": 230,
+    "both_cut_off": 34,
+    "both_connected": 196,
+    "ref_only_cut_off": [
+     "Baireni",
+     "Galchhi",
+     "Gardo Khola",
+     "Mahesh-dobhan",
+     "Pida"
+    ],
+    "ours_only_cut_off": [
+     "Chipleti",
+     "Dandagaun",
+     "Dharnabhdaure",
+     "Gogne",
+     "Mailung",
+     "Ratmate",
+     "Salim Bhitta",
+     "Simle",
+     "Siruchet",
+     "Thansing",
+     "Thulogaun"
+    ],
+    "ref_cut_off": 39,
+    "ours_cut_off": 45
+   },
+   "settlements_whose_route_crosses_an_ems_aoi": {
+    "n": 64,
+    "agree": 58,
+    "both_cut_off": 34,
+    "both_connected": 24,
+    "ref_only_cut_off": [
+     "Baireni",
+     "Galchhi",
+     "Gardo Khola",
+     "Mahesh-dobhan",
+     "Pida"
+    ],
+    "ours_only_cut_off": [
+     "Ratmate"
+    ],
+    "ref_cut_off": 39,
+    "ours_cut_off": 35
+   },
+   "excluded": [
+    {
+     "name": "Percho, Jharlang",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Ruwi Bhyali",
+     "note": "not on road network"
+    },
+    {
+     "name": "Dharna",
+     "note": "not on road network"
+    },
+    {
+     "name": "Jharlang",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Yubra",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Naukunda",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Kalleri",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Kalyanpur",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Salme",
+     "note": "not on road network"
+    },
+    {
+     "name": "Borang",
+     "note": "not on road network"
+    },
+    {
+     "name": "Sertungga",
+     "note": "not on road network"
+    },
+    {
+     "name": "Lapa",
+     "note": "not on road network"
+    },
+    {
+     "name": "Tipling",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Rigaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Gumdi",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Kawilas",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Shikhrebesi",
+     "note": "not on road network"
+    },
+    {
+     "name": "Thuman",
+     "note": "not on road network"
+    },
+    {
+     "name": "Haku",
+     "note": "not on road network"
+    },
+    {
+     "name": "Jharkaleri",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Chiput",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Ghale Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Gumsa",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Thulo Gaun",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Ambuchet",
+     "note": "not on road network"
+    },
+    {
+     "name": "Bagale",
+     "note": "not on road network"
+    },
+    {
+     "name": "Boldogang",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Chokhor",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Dimdungkhor",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Hop",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Jongsa",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Yarsa",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Japhati",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Garsayong",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Khading",
+     "note": "not on road network"
+    },
+    {
+     "name": "Kharsa",
+     "note": "not on road network"
+    },
+    {
+     "name": "Chalis Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Tengchet",
+     "note": "not on road network"
+    },
+    {
+     "name": "Syupchet",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Lingjo",
+     "note": "not on road network"
+    },
+    {
+     "name": "Puru",
+     "note": "not on road network"
+    },
+    {
+     "name": "Awan",
+     "note": "not on road network"
+    },
+    {
+     "name": "Phyang Gaon",
+     "note": "not on road network"
+    },
+    {
+     "name": "Gobre Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Awoi Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Isim Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Khyadar",
+     "note": "not on road network"
+    },
+    {
+     "name": "Hindungga",
+     "note": "not on road network"
+    },
+    {
+     "name": "Babil Kharka",
+     "note": "not on road network"
+    },
+    {
+     "name": "Karang",
+     "note": "not on road network"
+    },
+    {
+     "name": "Lawadung",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Kamin Gaun",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Sanggyong",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Tajimrang",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Tingchet",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Kichet",
+     "note": "not on road network"
+    },
+    {
+     "name": "Ladap",
+     "note": "not on road network"
+    },
+    {
+     "name": "Kokhim",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Chyamathli",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Lakcho",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Chhapchet",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Yamchet",
+     "note": "not on road network"
+    },
+    {
+     "name": "Paticho",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Kalamrang",
+     "note": "not on road network"
+    },
+    {
+     "name": "Tawal",
+     "note": "not on road network"
+    },
+    {
+     "name": "Dhuseni",
+     "note": "not on road network"
+    },
+    {
+     "name": "Sokthali",
+     "note": "not on road network"
+    },
+    {
+     "name": "Barre",
+     "note": "not on road network"
+    },
+    {
+     "name": "Purung",
+     "note": "not on road network"
+    },
+    {
+     "name": "Konglang",
+     "note": "not on road network"
+    },
+    {
+     "name": "Choge Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Chamtang",
+     "note": "not on road network"
+    },
+    {
+     "name": "Neprangchet",
+     "note": "not on road network"
+    },
+    {
+     "name": "Meyam",
+     "note": "not on road network"
+    },
+    {
+     "name": "Bolung Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Doglang",
+     "note": "not on road network"
+    },
+    {
+     "name": "Bot Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Nikline Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Ranibari",
+     "note": "not on road network"
+    },
+    {
+     "name": "Lampate Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Lemgung Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Pangme Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Heudung Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Dhadingbari",
+     "note": "not on road network"
+    },
+    {
+     "name": "Sangle Danda",
+     "note": "not on road network"
+    },
+    {
+     "name": "Tengche Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "De Gang Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Malung Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Katunje Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Chyamdong Gaun",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Kigong Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Hukel Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Pingtaba Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Sisipu Gaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Kaptali",
+     "note": "not on road network"
+    },
+    {
+     "name": "Thangsen Yuwa",
+     "note": "not on road network"
+    },
+    {
+     "name": "Ghichet",
+     "note": "not on road network"
+    },
+    {
+     "name": "Dursagang",
+     "note": "not on road network"
+    },
+    {
+     "name": "Sherpagaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Nagathli",
+     "note": "not on road network"
+    },
+    {
+     "name": "Gonggang",
+     "note": "not on road network"
+    },
+    {
+     "name": "Khangjim",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Dalphedi",
+     "note": "not on road network"
+    },
+    {
+     "name": "Dalgaun",
+     "note": "not on road network"
+    },
+    {
+     "name": "Chyamdole",
+     "note": "not on road network"
+    },
+    {
+     "name": "Pangling",
+     "note": "not on road network"
+    },
+    {
+     "name": "Surka",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Lauribina",
+     "note": "not on road network"
+    },
+    {
+     "name": "Gosainkunda",
+     "note": "not on road network"
+    },
+    {
+     "name": "Chandan Badi",
+     "note": "not on road network"
+    },
+    {
+     "name": "Sano Haku",
+     "note": "not on road network"
+    },
+    {
+     "name": "Gumnachok",
+     "note": "not on road network"
+    },
+    {
+     "name": "Rimche",
+     "note": "not on road network"
+    },
+    {
+     "name": "Lama hotel",
+     "note": "not on road network"
+    },
+    {
+     "name": "Chhunama",
+     "note": "not on road network"
+    },
+    {
+     "name": "Bamboo",
+     "note": "not on road network"
+    },
+    {
+     "name": "Pairo",
+     "note": "not on road network"
+    },
+    {
+     "name": "Cholangpati",
+     "note": "not on road network"
+    },
+    {
+     "name": "Bisang",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Bugyung",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Chhekgu",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Gambetol",
+     "note": "not on road network"
+    },
+    {
+     "name": "Gumbocho",
+     "note": "not on road network"
+    },
+    {
+     "name": "Gyap",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Jesni",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Jyarkuseppa",
+     "note": "not on road network"
+    },
+    {
+     "name": "Kalangdong",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Karshepa",
+     "note": "not on road network"
+    },
+    {
+     "name": "Kashyong",
+     "note": "not on road network"
+    },
+    {
+     "name": "Kolgang",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Pocho",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Uble",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Watibletol",
+     "note": "not on road network"
+    },
+    {
+     "name": "Guthen",
+     "note": "not on road network"
+    },
+    {
+     "name": "Adha",
+     "note": "no road link to a hub before the event"
+    },
+    {
+     "name": "Kachet",
+     "note": "not on road network"
+    },
+    {
+     "name": "Kupchet",
+     "note": "not on road network"
+    },
+    {
+     "name": "Khatre",
+     "note": "not on road network"
+    },
+    {
+     "name": "Marmuwa",
+     "note": "not on road network"
+    },
+    {
+     "name": "Panggalingga",
+     "note": "not on road network"
+    },
+    {
+     "name": "Khosa",
+     "note": "not on road network"
+    },
+    {
+     "name": "Baghdwar",
+     "note": "not on road network"
+    },
+    {
+     "name": "Duibe",
+     "note": "not on road network"
+    },
+    {
+     "name": "Gairikharka",
+     "note": "not on road network"
+    },
+    {
+     "name": "Garthali",
+     "note": "not on road network"
+    },
+    {
+     "name": "Malabhanjyang",
+     "note": "not on road network"
+    },
+    {
+     "name": "Panchokharka",
+     "note": "not on road network"
+    },
+    {
+     "name": "Chhaharekharka",
+     "note": "not on road network"
+    },
+    {
+     "name": "Phedi High Camp",
+     "note": "not on road network"
+    },
+    {
+     "name": "Sisipu Chok",
+     "note": "not on road network"
+    },
+    {
+     "name": "Kigong Chok",
+     "note": "not on road network"
+    }
+   ],
+   "note": "Same check on drivable roads only (footpaths, steps and tracks for walking left out), matching Lifeline's definition of road access. Added 15 Oct 2026 after a review found the first version routed over footpaths."
+  }
  },
  "notes": []
 }

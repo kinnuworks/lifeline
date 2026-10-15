@@ -650,8 +650,17 @@ def compare_run(run_dir, ref_dir=None, stage: str = "first", n_boot: int = 1000,
             for _, s in settl.iterrows():
                 v = s.get("cutoff")
                 ours_cut[str(s.get("osm_id"))] = None if v is None or (isinstance(v, float) and math.isnan(v)) else bool(v)
-        cut = cutoff_check(pre_roads, settl, ours_cut, health, zone,
-                           unary_union(analysed_union) if analysed_union else None)
+        aoi_u = unary_union(analysed_union) if analysed_union else None
+        cut = cutoff_check(pre_roads, settl, ours_cut, health, zone, aoi_u)
+        # Lifeline's cut-off means no ROAD route to care, so also check on the same drivable network:
+        # with footpaths and steps in the graph, a path around a destroyed highway would count as access.
+        from ..access.graph import WALK_ONLY
+        if "highway" in pre_roads:
+            drive = pre_roads[~pre_roads["highway"].isin(WALK_ONLY)]
+            cut["drivable_roads_only"] = cutoff_check(drive, settl, ours_cut, health, zone, aoi_u)
+            cut["drivable_roads_only"]["note"] = ("Same check on drivable roads only (footpaths, steps and tracks for walking "
+                                                  "left out), matching Lifeline's definition of road access. Added 15 Oct 2026 "
+                                                  "after a review found the first version routed over footpaths.")
     else:
         cut["status"] = "missing osm/roads.geojson or access/settlements.geojson"
 

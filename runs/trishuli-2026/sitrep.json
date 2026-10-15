@@ -15,11 +15,11 @@
      "Satellite images show 1,640 ha (16.4 km²) flooded or buried by debris [F010][F011].",
      "Of this, 230 ha is open water and 1,410 ha is debris or scour [F012][F014].",
      "The radar could not see 10,888 ha because of terrain shadow, so conditions there are unknown [F016].",
-     "The places with the most likely destroyed buildings: Nuwakot, Betrawti, Bhainse, Dewighat, Nauwise Phant [F061]."
+     "The places with the most buildings likely destroyed: Nuwakot, Betrawti, Bhainse, Dewighat, Nauwise Phant [F061]."
     ],
     "hit": [
      "Buildings: 2,974 likely destroyed and 631 possibly damaged, out of 188,933 mapped [F025][F021][F022].",
-     "Roads: 224.6 km likely destroyed and 51.4 km possibly damaged, out of 7,412.1 km mapped [F038][F034][F035].",
+     "Roads: 99.6 km of road lies under mapped debris or water; the road sections that touch it total 224.6 km, out of 7,412.1 km mapped [F040][F034][F038].",
      "Bridges: 59 likely destroyed (Belkhu Khola Bridge, Falaakhu River Bridge, Keurintar Hanging Bridge, Pasang Lhamu Highway) and 12 possibly damaged, out of 353 mapped [F031][F027][F028][F033]."
     ],
     "cutoff": [
@@ -68,6 +68,7 @@
     "F034",
     "F035",
     "F038",
+    "F040",
     "F061",
     "F062",
     "F063",
@@ -112,7 +113,7 @@
     ],
     "hit": [
      "घर/भवन: नक्सामा भएका १,८८,९३३ वटामध्ये २,९७४ वटा ध्वस्त भएको हुन सक्छ र ६३१ वटामा क्षति भएको हुन सक्छ [F025][F021][F022]।",
-     "सडक: नक्सामा भएको ७,४१२.१ किलोमिटर मध्ये २२४.६ किलोमिटर ध्वस्त भएको हुन सक्छ र ५१.४ किलोमिटर मा क्षति भएको हुन सक्छ [F038][F034][F035]।",
+     "सडक: ९९.६ किलोमिटर सडक नक्सामा देखिएको गेग्रान वा पानीमुनि छ; त्यसलाई छुने सडक खण्डहरू जम्मा २२४.६ किलोमिटर छन्, नक्सामा भएको ७,४१२.१ किलोमिटर मध्ये [F040][F034][F038]।",
      "पुल: नक्सामा भएका ३५३ वटामध्ये ५९ वटा ध्वस्त भएको हुन सक्छ (Belkhu Khola Bridge, Falaakhu River Bridge, Keurintar Hanging Bridge, Pasang Lhamu Highway) र १२ वटामा क्षति भएको हुन सक्छ [F031][F027][F028][F033]।"
     ],
     "cutoff": [
@@ -161,6 +162,7 @@
     "F034",
     "F035",
     "F038",
+    "F040",
     "F061",
     "F062",
     "F063",

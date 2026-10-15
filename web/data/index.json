@@ -2,6 +2,14 @@
  "default": "trishuli-2026",
  "runs": [
   {
+   "run_id": "placebo-2026-07",
+   "title": "No-flood check: Trishuli corridor, 25 Jul 2026",
+   "area_name": "No-flood check: Trishuli corridor, 25 Jul 2026",
+   "event_date": "2026-07-25",
+   "path": "placebo-2026-07/",
+   "mock": false
+  },
+  {
    "run_id": "teesta-2023",
    "title": "Teesta glacial lake flood, Sikkim, 4 Oct 2023",
    "area_name": "Teesta glacial lake flood, Sikkim, 4 Oct 2023",
@@ -31,14 +39,6 @@
    "area_name": "Melamchi flood, Nepal, 15 Jun 2021",
    "event_date": "2021-06-15",
    "path": "melamchi-2021/",
-   "mock": false
-  },
-  {
-   "run_id": "placebo-2026-07",
-   "title": "No-flood check: Trishuli corridor, 25 Jul 2026",
-   "area_name": "No-flood check: Trishuli corridor, 25 Jul 2026",
-   "event_date": "2026-07-25",
-   "path": "placebo-2026-07/",
    "mock": false
   },
   {

@@ -14,7 +14,8 @@
    "roads_agree_rate": 0.809,
    "bridges_flagged": 5,
    "bridges_total": 5,
-   "role": "held out"
+   "role": "held out",
+   "flood_f1_full": 0.697
   },
   {
    "id": "AOI02",
@@ -28,7 +29,8 @@
    "roads_agree_rate": 0.7121,
    "bridges_flagged": 0,
    "bridges_total": 1,
-   "role": "held out"
+   "role": "held out",
+   "flood_f1_full": 0.51
   },
   {
    "id": "AOI03",
@@ -42,7 +44,8 @@
    "roads_agree_rate": 0.7299,
    "bridges_flagged": 13,
    "bridges_total": 18,
-   "role": "development area (settings tuned here)"
+   "role": "development area (settings tuned here)",
+   "flood_f1_full": 0.835
   },
   {
    "id": "AOI04",
@@ -62,7 +65,8 @@
    "roads_agree_rate": 0.6644,
    "bridges_flagged": 13,
    "bridges_total": 22,
-   "role": "held out"
+   "role": "held out",
+   "flood_f1_full": 0.845
   },
   {
    "id": "AOI06",
@@ -93,6 +97,7 @@
   "bridges_total": 28,
   "areas": "AOI01, AOI02, AOI05"
  },
+ "held_out_full_extent_f1": 0.78,
  "notes": [],
  "credit": "European Union, Copernicus Emergency Management Service data"
 }

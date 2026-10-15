@@ -277,6 +277,13 @@ def run(bbox, event: dt.date, run_id: str | None = None, label: str = "", max_or
             except Exception as e:
                 R.warn(f"Segmentation model skipped: {e}")
                 R.stage("model", "skipped", seconds=round(time.time() - t, 1))
+        try:   # full extent: detected flood plus model water and the inferred river corridor
+            from .radar.extent import run_extent
+
+            R.save()
+            R.meta["extent"] = run_extent(R.dir)
+        except Exception as e:
+            R.warn(f"Full flood extent skipped: {e}")
 
         # ---- facts, report, previews
         for name, fn in (("facts", _facts), ("report", _report), ("previews", _previews)):
@@ -334,6 +341,12 @@ def finish(run_id: str, with_model: bool = True) -> Path:
         from .model.infer import run_on_run_dir
 
         steps.append(("model", lambda: run_on_run_dir(d)))
+
+    def _extent():
+        from .radar.extent import run_extent
+        (d / "meta.json").write_text(json.dumps(meta, indent=1, default=str))
+        meta["extent"] = run_extent(d)
+    steps.append(("extent", _extent))
     steps += [("facts", lambda: _facts(d)), ("report", lambda: _report(d)), ("previews", lambda: _previews(d))]
     meta["warnings"] = [w for w in meta.get("warnings", []) if "Optical" in w]
     for name, fn in steps:

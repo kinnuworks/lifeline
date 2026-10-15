@@ -141,6 +141,8 @@ function renderChips() {
   const w = [];
   if (has(s.area_debris_km2)) w.push(chipHTML(COLORS.debris, s.area_debris_km2, "km² debris"));
   if (has(s.area_water_km2)) w.push(chipHTML(COLORS.water, s.area_water_km2, "km² open water"));
+  if (has(s.area_model_water_km2) && s.area_model_water_km2 > 0) w.push(chipHTML("rgba(110,170,235,.75)", s.area_model_water_km2, "km² water from the flood model"));
+  if (has(s.area_corridor_km2) && s.area_corridor_km2 > 0) w.push(chipHTML("rgba(232,182,110,.65)", s.area_corridor_km2, "km² river corridor, inferred (not counted as damage)"));
   if (has(s.area_unobserved_km2)) w.push(chipHTML("repeating-linear-gradient(45deg,#7B7B86 0 2px,transparent 2px 4px)", s.area_unobserved_km2, "km² not observed"));
   if (has(s.radar_passes)) w.push(chipHTML(null, s.radar_passes, "radar passes"));
   $("#where-chips").innerHTML = w.join("");
@@ -278,7 +280,7 @@ function renderValidation() {
   if (v.reference) $("#checks-lead").textContent = `${v.reference}. ${v.reference_note || "Used only to check results after the run, never as an input."}`;
   $("#val tbody").innerHTML = v.aois.map((a) => a.status === "cancelled"
     ? `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}</small></td><td colspan="4"><span class="status">Cancelled</span></td><td class="why">${esc(a.note || "")}</td></tr>`
-    : `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}${a.role ? ` · ${esc(a.role)}` : ""}</small></td><td class="num">${has(a.flood_f1) ? a.flood_f1.toFixed(2) : "–"}</td>
+    : `<tr><td class="name">${esc(a.name)}<small>${esc(a.id || "")}${a.role ? ` · ${esc(a.role)}` : ""}</small></td><td class="num">${has(a.flood_f1) ? a.flood_f1.toFixed(2) : "–"}${has(a.flood_f1_full) ? `<small title="Full map: detected flood plus water from the flood model and the inferred river corridor">${a.flood_f1_full.toFixed(2)} full map</small>` : ""}</td>
        <td class="num">${pct(a.buildings_hit_rate)}</td><td class="num">${has(a.bridges_flagged) ? `${a.bridges_flagged} of ${a.bridges_total}` : "–"}</td>
        <td class="num">${pct(a.roads_agree_rate)}</td><td class="why">${esc(a.note || "")}</td></tr>`).join("");
   $("#val-notes").innerHTML = (v.notes || []).map((n) => `<li>${esc(n)}</li>`).join("");

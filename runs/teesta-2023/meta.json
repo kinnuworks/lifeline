@@ -259,5 +259,11 @@
   "population_tags": true
  },
  "runtime_seconds": 538.3,
- "finished_at": "2026-10-14T15:11:18+00:00"
+ "finished_at": "2026-10-14T15:11:18+00:00",
+ "extent": {
+  "detected_km2": 8.59,
+  "model_water_km2": 0.17,
+  "corridor_km2": 2.82,
+  "full_extent_km2": 11.58
+ }
 }

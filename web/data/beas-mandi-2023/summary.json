@@ -8,7 +8,8 @@
  "buildings_checked": 131,
  "bridges_assessed": 76,
  "roads_km_checked": 1449.0,
- "villages_routed": 780,
+ "villages_routed": 843,
+ "villages_with_road_before": 780,
  "health_facilities": 55,
  "villages_cut_off": 95,
  "villages_at_risk": 68,
@@ -16,6 +17,8 @@
  "area_water_km2": 0.35,
  "area_unobserved_km2": 21.13,
  "area_optical_added_km2": 0.0,
+ "area_model_water_km2": 0.01,
+ "area_corridor_km2": 1.52,
  "osm_snapshot": "2023-07-08",
  "radar_track_labels": [
   "129 ascending",
@@ -26,6 +29,7 @@
  "roads_under_debris_km": 3.19,
  "bridges_destroyed": 3,
  "buildings_hit": 0,
+ "buildings_destroyed": 0,
  "bounds": [
   76.85,
   31.62,

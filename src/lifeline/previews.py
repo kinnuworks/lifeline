@@ -10,7 +10,7 @@ from PIL import Image
 from rasterio.warp import Resampling, calculate_default_transform, reproject
 
 # flood classes: water, debris or scour, not observed
-CLASS_RGBA = {1: (30, 110, 220, 210), 2: (214, 120, 30, 215), 255: (120, 120, 130, 70)}
+CLASS_RGBA = {1: (30, 110, 220, 210), 2: (214, 120, 30, 215), 4: (110, 170, 235, 160), 5: (232, 182, 110, 120), 255: (120, 120, 130, 70)}
 
 
 def _to_wgs84(path: Path, resampling=Resampling.nearest, max_px: int = 2400):
@@ -36,7 +36,7 @@ def make_previews(run_dir: Path) -> list[dict]:
     out_dir.mkdir(exist_ok=True)
     overlays = []
 
-    cls, bounds = _to_wgs84(rd / "flood_class.tif")
+    cls, bounds = _to_wgs84(rd / "flood_extent.tif" if (rd / "flood_extent.tif").exists() else rd / "flood_class.tif")
     rgba = np.zeros(cls.shape + (4,), dtype="uint8")
     for k, col in CLASS_RGBA.items():
         rgba[cls == k] = col

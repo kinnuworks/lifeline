@@ -50,6 +50,17 @@ def _num(x):
     return x if isinstance(x, (int, float)) else None
 
 
+def _extent_check() -> dict:
+    """Full-extent scores (detected + model water + inferred river corridor) from validation/extent.json, by AOI id."""
+    p = ROOT / "runs" / "trishuli-2026" / "validation" / "extent.json"
+    if not p.exists():
+        return {}
+    e = json.loads(p.read_text()).get("full_extent", {})
+    out = {k.split()[0]: a.get("f1") for k, a in e.get("areas", {}).items()}
+    out["held_out_pooled"] = e.get("held_out_pooled", {}).get("f1")
+    return out
+
+
 def web_validation(v: dict) -> dict:
     """Reshape the checker's output into the table the website shows."""
     aois = []
@@ -74,6 +85,7 @@ def web_validation(v: dict) -> dict:
             "bridges_flagged": br.get("flagged"),
             "bridges_total": br.get("n_ems_destroyed_damaged"),
             "role": "development area (settings tuned here)" if a.get("aoi") == "AOI03" else "held out",
+            "flood_f1_full": _extent_check().get(a.get("aoi")),
         }
         aois.append(row)
     pooled = v.get("pooled", {})
@@ -112,6 +124,7 @@ def web_validation(v: dict) -> dict:
             "bridges_total": pooled.get("bridges", {}).get("n_ems_destroyed_damaged"),
         },
         "held_out": held,
+        "held_out_full_extent_f1": _extent_check().get("held_out_pooled"),
         "notes": v.get("notes", []),
         "credit": "European Union, Copernicus Emergency Management Service data",
     }
@@ -181,9 +194,11 @@ def _areas_from_map(run: Path, radar: dict) -> dict:
         with rasterio.open(p) as src:
             c = src.read(1)
             px = abs(src.transform.a * src.transform.e) / 1e6
+        ext = load(run / "meta.json", {}).get("extent") or {}
         return {"area_debris_km2": round(float((c == 2).sum() * px), 2), "area_water_km2": round(float((c == 1).sum() * px), 2),
                 "area_unobserved_km2": round(float((c == 255).sum() * px), 2),
-                "area_optical_added_km2": radar.get("optical_added_km2")}
+                "area_optical_added_km2": radar.get("optical_added_km2"),
+                "area_model_water_km2": ext.get("model_water_km2"), "area_corridor_km2": ext.get("corridor_km2")}
     except Exception:
         return {"area_debris_km2": radar.get("debris_km2"), "area_water_km2": radar.get("water_km2"),
                 "area_unobserved_km2": radar.get("unobserved_km2")}

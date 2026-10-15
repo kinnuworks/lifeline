@@ -6,6 +6,8 @@
 
 Track B, Multimodal AI Hackathon 2026 (IIT Mandi): *Mapping Flood Damage from Space*.
 
+**Demo video (5:51):** https://youtu.be/qGb5TOB1SoI
+
 **Live:** dashboard https://lifeline-flood.vercel.app · engine https://kinnuworks--lifeline-web.us-east.modal.run (draw any box and date in "Run any valley"; a 10 × 10 km area takes about 25 s to 2 minutes on the hosted engine, most of it waiting on OpenStreetMap)
 
 ![Lifeline dashboard](docs/img/hero.png)

@@ -276,7 +276,7 @@
  "extent": {
   "detected_km2": 16.4,
   "model_water_km2": 0.55,
-  "corridor_km2": 5.95,
-  "full_extent_km2": 22.9
+  "corridor_km2": 5.93,
+  "full_extent_km2": 22.88
  }
 }

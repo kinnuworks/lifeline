@@ -18,7 +18,7 @@
  "area_unobserved_km2": 21.13,
  "area_optical_added_km2": 0.0,
  "area_model_water_km2": 0.01,
- "area_corridor_km2": 1.52,
+ "area_corridor_km2": 1.17,
  "osm_snapshot": "2023-07-08",
  "radar_track_labels": [
   "129 ascending",

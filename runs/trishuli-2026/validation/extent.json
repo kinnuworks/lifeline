@@ -80,9 +80,9 @@
     "role": "held out"
    },
    "AOI03 Bidur": {
-    "f1": 0.835,
-    "precision": 0.812,
-    "recall": 0.86,
+    "f1": 0.834,
+    "precision": 0.811,
+    "recall": 0.857,
     "role": "development"
    },
    "AOI05 Phosretar": {
@@ -102,8 +102,8 @@
   "trishuli-2026": {
    "detected_km2": 16.4,
    "model_water_km2": 0.55,
-   "corridor_km2": 5.95,
-   "full_extent_km2": 22.9
+   "corridor_km2": 5.93,
+   "full_extent_km2": 22.88
   },
   "placebo-2026-07": {
    "detected_km2": 1.12,

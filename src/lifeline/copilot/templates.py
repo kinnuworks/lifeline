@@ -213,6 +213,15 @@ def roads_lines(d: _Doc) -> bool:
     if not d.has(k + "total"):
         return False
     t, x, p = d.v(k + "total"), d.v(k + "destroyed_likely"), d.v(k + "damaged_possible")
+    if d.has(k + "under_debris"):
+        # lead with the buried length; the status totals count whole road sections that touch debris
+        u = d.v(k + "under_debris")
+        c = d.cite(k + "under_debris", k + "destroyed_likely", k + "total")
+        if d.lang == "ne":
+            d.add(f"सडक: {u} सडक नक्सामा देखिएको गेग्रान वा पानीमुनि छ; त्यसलाई छुने सडक खण्डहरू जम्मा {x} छन्, नक्सामा भएको {t} मध्ये{c}।")
+        else:
+            d.add(f"Roads: {u} of road lies under mapped debris or water; the road sections that touch it total {x}, out of {t} mapped{c}.")
+        return True
     c = d.cite(k + "total", k + "destroyed_likely", k + "damaged_possible")
     if d.lang == "ne":
         d.add(f"सडक: नक्सामा भएको {t} मध्ये {x} ध्वस्त भएको हुन सक्छ र {p} मा क्षति भएको हुन सक्छ{c}।")

@@ -61,3 +61,5 @@ runs/teesta-2023/access/*
 deploy/DEVPOST.md
 deploy/PUBLISH.md
 deploy/devpost/
+deploy/humanizer_report.md
+deploy/wording_audit.md
